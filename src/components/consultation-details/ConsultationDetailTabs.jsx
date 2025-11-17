@@ -1,6 +1,8 @@
 import React from 'react'
-import TabContent from './TabContent'
-import consultationDetail from '../../data/consultationDetails'
+import TabContent from '../../components/consultation-details/TabContent'
+import ReviewSection from '../../components/consultation-details/ReviewSection'
+import FAQSection from '../../components/consultation-details/FAQSection'
+import consultationDetail from "../../data/consultationDetails";
 
 const ConsultationDetailTabs = () => {
   const { longDescription } = consultationDetail
@@ -9,8 +11,8 @@ const ConsultationDetailTabs = () => {
     { id: "home", label: "About", content: longDescription },
     { id: "profile", label: "Benefits", content: longDescription },
     { id: "contact", label: "Process", content: longDescription },
-    { id: "contact1", label: "Reviews", content: longDescription },
-    { id: "contact2", label: "FAQ’s", content: longDescription }
+    { id: "contact1", label: "Reviews", component: <ReviewSection /> },
+    { id: "contact2", label: "FAQ’s", component: <FAQSection /> }
   ]
 
   return (
@@ -44,7 +46,7 @@ const ConsultationDetailTabs = () => {
             aria-labelledby={`${tab.id}-tab`}
             tabIndex="0"
           >
-            <TabContent content={tab.content} />
+            {tab.component ? tab.component : <TabContent content={tab.content} />}
           </div>
         ))}
       </div>

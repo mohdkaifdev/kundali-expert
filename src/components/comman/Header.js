@@ -71,7 +71,10 @@ const Header = () => {
                     </span>
                     <div className="contact_name">
                       <h6 className="cost">
-                        <span className="d-block">Cart</span> ₹120.00
+                         <Link to='/wallet'>
+                          <span className="d-block">Cart</span> ₹120.00
+                        </Link>
+                       
                       </h6>
                     </div>
                   </div>
@@ -93,21 +96,23 @@ const Header = () => {
                     <span></span>
                   </a>
                   <li><Link to="/">Home</Link></li>
-                  <li><Link to="about">About</Link></li>
-                  <li class="menu-item-has-children"><a href="#">Services</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
+                  <li><Link to="/about">About</Link></li>
+                  <li className="menu-item-has-children"><a href="#">Services</a>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
                                     <li><Link to="/consultation-list">Consultation</Link></li>
                                     <li><Link to="/buy-full-reports">Full Reports</Link></li>
                                     <li><Link to="/personalized-reports">Personalized Reports</Link></li>
                                 </ul>
                             </li>
-                  <li><a href="#">Shop</a></li>
+                  <li>
+                    <Link to="/shop">Shop</Link>
+                  </li>
                   <li><Link to="/astrology-course">Astrology Course</Link></li>
                   <li><Link to="/blog">Blog</Link></li>
-                 <li class="menu-item-has-children"><a href="#">Language</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
+                 <li className="menu-item-has-children"><a href="#">Language</a>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
                                     <li><a href="#">English</a></li>
                                     <li><a href="#">हिंदी</a></li>
                                     <li><a href="#">मराठी</a></li>
@@ -128,14 +133,14 @@ const Header = () => {
                {/* <div className="contact_name">
                   <h6><a href="#">Login</a></h6>
                 </div> */}
-                <div class="contact_name">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div className="contact_name">
+                            <div className="dropdown">
+                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Login
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">My Order</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="dropdown-item" to="/my-order">My Order</Link></li>
+                                    <li><Link className="dropdown-item" to="/logout">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -153,27 +158,27 @@ const Header = () => {
                   </div>
                   <nav className="main-nav bottom-nav norm_menu d-flex align-items-center justify-content-end">
                     <ul className="nav ps-0 justify-content-end">
-                      <a href="javascript:void(0)" className="cross_icon">
+                      <a href="#" className="cross_icon">
                         <span></span>
                         <span></span>
                         <span></span>
                       </a>
-                      <li><a href="#">Home</a></li>
-                      <li><a href="#">About</a></li>
-                      <li class="menu-item-has-children"><a href="#">Services</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
-                                    <li><a href="consultation_list">Consultation</a></li>
-                                    <li><a href="buy_full_reports">Full Reports</a></li>
-                                    <li><a href="personalized_reports">Personalized Reports</a></li>
+                      <li><Link to="/">Home</Link></li>
+                      <li><Link to="/about">About</Link></li>
+                      <li className="menu-item-has-children"><Link to="#">Services</Link>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
+                                    <li><Link to="/consultation_list">Consultation</Link></li>
+                                    <li><Link to="/buy_full_reports">Full Reports</Link></li>
+                                    <li><Link to="/personalized_reports">Personalized Reports</Link></li>
                                 </ul>
                             </li>
-                      <li><a href="#">Shop</a></li>
-                      <li><a href="#">Astrology Course</a></li>
-                      <li><a href="#">Blog</a></li>
-                      <li class="menu-item-has-children"><a href="#">Language</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
+                      <li><Link to="#">Shop</Link></li>
+                      <li><Link to="#">Astrology Course</Link></li>
+                      <li><Link to="#">Blog</Link></li>
+                      <li className="menu-item-has-children"><a href="#">Language</a>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
                                     <li><a href="#">English</a></li>
                                     <li><a href="#">हिंदी</a></li>
                                     <li><a href="#">मराठी</a></li>
@@ -194,14 +199,14 @@ const Header = () => {
                     {/*<div className="contact_name">
                       <h6><a href="#">Login</a></h6>
                     </div>*/}
-                    <div class="contact_name">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div className="contact_name">
+                            <div className="dropdown">
+                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Login
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">My Order</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="dropdown-item" to="#">My Order</Link></li>
+                                    <li><Link className="dropdown-item" to="#">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -221,9 +226,9 @@ const Header = () => {
               <div className="col-md-3">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <div className="logo_sec">
-                    <a href="/">
+                    <Link to="/">
                       <img src={logo} alt="logo" className="img-fluid" />
-                    </a>
+                    </Link>
                   </div>
                   <div className="h_mob_contact d-flex">
                     <div className="contact_header d-flex align-items-center">
@@ -248,7 +253,9 @@ const Header = () => {
                     </span>
                     <div className="contact_name">
                       <h6 className="cost">
-                        <span className="d-block">Cart</span> ₹120.00
+                        <Link to='/wallet'>
+                          <span className="d-block">Cart</span> ₹120.00
+                        </Link>
                       </h6>
                     </div>
                   </div>
@@ -261,22 +268,22 @@ const Header = () => {
                           <span></span>
                           <span></span>
                         </a>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li class="menu-item-has-children"><a href="#">Services</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
-                                    <li><a href="consultation_list">Consultation</a></li>
-                                    <li><a href="buy_full_reports">Full Reports</a></li>
-                                    <li><a href="personalized_reports">Personalized Reports</a></li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/about">About</Link></li>
+                        <li className="menu-item-has-children"><a href="#">Services</a>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
+                                    <li><Link to="consultation_list">Consultation</Link></li>
+                                    <li><Link to="buy_full_reports">Full Reports</Link></li>
+                                    <li><Link to="personalized_reports">Personalized Reports</Link></li>
                                 </ul>
                             </li>
-                        <li><a href="#">Shop</a></li>
-                        <li><a href="#">Astrology Course</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li class="menu-item-has-children"><a href="#">Language</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
+                        <li><Link to="#">Shop</Link></li>
+                        <li><Link to="#">Astrology Course</Link></li>
+                        <li><Link to="#">Blog</Link></li>
+                        <li className="menu-item-has-children"><a href="#">Language</a>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
                                     <li><a href="#">English</a></li>
                                     <li><a href="#">हिंदी</a></li>
                                     <li><a href="#">मराठी</a></li>
@@ -297,14 +304,14 @@ const Header = () => {
                       {/*<div className="contact_name">
                         <h6><a href="#">Login</a></h6>
                       </div>*/}
-                      <div class="contact_name">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <div className="contact_name">
+                            <div className="dropdown">
+                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Login
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">My Order</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="dropdown-item" to="/my-order">My Order</Link></li>
+                                    <li><Link className="dropdown-item" to="/logout">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -316,9 +323,9 @@ const Header = () => {
                     <div className="container">
                       <div className="stick_block position-relative d-flex align-items-center justify-content-between">
                         <div className="logo_sec">
-                          <a href="/">
+                          <Link to="/">
                             <img src={logo} alt="logo" className="img-fluid" />
-                          </a>
+                          </Link>
                         </div>
                         <nav className="main-nav bottom-nav norm_menu d-flex align-items-center justify-content-end">
                           <ul className="nav ps-0 justify-content-end">
@@ -327,22 +334,22 @@ const Header = () => {
                               <span></span>
                               <span></span>
                             </a>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                             <li class="menu-item-has-children"><a href="#">Services</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
-                                    <li><a href="consultation_list">Consultation</a></li>
-                                    <li><a href="buy_full_reports">Full Reports</a></li>
-                                    <li><a href="personalized_reports">Personalized Reports</a></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/about">About</Link></li>
+                             <li className="menu-item-has-children"><a href="#">Services</a>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
+                                    <li><Link to="/consultation_list">Consultation</Link></li>
+                                    <li><Link to="/buy_full_reports">Full Reports</Link></li>
+                                    <li><Link to="/personalized_reports">Personalized Reports</Link></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Shop</a></li>
-                            <li><a href="#">Astrology Course</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li class="menu-item-has-children"><a href="#">Language</a>
-                                <i class="fa-solid fa-angle-down"></i>
-                                <ul class="sub-menu">
+                            <li><Link to="/shop">Shop</Link></li>
+                            <li><Link to="/astrology-course">Astrology Course</Link></li>
+                            <li><Link to="/blog">Blog</Link></li>
+                            <li className="menu-item-has-children"><a href="#">Language</a>
+                                <i className="fa-solid fa-angle-down"></i>
+                                <ul className="sub-menu">
                                     <li><a href="#">English</a></li>
                                     <li><a href="#">हिंदी</a></li>
                                     <li><a href="#">मराठी</a></li>
@@ -363,14 +370,14 @@ const Header = () => {
                           {/*<div className="contact_name">
                             <h6><a href="#">Login</a></h6>
                           </div>*/}
-                          <div class="contact_name">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <div className="contact_name">
+                            <div className="dropdown">
+                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Login
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">My Order</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="dropdown-item" to="/my-order">My Order</Link></li>
+                                    <li><Link className="dropdown-item" to="/logout">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
                                 </ul>
                             </div>
                         </div>

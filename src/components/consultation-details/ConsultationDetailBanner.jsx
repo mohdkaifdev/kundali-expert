@@ -4,7 +4,7 @@ import checkIcon from "../../assets/images/check_icon.png";
 import cdImg from "../../assets/images/cd_img.png";
 const ConsultationDetailBanner = () => {
 
-    const { title, astrologer, features, description, offer } = consultationDetail
+    const { title, astrologer, offer, features, shortDescription } = consultationDetail
 
     return(
         <>
@@ -35,7 +35,7 @@ const ConsultationDetailBanner = () => {
                                 ))}
                             </ul>
                             <div className="para_sec">
-                                <p>{description}</p>
+                                <p>{shortDescription}</p>
                             </div>
                             </div>
 
