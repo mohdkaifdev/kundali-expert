@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from './components/comman/Header';
 import Footer from './components/comman/Footer';
@@ -21,6 +22,10 @@ import CartPage from './pages/CartPage';
 import ProfilePage from './pages/ProfilePage';
 import SavedProfilePage from './pages/SavedProfilePage';
 import CreateSubUserPage from './components/profile/CreateSubUserPage';
+import LoginPage from './pages/auth/LoginPage';
+import SigninPage from './pages/auth/SiginPage';
+import VerifyOTPPage from './pages/auth/VerifyOTPPage';
+
 const App = () => {
   return (
     <Router>
@@ -44,6 +49,9 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage/>} />
           <Route path="/saved-profile" element={<SavedProfilePage/>}/>
           <Route path="/create-subuser" element={<CreateSubUserPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/signin" element={<SigninPage/>} />
+          <Route path="/verify" element={<VerifyOTPPage/>}/>
 
         {/* Add more routes here, e.g., <Route path="/about" element={<About />} /> */}
 

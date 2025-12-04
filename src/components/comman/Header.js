@@ -6,10 +6,17 @@ import mailIcon from "../../assets/images/mail_icon.png";
 import callIcon from "../../assets/images/call_icon.png";
 import cartIcon from "../../assets/images/cart_icon.png";
 import userIcon from "../../assets/images/user_icon.png";
+import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = (e) => {
+    e.preventDefault();
+    setIsSidebarOpen(prev => !prev);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -133,17 +140,16 @@ const Header = () => {
                {/* <div className="contact_name">
                   <h6><a href="#">Login</a></h6>
                 </div> */}
-                <div className="contact_name">
-                            <div className="dropdown">
-                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Login
-                                </button>
-                                <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="/my-order">My Order</Link></li>
-                                    <li><Link className="dropdown-item" to="/logout">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="contact_name">
+                    <div class="dropdown">
+                        <Link to="/login">Login</Link>
+                    </div>
+                </div>
+              </div>
+              <div class="hamberger_menu open" onClick={toggleSidebar}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
               </div>
             </div>
 
@@ -194,23 +200,19 @@ const Header = () => {
                       <span></span>
                     </a>
                   </div>
-                  <div className="contact_header user_sec d-flex align-items-center">
-                    <span><img src={userIcon} alt="user" className="img-fluid" /></span>
-                    {/*<div className="contact_name">
-                      <h6><a href="#">Login</a></h6>
-                    </div>*/}
-                    <div className="contact_name">
-                            <div className="dropdown">
-                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Login
-                                </button>
-                                <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="#">My Order</Link></li>
-                                    <li><Link className="dropdown-item" to="#">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
-                                </ul>
-                            </div>
-                        </div>
+                  <div class="contact_header user_sec d-flex align-items-center">
+                      <span><img src={userIcon} alt="icon" class="img-fluid"/></span>
+                      <div class="contact_name">
+                          <div class="dropdown">
+                             <Link to="/login">Login</Link>
+                          </div>
+                      </div>
                   </div>
+                  <div class="hamberger_menu open" onClick={toggleSidebar}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
               </div>
             </nav>
@@ -299,22 +301,18 @@ const Header = () => {
                         <span></span>
                       </a>
                     </div>
-                    <div className="contact_header user_sec d-flex align-items-center">
-                      <span><img src={userIcon} alt="user" className="img-fluid" /></span>
-                      {/*<div className="contact_name">
-                        <h6><a href="#">Login</a></h6>
-                      </div>*/}
-                      <div className="contact_name">
-                            <div className="dropdown">
-                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Login
-                                </button>
-                                <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="/my-order">My Order</Link></li>
-                                    <li><Link className="dropdown-item" to="/logout">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
-                                </ul>
+                    <div class="contact_header user_sec d-flex align-items-center">
+                        <span><img src={{userIcon}} alt="icon" class="img-fluid"/></span>
+                        <div class="contact_name">
+                            <div class="dropdown">
+                               <Link to="/login">Login</Link>
                             </div>
                         </div>
+                    </div>
+                    <div class="hamberger_menu open" onClick={toggleSidebar}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
                   </div>
 
@@ -370,17 +368,16 @@ const Header = () => {
                           {/*<div className="contact_name">
                             <h6><a href="#">Login</a></h6>
                           </div>*/}
-                          <div className="contact_name">
-                            <div className="dropdown">
-                                <button className="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Login
-                                </button>
-                                <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="/my-order">My Order</Link></li>
-                                    <li><Link className="dropdown-item" to="/logout">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></Link></li>
-                                </ul>
-                            </div>
-                        </div>
+                          <div class="contact_name">
+                              <div class="dropdown">
+                                 <Link to="/login">Login</Link>
+                              </div>
+                          </div>
+                        <div class="hamberger_menu open" onClick={toggleSidebar}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                         </div>
                       </div>
                     </div>
@@ -391,6 +388,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <Sidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
     </>
   );
 };
