@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { loadUserFromStorage } from '../../features/auth/authSlice';
 
-// ✅ Import all images from assets/images
 import logo from "../../assets/images/logo.png";
 import mailIcon from "../../assets/images/mail_icon.png";
 import callIcon from "../../assets/images/call_icon.png";
@@ -9,16 +10,24 @@ import userIcon from "../../assets/images/user_icon.png";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 
+
 const Header = () => {
+  const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   const toggleSidebar = (e) => {
     e.preventDefault();
-    setIsSidebarOpen(prev => !prev);
+    setIsSidebarOpen((prev) => !prev);
   };
 
   useEffect(() => {
+    dispatch(loadUserFromStorage());
+  }, [dispatch]);
+
+  useEffect(() => {
+
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       if (scrollTop > 100) {
@@ -35,7 +44,9 @@ const Header = () => {
   return (
     <>
       {/* ================= Desktop View Header ================= */}
-      <header  className={`header-area desktop_view ${isSticky ? "fixed_header" : ""}`}>
+      <header
+        className={`header-area desktop_view ${isSticky ? "fixed_header" : ""}`}
+      >
         <div className="btm_nav_sec">
           <div className="container">
             <div className="row ht_row align-items-center">
@@ -78,10 +89,9 @@ const Header = () => {
                     </span>
                     <div className="contact_name">
                       <h6 className="cost">
-                         <Link to='/wallet'>
-                          <span className="d-block">Cart</span> ₹120.00
+                        <Link to="/wallet">
+                          <span className="d-block">Cart</span> ₹ 0
                         </Link>
-                       
                       </h6>
                     </div>
                   </div>
@@ -102,30 +112,56 @@ const Header = () => {
                     <span></span>
                     <span></span>
                   </a>
-                  <li><Link to="/">Home</Link></li>
-                  <li><Link to="/about">About</Link></li>
-                  <li className="menu-item-has-children"><a href="#">Services</a>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><Link to="/consultation-list">Consultation</Link></li>
-                                    <li><Link to="/buy-full-reports">Full Reports</Link></li>
-                                    <li><Link to="/personalized-reports">Personalized Reports</Link></li>
-                                </ul>
-                            </li>
+                  <li>
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/about">About</Link>
+                  </li>
+                  <li className="menu-item-has-children">
+                    <a href="#">Services</a>
+                    <i className="fa-solid fa-angle-down"></i>
+                    <ul className="sub-menu">
+                      <li>
+                        <Link to="/consultation-list">Consultation</Link>
+                      </li>
+                      <li>
+                        <Link to="/buy-full-reports">Full Reports</Link>
+                      </li>
+                      <li>
+                        <Link to="/personalized-reports">
+                          Personalized Reports
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
                   <li>
                     <Link to="/shop">Shop</Link>
                   </li>
-                  <li><Link to="/astrology-course">Astrology Course</Link></li>
-                  <li><Link to="/blog">Blog</Link></li>
-                 <li className="menu-item-has-children"><a href="#">Language</a>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">हिंदी</a></li>
-                                    <li><a href="#">मराठी</a></li>
-                                    <li><a href="#">ગુજરાતી</a></li>
-                                </ul>
-                            </li>
+                  <li>
+                    <Link to="/astrology-course">Astrology Course</Link>
+                  </li>
+                  <li>
+                    <Link to="/blog">Blog</Link>
+                  </li>
+                  <li className="menu-item-has-children">
+                    <a href="#">Language</a>
+                    <i className="fa-solid fa-angle-down"></i>
+                    <ul className="sub-menu">
+                      <li>
+                        <a href="#">English</a>
+                      </li>
+                      <li>
+                        <a href="#">हिंदी</a>
+                      </li>
+                      <li>
+                        <a href="#">मराठी</a>
+                      </li>
+                      <li>
+                        <a href="#">ગુજરાતી</a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </nav>
               <div className="menu_icon_sec">
@@ -136,20 +172,40 @@ const Header = () => {
                 </a>
               </div>
               <div className="contact_header user_sec d-flex align-items-center">
-                <span><img src={userIcon} alt="user" className="img-fluid" /></span>
-               {/* <div className="contact_name">
+                <span>
+                  <img src={userIcon} alt="user" className="img-fluid" />
+                </span>
+                {/* <div className="contact_name">
                   <h6><a href="#">Login</a></h6>
                 </div> */}
-                <div class="contact_name">
+                {isAuthenticated ? (
+                  <div class="contact_name">
+                    {user?.name == null ? (
+                      <>
+                        <div class="dropdown">
+                          <Link to="/profile">Profile</Link>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div class="dropdown">
+                          <Link to="/profile">{user?.name}</Link>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <div class="contact_name">
                     <div class="dropdown">
-                        <Link to="/login">Login</Link>
+                      <Link to="/login">Login</Link>
                     </div>
-                </div>
+                  </div>
+                )}
               </div>
               <div class="hamberger_menu open" onClick={toggleSidebar}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
               </div>
             </div>
 
@@ -169,28 +225,56 @@ const Header = () => {
                         <span></span>
                         <span></span>
                       </a>
-                      <li><Link to="/">Home</Link></li>
-                      <li><Link to="/about">About</Link></li>
-                      <li className="menu-item-has-children"><Link to="#">Services</Link>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><Link to="/consultation_list">Consultation</Link></li>
-                                    <li><Link to="/buy_full_reports">Full Reports</Link></li>
-                                    <li><Link to="/personalized_reports">Personalized Reports</Link></li>
-                                </ul>
-                            </li>
-                      <li><Link to="#">Shop</Link></li>
-                      <li><Link to="#">Astrology Course</Link></li>
-                      <li><Link to="#">Blog</Link></li>
-                      <li className="menu-item-has-children"><a href="#">Language</a>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">हिंदी</a></li>
-                                    <li><a href="#">मराठी</a></li>
-                                    <li><a href="#">ગુજરાતી</a></li>
-                                </ul>
-                            </li>
+                      <li>
+                        <Link to="/">Home</Link>
+                      </li>
+                      <li>
+                        <Link to="/about">About</Link>
+                      </li>
+                      <li className="menu-item-has-children">
+                        <Link to="#">Services</Link>
+                        <i className="fa-solid fa-angle-down"></i>
+                        <ul className="sub-menu">
+                          <li>
+                            <Link to="/consultation_list">Consultation</Link>
+                          </li>
+                          <li>
+                            <Link to="/buy_full_reports">Full Reports</Link>
+                          </li>
+                          <li>
+                            <Link to="/personalized_reports">
+                              Personalized Reports
+                            </Link>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <Link to="#">Shop</Link>
+                      </li>
+                      <li>
+                        <Link to="#">Astrology Course</Link>
+                      </li>
+                      <li>
+                        <Link to="#">Blog</Link>
+                      </li>
+                      <li className="menu-item-has-children">
+                        <a href="#">Language</a>
+                        <i className="fa-solid fa-angle-down"></i>
+                        <ul className="sub-menu">
+                          <li>
+                            <a href="#">English</a>
+                          </li>
+                          <li>
+                            <a href="#">हिंदी</a>
+                          </li>
+                          <li>
+                            <a href="#">मराठी</a>
+                          </li>
+                          <li>
+                            <a href="#">ગુજરાતી</a>
+                          </li>
+                        </ul>
+                      </li>
                     </ul>
                   </nav>
                   <div className="menu_icon_sec">
@@ -201,18 +285,39 @@ const Header = () => {
                     </a>
                   </div>
                   <div class="contact_header user_sec d-flex align-items-center">
-                      <span><img src={userIcon} alt="icon" class="img-fluid"/></span>
-                      <div class="contact_name">
-                          <div class="dropdown">
-                             <Link to="/login">Login</Link>
-                          </div>
+                    <span>
+                      <img src={userIcon} alt="icon" class="img-fluid" />
+                    </span>
+                {isAuthenticated ? (
+                  <div class="contact_name">
+                    {user?.name==null?(
+                       <div class="dropdown">
+                        <Link to="/profile">Profile</Link>
                       </div>
+          
+                    ):(
+                        <div class="dropdown">
+                        <Link to="/profile">{user?.name}</Link>
+                      </div>
+                    )}
+                   
+                    </div>
+
+                    ): (
+                      <div class="contact_name">
+                    <div class="dropdown">
+                          <Link to="/login">Login</Link>
+                        </div>
+                      </div>
+                    )}
+                    
+
                   </div>
                   <div class="hamberger_menu open" onClick={toggleSidebar}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
                 </div>
               </div>
             </nav>
@@ -221,7 +326,9 @@ const Header = () => {
       </header>
 
       {/* ================= Mobile View Header ================= */}
-      <header  className={`header-area mob_view ${isSticky ? "fixed_header" : ""}`}>
+      <header
+        className={`header-area mob_view ${isSticky ? "fixed_header" : ""}`}
+      >
         <div className="btm_nav_sec">
           <div className="container">
             <div className="row ht_row align-items-center">
@@ -255,8 +362,8 @@ const Header = () => {
                     </span>
                     <div className="contact_name">
                       <h6 className="cost">
-                        <Link to='/wallet'>
-                          <span className="d-block">Cart</span> ₹120.00
+                        <Link to="/wallet">
+                          <span className="d-block">Cart</span> ₹ 0
                         </Link>
                       </h6>
                     </div>
@@ -270,54 +377,107 @@ const Header = () => {
                           <span></span>
                           <span></span>
                         </a>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/about">About</Link></li>
-                        <li className="menu-item-has-children"><a href="#">Services</a>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><Link to="consultation_list">Consultation</Link></li>
-                                    <li><Link to="buy_full_reports">Full Reports</Link></li>
-                                    <li><Link to="personalized_reports">Personalized Reports</Link></li>
-                                </ul>
+                        <li>
+                          <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                          <Link to="/about">About</Link>
+                        </li>
+                        <li className="menu-item-has-children">
+                          <a href="#">Services</a>
+                          <i className="fa-solid fa-angle-down"></i>
+                          <ul className="sub-menu">
+                            <li>
+                              <Link to="consultation_list">Consultation</Link>
                             </li>
-                        <li><Link to="#">Shop</Link></li>
-                        <li><Link to="#">Astrology Course</Link></li>
-                        <li><Link to="#">Blog</Link></li>
-                        <li className="menu-item-has-children"><a href="#">Language</a>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">हिंदी</a></li>
-                                    <li><a href="#">मराठी</a></li>
-                                    <li><a href="#">ગુજરાતી</a></li>
-                                </ul>
+                            <li>
+                              <Link to="buy_full_reports">Full Reports</Link>
                             </li>
+                            <li>
+                              <Link to="personalized_reports">
+                                Personalized Reports
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <Link to="#">Shop</Link>
+                        </li>
+                        <li>
+                          <Link to="#">Astrology Course</Link>
+                        </li>
+                        <li>
+                          <Link to="#">Blog</Link>
+                        </li>
+                        <li className="menu-item-has-children">
+                          <a href="#">Language</a>
+                          <i className="fa-solid fa-angle-down"></i>
+                          <ul className="sub-menu">
+                            <li>
+                              <a href="#">English</a>
+                            </li>
+                            <li>
+                              <a href="#">हिंदी</a>
+                            </li>
+                            <li>
+                              <a href="#">मराठी</a>
+                            </li>
+                            <li>
+                              <a href="#">ગુજરાતી</a>
+                            </li>
+                          </ul>
+                        </li>
                       </ul>
                     </nav>
                     <div className="menu_icon_sec">
-                     <a href="#" onClick={(e) => e.preventDefault()}>
+                      <a href="#" onClick={(e) => e.preventDefault()}>
                         <span></span>
                         <span></span>
                         <span></span>
                       </a>
                     </div>
                     <div class="contact_header user_sec d-flex align-items-center">
-                        <span><img src={{userIcon}} alt="icon" class="img-fluid"/></span>
-                        <div class="contact_name">
-                            <div class="dropdown">
-                               <Link to="/login">Login</Link>
-                            </div>
+                      <span>
+                        <img src={userIcon} alt="icon" className="img-fluid" />
+                      </span>
+                      {isAuthenticated ? (
+                      <div class="contact_name">
+                        {user?.name == null ? (
+                          <>
+                        <div class="dropdown">
+                        <Link to="/profile">Profile</Link>
                         </div>
+                        </>
+                        ):(
+
+                        <>
+                        <div class="dropdown">
+                            <Link to="/profile">{user?.name}</Link>
+                        </div>
+                        </>
+                        )}
+                      </div>
+                     ):(
+                      <div class="contact_name">
+                        <div class="dropdown">
+                          <Link to="/login">Login</Link>
+                        </div>
+                      </div>
+                     )} 
                     </div>
                     <div class="hamberger_menu open" onClick={toggleSidebar}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
                     </div>
                   </div>
 
                   {/* ----- Sticky Header (Mobile) ----- */}
-                  <nav className={`main-nav bottom-nav sticky_menu ${isSticky ? "active" : ""}`}>
+                  <nav
+                    className={`main-nav bottom-nav sticky_menu ${
+                      isSticky ? "active" : ""
+                    }`}
+                  >
                     <div className="container">
                       <div className="stick_block position-relative d-flex align-items-center justify-content-between">
                         <div className="logo_sec">
@@ -332,27 +492,61 @@ const Header = () => {
                               <span></span>
                               <span></span>
                             </a>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                             <li className="menu-item-has-children"><a href="#">Services</a>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><Link to="/consultation_list">Consultation</Link></li>
-                                    <li><Link to="/buy_full_reports">Full Reports</Link></li>
-                                    <li><Link to="/personalized_reports">Personalized Reports</Link></li>
-                                </ul>
+                            <li>
+                              <Link to="/">Home</Link>
                             </li>
-                            <li><Link to="/shop">Shop</Link></li>
-                            <li><Link to="/astrology-course">Astrology Course</Link></li>
-                            <li><Link to="/blog">Blog</Link></li>
-                            <li className="menu-item-has-children"><a href="#">Language</a>
-                                <i className="fa-solid fa-angle-down"></i>
-                                <ul className="sub-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">हिंदी</a></li>
-                                    <li><a href="#">मराठी</a></li>
-                                    <li><a href="#">ગુજરાતી</a></li>
-                                </ul>
+                            <li>
+                              <Link to="/about">About</Link>
+                            </li>
+                            <li className="menu-item-has-children">
+                              <a href="#">Services</a>
+                              <i className="fa-solid fa-angle-down"></i>
+                              <ul className="sub-menu">
+                                <li>
+                                  <Link to="/consultation_list">
+                                    Consultation
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to="/buy_full_reports">
+                                    Full Reports
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link to="/personalized_reports">
+                                    Personalized Reports
+                                  </Link>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <Link to="/shop">Shop</Link>
+                            </li>
+                            <li>
+                              <Link to="/astrology-course">
+                                Astrology Course
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/blog">Blog</Link>
+                            </li>
+                            <li className="menu-item-has-children">
+                              <a href="#">Language</a>
+                              <i className="fa-solid fa-angle-down"></i>
+                              <ul className="sub-menu">
+                                <li>
+                                  <a href="#">English</a>
+                                </li>
+                                <li>
+                                  <a href="#">हिंदी</a>
+                                </li>
+                                <li>
+                                  <a href="#">मराठी</a>
+                                </li>
+                                <li>
+                                  <a href="#">ગુજરાતી</a>
+                                </li>
+                              </ul>
                             </li>
                           </ul>
                         </nav>
@@ -364,20 +558,50 @@ const Header = () => {
                           </a>
                         </div>
                         <div className="contact_header user_sec d-flex align-items-center">
-                          <span><img src={userIcon} alt="user" className="img-fluid" /></span>
+                          <span>
+                            <img
+                              src={userIcon}
+                              alt="user"
+                              className="img-fluid"
+                            />
+                          </span>
                           {/*<div className="contact_name">
                             <h6><a href="#">Login</a></h6>
                           </div>*/}
+                          {isAuthenticated ? (
                           <div class="contact_name">
-                              <div class="dropdown">
-                                 <Link to="/login">Login</Link>
+                            {user?.name == null ? (
+                            <>
+                               <div class="dropdown">
+                                  <Link to="/login">Login</Link>
+                                </div>
+                              </>
+                            ):(
+                            <>
+                            <div class="dropdown">
+                                <Link to="/login">Login</Link>
                               </div>
+                            </>
+                            )}
+                           
+
                           </div>
-                        <div class="hamberger_menu open" onClick={toggleSidebar}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                          ):(
+
+                            <div class="contact_name">
+                            <div class="dropdown">
+                              <Link to="/login">Login</Link>
+                            </div>
+                          </div>
+                          )}
+                          <div
+                            class="hamberger_menu open"
+                            onClick={toggleSidebar}
+                          >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -388,7 +612,10 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <Sidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        closeSidebar={() => setIsSidebarOpen(false)}
+      />
     </>
   );
 };

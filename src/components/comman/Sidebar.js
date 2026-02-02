@@ -1,6 +1,13 @@
 import react from "react";
 import ariesImg from "../../assets/images/aries_img.webp";
+import LogoutButton from "../../components/auth/LogoutButton";
+import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+
 const Sidebar = ({isOpen, closeSidebar}) => {
+    const { user, isAuthenticated } = useSelector((state) => state.auth || {});
+    const displayName = user?.name || 'Guest';
+    const displayEmail = user?.email || 'Guest Email';
 
     return(
         <>
@@ -12,16 +19,27 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                     <span></span>
                 </div>
                 <div className="sidebar_inner">
-                    <span><img src={ariesImg} alt="icon" className="img-fluid"/></span>
-                    <div className="info_sec">
-                        <h4 className="mb-2">Prateek Verma</h4>
-                        <p>loremipsum@gmail.com</p>
-                        <h6>Edit Profile <i className="fa-solid fa-angle-right ps-1"></i></h6>
-                    </div>
+                    {isAuthenticated && (
+                        <>
+                            <span>
+
+                                <img src={ariesImg} alt="icon" className="img-fluid"/>
+                            </span>
+                            <div className="info_sec">
+                                <h4 className="mb-2">{displayName}</h4>
+                                <p>{displayEmail}</p>
+                                {isAuthenticated && (
+                                <h6>Edit Profile <i className="fa-solid fa-angle-right ps-1"></i></h6>
+                                )}
+                            </div>
+                        </>
+                    )}
                     <nav>
                         <ul className="menu_navigation mt-4">
+                            {isAuthenticated && (
+                            <>
                             <li>
-                                <summary><a href="profile.php" >Profile</a></summary>
+                                <summary><Link to="/profile">Profile</Link></summary>
                             </li>
                             <li>
                                 <details className="dropdown">
@@ -40,6 +58,10 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                             <li>
                                 <summary><a href="savedkundalis.php">Edit Kundali</a></summary>
                             </li>
+                                </>
+                                )}
+                            
+                            
                             <li>
                                 <details className="dropdown">
                                     <summary>Kundali <i className="fa-solid fa-angle-right ps-1"></i></summary>
@@ -102,9 +124,9 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                             <li>
                                 <summary><a href="#">Online Puja</a></summary>
                             </li>
-                            <li>
-                                <summary><a href="#">Logout <i className="fa-solid fa-arrow-right-from-bracket"></i></a></summary>
-                            </li>
+                           {isAuthenticated && (
+                            <LogoutButton closeSidebar={closeSidebar} />
+                            )}
                         </ul>
                     </nav>
                 </div>
