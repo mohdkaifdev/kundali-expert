@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import api from "../../../services/api"; 
+import api from "../../../services/api";
 
 export default function ResendOTPButton() {
   const [timer, setTimer] = useState(300);

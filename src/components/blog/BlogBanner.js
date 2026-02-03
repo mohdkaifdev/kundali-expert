@@ -1,18 +1,21 @@
-import react from "react";
-import blogImage from "../../assets/images/about_banner.png";
-import Blog from "../../pages/Blog";
+const BlogBanner = ({ imageSrc, alt = "Blog banner", title = "" }) => {
+  // Fallback image if no src provided (optional but recommended)
+  const fallbackImage = "/images/about_banner.png"; // or any default path
 
-const BlogBanner = () => {
-    return(
-        <>
-            <section>
-                <div className="bd_banner_section">
-                    <div className="container">
-                        <img src={blogImage} alt="img" className="w-100"/>
-                    </div>
-                </div>
-            </section>
-        </>
-    );
-}
+  return (
+    <section>
+      <div className="bd_banner_section">
+        <div className="container">
+          <img
+            src={imageSrc || fallbackImage}
+            alt={alt}
+            className="w-100"
+            loading="lazy" // good for performance
+          />
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default BlogBanner;

@@ -73,17 +73,20 @@ const App = () => {
   const authenticatedRoutes = (
     <>
       <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/blogs/:id" element={<BlogDetails />} />
       <Route path="/astrology-course" element={<AstrologyCourse />} />
       <Route path="/course-detail" element={<CourseDetail />} />
       <Route path="/course-detaile-new" element={<CourseDetaileNew />} />
       <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
       <Route path="/consultation-list" element={<Consultation />} />
-      <Route path="/consultation-detail/:id" element={<ConsultationDetails />} />
+      <Route
+        path="/consultation-detail/:id"
+        element={<ConsultationDetails />}
+      />
       <Route path="/buy-full-reports" element={<BuyFullReportsPage />} />
-      <Route path="/full-reports-details/:id" element={<FullReportDetailspage />} />
+      <Route
+        path="/full-reports-details/:id"
+        element={<FullReportDetailspage />}
+      />
       <Route path="/personalized-reports" element={<PersonalizedReports />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/wallet" element={<Wallet />} />
@@ -109,15 +112,21 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/blog" element={<Blog />} />
-      <Route path="/blogs/:id" element={<BlogDetails />} />
+      <Route path="/blogs/:slug" element={<BlogDetails />} />
       <Route path="/astrology-course" element={<AstrologyCourse />} />
       <Route path="/course-detail" element={<CourseDetail />} />
       <Route path="/course-detaile-new" element={<CourseDetaileNew />} />
       <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
       <Route path="/consultation-list" element={<Consultation />} />
-      <Route path="/consultation-detail/:id" element={<ConsultationDetails />} />
+      <Route
+        path="/consultation-detail/:id"
+        element={<ConsultationDetails />}
+      />
       <Route path="/buy-full-reports" element={<BuyFullReportsPage />} />
-      <Route path="/full-reports-details/:id" element={<FullReportDetailspage />} />
+      <Route
+        path="/full-reports-details/:id"
+        element={<FullReportDetailspage />}
+      />
       <Route path="/personalized-reports" element={<PersonalizedReports />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/wallet" element={<Wallet />} />
@@ -139,10 +148,9 @@ const App = () => {
   return (
     <>
       <Router>
-        <Header /> {/* Header ab dynamically update hoga kyuki parent re-render hoga */}
-        <Routes>
-          {isAuthenticated ? authenticatedRoutes : guestRoutes}
-        </Routes>
+        <Header />{" "}
+        {/* Header ab dynamically update hoga kyuki parent re-render hoga */}
+        <Routes>{isAuthenticated ? authenticatedRoutes : guestRoutes}</Routes>
         <Footer />
       </Router>
     </>
