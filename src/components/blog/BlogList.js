@@ -51,7 +51,6 @@ const BlogList = () => {
                         <p>{blog.date}</p>
                         <h4>
                           <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-                         
                         </h4>
                       </div>
                     </div>

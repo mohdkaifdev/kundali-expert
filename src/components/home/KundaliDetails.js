@@ -1,16 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import kundaliIcon1 from "../../assets/images/h_kundali_icon1.png";
 import kundaliIcon2 from "../../assets/images/h_kundali_icon2.png";
 import kundaliIcon3 from "../../assets/images/h_kundali_icon3.png";
+import api from "../../services/api";
+import { useSelector, useDispatch } from "react-redux";
+import { loadUserFromStorage } from "../../features/user/userSlice";
 
 const KundaliDetails = () => {
-  const [name, setName] = useState('');
+    const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [Panchang, setPanchang] = useState({});
   // Add more state for forms
+
+    const user = useSelector(
+    (state) => state.user.user
+  );
+
+  
+  useEffect(()=>{
+     dispatch(loadUserFromStorage());
+  },[dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission, e.g., API call
   };
+
+  const todaypanchang = async () => {
+    const now = new Date();
+
+    const formattedDateTime =
+  now.getFullYear() + "-" +
+  String(now.getMonth() + 1).padStart(2, "0") + "-" +
+  String(now.getDate()).padStart(2, "0") + " " +
+  String(now.getHours()).padStart(2, "0") + ":" +
+  String(now.getMinutes()).padStart(2, "0") + ":" +
+  String(now.getSeconds()).padStart(2, "0");
+    const payload = {
+      formData: {
+        dateAndTime: formattedDateTime,
+        placetName: user?.birthPlace?.name,
+        placeLatitude: user?.birthPlace?.latitude,
+        placeLongitude: user?.birthPlace?.longitudes,
+        timezoneId: 0,
+      },
+    };
+    const res = await api.post("v1/Panchang/today",payload);
+    setPanchang(res?.data?.data);
+  };
+
+  useEffect(() => {
+    todaypanchang();
+  }, []);
 
   return (
     <section>
@@ -26,11 +67,7 @@ const KundaliDetails = () => {
                     <h5>Enter Birth Details</h5>
                   </div>
                   <div className="kundali_d_icon">
-                    <img
-                      src={kundaliIcon1}
-                      alt="icon"
-                      className="img-fluid"
-                    />
+                    <img src={kundaliIcon1} alt="icon" className="img-fluid" />
                   </div>
                 </div>
 
@@ -101,11 +138,7 @@ const KundaliDetails = () => {
                     <h5>Enter Boy’s Details</h5>
                   </div>
                   <div className="kundali_d_icon">
-                    <img
-                      src={kundaliIcon2}
-                      alt="icon"
-                      className="img-fluid"
-                    />
+                    <img src={kundaliIcon2} alt="icon" className="img-fluid" />
                   </div>
                 </div>
 
@@ -175,11 +208,7 @@ const KundaliDetails = () => {
                     <h4>Today’s Panchang</h4>
                   </div>
                   <div className="kundali_d_icon">
-                    <img
-                      src={kundaliIcon3}
-                      alt="icon"
-                      className="img-fluid"
-                    />
+                    <img src={kundaliIcon3} alt="icon" className="img-fluid" />
                   </div>
                 </div>
 
@@ -187,11 +216,11 @@ const KundaliDetails = () => {
                   <div className="panchang_box d-flex">
                     <div className="panchang_inner">
                       <p className="input_sec">Sunrise - Sunset</p>
-                      <span className="input_sec">06:07:10 - 19:14:21</span>
+                      <span className="input_sec">{Panchang?.sunAndMoonTime?.todaySunRise} - {Panchang?.sunAndMoonTime?.todaySunSet}</span>
                     </div>
                     <div className="panchang_inner">
                       <p className="input_sec">Moonrise - Moonset</p>
-                      <span className="input_sec">06:07:10 - 19:14:21</span>
+                      <span className="input_sec">{Panchang?.sunAndMoonTime?.todayMoonRise} - {Panchang?.sunAndMoonTime?.todayMoonSet}</span>
                     </div>
                   </div>
                 </div>
@@ -199,39 +228,36 @@ const KundaliDetails = () => {
                 <ul>
                   <li>
                     <span>Tithi</span>
-                    <span>Saptami</span>
+                    <span>{Panchang?.tithi?.name}</span>
                   </li>
                   <li>
                     <span>Nakshatra</span>
-                    <span>Revati 03:38, Jul 18</span>
+                    <span>{Panchang?.panchangNakshatraResponse?.nakshtraName} {Panchang?.panchangNakshatraResponse?.end}</span>
                   </li>
                   <li>
                     <span>Yog</span>
-                    <span>Atigand</span>
+                    <span>{Panchang?.yogResponse?.yogName}</span>
                   </li>
                   <li>
                     <span>Karan</span>
-                    <span>Vishti</span>
+                    <span>{Panchang?.panchangKaranResponse?.karanName}</span>
                   </li>
                   <li>
                     <span>Paksha</span>
-                    <span>Krishna</span>
+                    <span>{Panchang?.paksha?.pakshaName}</span>
                   </li>
                   <li>
                     <span>Shaka Samvat</span>
-                    <span>Viśvāvasu</span>
+                    <span>{Panchang?.panchnagShakaSamvat?.shakaSamvatName}</span>
                   </li>
                   <li>
                     <span>Vikram Samvat</span>
-                    <span>Kālayukta</span>
+                    <span>{Panchang?.panchnagVikramSamvat?.vikramSamvatName}</span>
                   </li>
                 </ul>
 
                 <div className="form_btn w-100">
-                  <a
-                    href="#"
-                    className="site_btn w-100 d-block yello_bg"
-                  >
+                  <a href="#" className="site_btn w-100 d-block yello_bg">
                     VIEW MORE
                   </a>
                 </div>

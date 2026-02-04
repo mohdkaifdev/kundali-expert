@@ -1,11 +1,11 @@
 // src/app/store.js
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../features/auth/authSlice';
-// future mein yahan cartReducer add kar dena
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "../features/auth/authSlice";
+import userReducer from "../features/user/userSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    user: userReducer,
   },
-  // devTools: process.env.NODE_ENV !== 'production', // optional, default on
 });

@@ -540,7 +540,7 @@ h5 {
 }
 
 .banner_col {
-  width: 25%;
+  width: 33.3%;
   padding: 0 7px;
 }
 
@@ -4887,4 +4887,8 @@ button.site_btn.w-100.site_btn.w-100.gender_selected {
   .learn_section .cd_img > iframe, .learn_section .cd_img > video {
     height: 100%;
   }
+}
+.activegender{
+  color: #fff !important;
+  background-color: #7D1147 !important;
 }

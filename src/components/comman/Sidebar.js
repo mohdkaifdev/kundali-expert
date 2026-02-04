@@ -8,7 +8,6 @@ const Sidebar = ({isOpen, closeSidebar}) => {
     const { user, isAuthenticated } = useSelector((state) => state.auth || {});
     const displayName = user?.name || 'Guest';
     const displayEmail = user?.email || 'Guest Email';
-
     return(
         <>
         <div className={`sidebar_block ${isOpen ? "open":""}`}>
