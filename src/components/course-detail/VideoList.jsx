@@ -13,7 +13,11 @@ const VideoList = ({ videos, onPlayVideo }) => {
             </div>
             <div className="vidlist banner_block d-flex flex-wrap align-items-center pt-0">
               {videos.map(video => (
-                <VideoCard key={video.id} video={video} onPlay={onPlayVideo} />
+                <VideoCard
+                 key={video.id}
+                  video={video}
+                   onPlay={onPlayVideo}
+                    />
               ))}
             </div>
           </div>

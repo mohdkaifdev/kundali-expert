@@ -116,7 +116,7 @@ const BlogList = () => {
         <div className="c_details_section c_list_section space_sec">
           <div className="container">
             <div className="flex_row d-flex flex-wrap">
-              {filteredBlogs.map((blog) => (
+              {/* {filteredBlogs.map((blog) => (
                 <div
                   key={blog.id}
                   className={`content grid ${blog.category.join(" ")}`}
@@ -135,7 +135,7 @@ const BlogList = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              ))} */}
 
               {/* EMPTY */}
               {!loading && blogs.length === 0 && (
