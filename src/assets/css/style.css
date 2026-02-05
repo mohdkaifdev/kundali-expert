@@ -579,7 +579,7 @@ h5 {
 .banner_box > span {
   min-width: 80px;
   height: 80px;
-  background: #ffffff;
+  /* background: #ffffff; */
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -607,7 +607,7 @@ h5 {
 }
 
 .sec_icon {
-  max-width: 46px;
+  max-width: 80px;
 }
 
 .kundali_detail_section {
@@ -5045,4 +5045,12 @@ button.site_btn.w-100.site_btn.w-100.gender_selected {
 .activegender{
   color: #fff !important;
   background-color: #7D1147 !important;
+}
+.pageag .nav-tabs{
+  background: transparent;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    border-bottom: 0;
 }

@@ -28,6 +28,8 @@ import ConsultationDetails from "./pages/services/ConsultationDetails";
 import BuyFullReportsPage from "./pages/services/BuyFullReportsPage";
 import FullReportDetailspage from "./pages/services/FullReportDetailsPage";
 import PersonalizedReports from "./pages/services/PersonalizedReportsPage";
+import MagazinesandBook from "./pages/MagazinesandBook";
+import Puja from "./pages/Puja";
 
 // Protected pages
 import Wallet from "./pages/WalletPage";
@@ -83,9 +85,11 @@ const App = () => {
         <Route path="/blogs/:id" element={<BlogDetails />} />
         <Route path="/astrology-course" element={<AstrologyCourse />} />
         <Route path="/course-detail" element={<CourseDetail />} />
-        <Route path="/course-detaile-new" element={<CourseDetaileNew />} />
+        <Route path="/magazines-and-books" element={<MagazinesandBook />} />
+        <Route path="/learn-course-details/:id" element={<CourseDetaileNew />} />
         <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
         <Route path="/consultation-list" element={<Consultation />} />
+         <Route path="/puja/:id" element={<Puja />} />
         <Route
           path="/consultation-detail/:id"
           element={<ConsultationDetails />}
@@ -104,7 +108,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/verify" element={<VerifyOTPPage />} />
-
+        <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
         {/* -------- Protected Routes -------- */}
         <Route
           path="/wallet"
