@@ -9,8 +9,7 @@ const BlogList = () => {
   const [activeFilter, setActiveFilter] = useState(1);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // 🔹 PAGINATION STATES
+  console.log("check git"); // 🔹 PAGINATION STATES
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
   const [totalPages, setTotalPages] = useState(0);

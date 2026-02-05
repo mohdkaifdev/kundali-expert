@@ -48,6 +48,7 @@ import UserDOBPage from "./pages/auth/UserDOBPage";
 import UserTOBPage from "./pages/auth/UserTOBPage";
 import UserPlacePage from "./pages/auth/UserPlacePage";
 import Welcome from "./pages/auth/Welcome";
+import Astrologers from "./pages/Astrologers";
 
 import NotFound from "./pages/404/NotFound";
 
@@ -70,9 +71,6 @@ const App = () => {
     dispatch(loadAuthFromStorage());
     dispatch(loadUserFromStorage());
   }, [dispatch]);
-
-  if (!authChecked) return null; // global loader
-
   return (
     <Router>
       <Header />
