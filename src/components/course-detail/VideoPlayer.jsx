@@ -1,21 +1,23 @@
-// src/components/course-detail/VideoPlayer.jsx
-import React from 'react'
+import React from "react";
 
 const VideoPlayer = ({ videoUrl, onClose }) => {
+  if (!videoUrl) return null;
+
   return (
-    <div className="video-container" style={{ display: 'block' }}>
+    <div className="video-container">
       <iframe
-        id="videoFrame"
         className="video-frame"
-        src={`${videoUrl}?autoplay=1`}
+        src={videoUrl}
+        allow="autoplay; fullscreen"
         allowFullScreen
         title="Course Video"
       ></iframe>
+
       <button className="close-video" onClick={onClose}>
-        <span>X</span> Close Video
+        ✕ Close Video
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default VideoPlayer
+export default VideoPlayer;

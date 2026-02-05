@@ -6,10 +6,10 @@ import biImg3 from "../../assets/images/bi_img3.png";
 export default function Gemstones() {
  
   return (
-    <section>
+    <section id="shop-section">
       <div className="gemstones_section space_sec">
         <div className="container">
-          <div className="heading_sec text-center">
+          <div className="heading_sec text-center" >
             <h2 className="purple_clr">Gemstones</h2>
             <h5 className="gray_clr">
               (For Customized Horoscope Go to Personalized Report section)

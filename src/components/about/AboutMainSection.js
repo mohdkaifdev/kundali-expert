@@ -7,7 +7,7 @@ function AboutMainSection() {
             <div class="container">
                 <div class="kundali_tab_content">
                     <div class="heading_sec mb-4">
-                        <h3 class="mrn_clr">Kundali Expert - KM Sinha</h3>
+                        <h3 class="mrn_clr">Kundali Expert - (KM Sinha)</h3>
                     </div>
                     <div class="para_sec mw-100 mb-4 pb-lg-2">
                         <p>Welcome to KM ASTROGURU PRIVATE LIMITED, Your trusted partner in the world of astrology and related services. Our journey began with a vision to bring ancient wisdom into the modern world, helping people find clarity and guidance through astrological insights.</p>
