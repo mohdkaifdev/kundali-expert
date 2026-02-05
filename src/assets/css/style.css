@@ -5054,3 +5054,6 @@ button.site_btn.w-100.site_btn.w-100.gender_selected {
     border-radius: 0;
     border-bottom: 0;
 }
+
+iframe .plyr__controls{
+      display: none !important;}

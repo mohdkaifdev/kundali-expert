@@ -8,7 +8,7 @@ import VideoPlayer from "../components/course-detail/VideoPlayer";
 import CommentSection from "../components/course-detail/CommentSection";
 import VideoList from "../components/course-detail/VideoList";
 
-import { course, comments, videoList } from "../data/courseData";
+import { course } from "../data/courseData";
 import biImg1 from "../assets/images/bi_img1.png";
 import api from "../services/api";
 import { loadUserFromStorage } from "../features/user/userSlice";
@@ -17,6 +17,8 @@ const CourseDetailPage = () => {
   const [details, setDetails] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
   const [currentVideoUrl, setCurrentVideoUrl] = useState("");
+  const [videolist,setvideolist]=useState([]);
+   const [comments2,setcmntlist]=useState([]);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -56,8 +58,19 @@ const CourseDetailPage = () => {
       `/v1/course/findCourseByCourseLevel?courselevelId=${id}&languageId=${user.language.languageId}`
     );
 
-    console.log(res?.data?.data?.[0]);
+    const res2 = await api.get(
+      `/v1/courseSession/getCourseSessionListByCourseId?courseId=${id}&pageSize=400&pageNo=0`
+    );
+
+      const res3 = await api.get(
+      `/v1/CourseSessionComments/getCourseSessionComments?courseSessionId=${id}&pageSize=200&pageNo=0`
+    );
+
+    console.log(res3?.data?.data.data);
+  
     setDetails(res?.data?.data?.[0]);
+    setvideolist(res2?.data?.data)
+      setcmntlist(res3?.data?.data.data);
   };
 
   useEffect(() => {
@@ -88,7 +101,6 @@ const CourseDetailPage = () => {
                 onClose={closeVideo}
               />
             )}
-
             <div className="heading_sec mb-4">
               <h3 className="mrn_clr mb-0">Views</h3>
             </div>
@@ -104,12 +116,13 @@ const CourseDetailPage = () => {
               </div>
             </div>
 
-            <CommentSection comments={comments} />
+            <CommentSection comments={comments2} />
           </div>
         </div>
       </section>
 
-      <VideoList videos={videoList} onPlayVideo={playVideo} />
+      <VideoList  videos={videolist} onPlayVideo={playVideo} />
+
     </>
   );
 };
