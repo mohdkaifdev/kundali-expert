@@ -38,6 +38,7 @@ import UserDOBPage from "./pages/auth/UserDOBPage";
 import UserTOBPage from "./pages/auth/UserTOBPage";
 import UserPlacePage from "./pages/auth/UserPlacePage";
 import Welcome from "./pages/auth/Welcome";
+import Astrologers from "./pages/Astrologers";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -113,6 +114,7 @@ const App = () => {
       <Route path="/about" element={<About />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blogs/:slug" element={<BlogDetails />} />
+      <Route path="/our-astrologers" element={<Astrologers />} />
       <Route path="/astrology-course" element={<AstrologyCourse />} />
       <Route path="/course-detail" element={<CourseDetail />} />
       <Route path="/course-detaile-new" element={<CourseDetaileNew />} />

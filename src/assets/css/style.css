@@ -562,7 +562,7 @@ h5 {
 }
 
 .banner_col {
-  width: 25%;
+  width: 33.3%;
   padding: 0 7px;
 }
 
@@ -579,7 +579,7 @@ h5 {
 .banner_box > span {
   min-width: 80px;
   height: 80px;
-  background: #ffffff;
+  /* background: #ffffff; */
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -607,7 +607,7 @@ h5 {
 }
 
 .sec_icon {
-  max-width: 46px;
+  max-width: 80px;
 }
 
 .kundali_detail_section {
@@ -2002,7 +2002,7 @@ span.input_sec {
   border-color: #7d1147;
 }
 
-.switches-container {
+/* .switches-container {
   width: 340px;
   position: relative;
   display: flex;
@@ -2013,7 +2013,7 @@ span.input_sec {
   border: 1px solid #7d1147;
   margin-top: 25px;
   margin-bottom: 50px;
-}
+} */
 
 .switches-container input {
   visibility: hidden;
@@ -2045,7 +2045,7 @@ span.input_sec {
 .switch {
   border-radius: 7px;
   background: #7d1147;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .switch div {
@@ -3711,6 +3711,158 @@ button.site_btn.w-100.site_btn.w-100.gender_selected {
 .text-center.w-100.mt-4 {
   color: #7d1147;
 }
+.home_our_astrologers_section .home_our_astrologers_content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_body
+  .home_our_astrologers_card_body_left
+  img {
+  max-width: 176px;
+  width: 100%;
+  height: 192px;
+  position: relative;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_body
+  .home_our_astrologers_card_body_right
+  .home_our_astrologers_card_body_right_title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #030303;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_body
+  .home_our_astrologers_card_body_right
+  ul
+  li
+  img {
+  width: 21px;
+  height: 21px;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_body
+  .home_our_astrologers_card_body_right
+  ul
+  li
+  span {
+  color: #616161;
+  font-size: 14px;
+  font-weight: 400;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_body
+  .home_our_astrologers_card_body_right
+  .home_our_astrologers_min_text {
+  color: #030303;
+  font-weight: 600;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_body
+  .home_our_astrologers_card_body_right
+  .home_our_astrologers_online_text {
+  color: #008c0e;
+  font-weight: 500;
+  font-size: 15px;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_footer {
+  margin-top: 1.5rem;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_footer
+  button {
+  box-shadow: 1px 1px 8px #00000026;
+  background-color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+.home_our_astrologers_section
+  .home_our_astrologers_card
+  .home_our_astrologers_card_footer
+  button
+  span {
+  color: #7d1147;
+  font-size: 16px;
+  font-weight: 400;
+}
+.home_our_astrologers_section .home_our_astrologers_card {
+  box-shadow: 1px 2px 6px #00000040;
+  width: 100%;
+  height: fit-content;
+  padding: 28px 38px 28px 28px;
+  border-radius: 10px;
+}
+.center__heading {
+  color: rgb(174, 40, 93);
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom: 3px solid rgb(174, 40, 93);
+  padding-bottom: 10px;
+  max-width: 280px;
+  width: 80%;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.toggle-button {
+  display: flex;
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  min-height: 50px;
+  height: fit-content;
+  background-color: #f0f0f0;
+  border-radius: 25px;
+  overflow: hidden;
+}
+.toggle-option {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2e2e2e;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  z-index: 1;
+}
+.toggle-option.active {
+  color: #eee;
+}
+.toggle-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: #7d1147;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+}
+.toggle-indicator.right {
+  transform: translate(100%);
+}
+.toggle-indicator.left {
+  left: 0;
+}
+
+.astroSec {
+  padding: 160px 0 200px;
+}
+
 @media (max-width: 1441px) {
   .container {
     max-width: 1320px;
@@ -5042,3 +5194,18 @@ button.site_btn.w-100.site_btn.w-100.gender_selected {
     height: 100%;
   }
 }
+.activegender{
+  color: #fff !important;
+  background-color: #7D1147 !important;
+}
+.pageag .nav-tabs{
+  background: transparent;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    border-bottom: 0;
+}
+
+iframe .plyr__controls{
+      display: none !important;}

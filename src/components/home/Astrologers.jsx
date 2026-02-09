@@ -1,12 +1,37 @@
-import React, { useState } from "react";
-import bi_img1 from "../../assets/images/bi_img1.png";
-import bi_img2 from "../../assets/images/bi_img2.png";
-import bi_img3 from "../../assets/images/bi_img3.png";
-import call_icon_white from "../../assets/images/call_icon_white.png";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import call_icon from "../../assets/images/call_icon_white.png";
 import chat_icon from "../../assets/images/chat_icon.png";
+import api from "../../services/api";
 
 export default function Astrologers() {
-  const [activeSwitch, setActiveSwitch] = useState("Monthly");
+  const [call, setCall] = useState(true);
+  const [astrologers, setAstrologers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchAstrologers = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("v2/astrologers/list");
+      const data = response.data.data || [];
+      console.log("API response is", data);
+      setAstrologers(data);
+    } catch (error) {
+      console.error("Astrologer API error", error);
+      toast.error("Failed to load astrologers. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAstrologers();
+  }, []);
+
+  // Sirf 4 astrologers show karne ke liye slice kar do
+  const displayedAstrologers = astrologers.slice(0, 4);
 
   return (
     <section>
@@ -19,155 +44,112 @@ export default function Astrologers() {
             </h5>
           </div>
 
-          {/* Switch */}
           <div className="switches-container m-auto mt-0 mb-5">
-            <input
-              type="radio"
-              id="switchMonthly"
-              name="switchPlan"
-              value="Monthly"
-              checked={activeSwitch === "Monthly"}
-              onChange={() => setActiveSwitch("Monthly")}
-            />
-            <input
-              type="radio"
-              id="switchYearly"
-              name="switchPlan"
-              value="Yearly"
-              checked={activeSwitch === "Yearly"}
-              onChange={() => setActiveSwitch("Yearly")}
-            />
-
-            <label htmlFor="switchMonthly" id="call">
-              Call With Astrologer
-            </label>
-            <label htmlFor="switchYearly" id="chat">
-              Chat With Astrologer
-            </label>
-
-            <div className="switch-wrapper">
-              <div className="switch">
-                <div>Call With Astrologer</div>
-                <div>Chat With Astrologer</div>
+            <div className="d-flex justify-content-start mb-5 mt-4">
+              <div className="toggle-button">
+                <button
+                  className={`toggle-option ${call ? "active" : ""}`}
+                  onClick={() => setCall(true)}
+                >
+                  Call With Astrologer
+                </button>
+                <button
+                  className={`toggle-option ${!call ? "active" : ""}`}
+                  onClick={() => setCall(false)}
+                >
+                  Chat With Astrologer
+                </button>
+                <div
+                  className={`toggle-indicator ${call ? "left" : "right"}`}
+                ></div>
               </div>
             </div>
           </div>
 
-          {/* Astrologers List */}
-          <div className="astrologers_meet_cont">
-            {/* Call With Astrologer Section */}
-            {activeSwitch === "Monthly" && (
-              <div className="row active switchMonthly">
-                {[bi_img1, bi_img2, bi_img3, bi_img1].map((img, index) => (
-                  <div className="col-lg-3 col-md-6" key={index}>
-                    <div className="astrologers_box">
-                      <a href="#">
-                        <img src={img} alt="img" className="w-100" />
-                      </a>
-                      <div className="astrologers_caption">
-                        <h6>Name goes here</h6>
-                        <div className="star d-flex align-items-center">
-                          <span>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                          </span>
-                          <h6 className="ms-1">
-                            <span className="badge bg-success">4.9</span>
-                          </h6>
-                        </div>
-                        <div className="exp">
-                          <p>
-                            Exp. : 15 Years{" "}
-                            <span className="d-block">
-                              Hindi, English, Marathi
+          {loading ? (
+            <div className="text-center py-5">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <p className="mt-2">Loading astrologers...</p>
+            </div>
+          ) : displayedAstrologers.length === 0 ? (
+            <div className="text-center py-5">
+              <h5>No astrologers found</h5>
+              <p>Please check back later</p>
+            </div>
+          ) : (
+            <div className="astrologers_meet_cont">
+              <div className="row">
+                {displayedAstrologers.map((astro) => {
+                  const imageUrl = astro.profile?.[0]
+                    ? `https://api.kundaliexpert.com/kmAstroapp/api/v1/${astro.profile[0]}`
+                    : "/default-astro.png";
+
+                  return (
+                    <div
+                      key={astro.id || astro.astrologerName}
+                      className="col-lg-3 col-md-6 mb-4"
+                    >
+                      <div className="astrologers_box pb-0">
+                        <Link to="#">
+                          <img
+                            src={imageUrl}
+                            alt={astro.astrologerName}
+                            className="w-100"
+                          />
+                        </Link>
+                        <div className="astrologers_caption">
+                          <h6>{astro.astrologerName}</h6>
+                          <div className="star d-flex align-items-center">
+                            <span>
+                              <i className="fa-solid fa-star"></i>
+                              <i className="fa-solid fa-star"></i>
+                              <i className="fa-solid fa-star"></i>
+                              <i className="fa-solid fa-star"></i>
+                              <i className="fa-solid fa-star"></i>
                             </span>
+                            <h6 className="ms-1">
+                              <span className="badge bg-success">4.9</span>
+                            </h6>
+                          </div>
+                          <div className="exp">
+                            <p>
+                              Exp. : {astro.experience} Years{" "}
+                              <span className="d-block">
+                                {astro.languages?.map((l) => l.name).join(", ")}
+                              </span>
+                            </p>
+                          </div>
+                          <p className="expertise">
+                            <b>Expertise</b>{" "}
+                            {astro.specializations
+                              ?.map((s) => s.name)
+                              .join(", ")}
                           </p>
-                        </div>
-                        <p className="expertise">
-                          <b>Expertise</b> Career, Vedic Astrology, Match
-                          Making,
-                          <br />
-                          and Vaastu, Gemstones and Hastharekha
-                        </p>
-                        <div className="astrologers_btn mt-3">
-                          <a href="#" className="site_btn">
-                            <img
-                              src={call_icon_white}
-                              alt="icon"
-                              className="img-fluid"
-                            />{" "}
-                            CALL NOW
-                          </a>
+                          <div className="astrologers_btn mt-3">
+                            <Link to="#" className="site_btn">
+                              <img
+                                src={call ? call_icon : chat_icon}
+                                alt="icon"
+                                className="img-fluid"
+                              />{" "}
+                              {call ? "CALL NOW" : "CHAT NOW"}
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
-            )}
+            </div>
+          )}
 
-            {/* Chat With Astrologer Section */}
-            {activeSwitch === "Yearly" && (
-              <div className="row switchYearly">
-                {[bi_img1, bi_img2, bi_img3, bi_img1].map((img, index) => (
-                  <div className="col-lg-3 col-md-6" key={index}>
-                    <div className="astrologers_box pb-0 mb-3">
-                      <a href="#">
-                        <img src={img} alt="img" className="w-100" />
-                      </a>
-                      <div className="astrologers_caption">
-                        <h6>Name goes here</h6>
-                        <div className="star d-flex align-items-center">
-                          <span>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                          </span>
-                          <h6 className="ms-1">
-                            <span className="badge bg-success">4.9</span>
-                          </h6>
-                        </div>
-                        <div className="exp">
-                          <p>
-                            Exp. : 15 Years{" "}
-                            <span className="d-block">
-                              Hindi, English, Marathi
-                            </span>
-                          </p>
-                        </div>
-                        <p className="expertise">
-                          <b>Expertise</b> Career, Vedic Astrology, Match
-                          Making,
-                          <br />
-                          and Vaastu, Gemstones and Hastharekha
-                        </p>
-                        <div className="astrologers_btn astrologers_btns mt-3">
-                          <a href="#" className="site_btn">
-                            <img
-                              src={chat_icon}
-                              alt="icon"
-                              className="img-fluid"
-                            />{" "}
-                            CHAT NOW
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <p className="more_astrologers">
-            <a href="our_astrologers.php" className="site_btn">
+          <p className="more_astrologers text-center mt-4">
+            <Link to="our-astrologers" className="site_btn">
               More Astrologers
-            </a>
+            </Link>
           </p>
         </div>
       </div>
