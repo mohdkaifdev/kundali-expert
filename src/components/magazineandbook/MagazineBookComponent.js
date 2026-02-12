@@ -19,7 +19,7 @@ export default function Publication() {
   const getlist = async () => {
     const cat = categoryselected;
     const res = await api.get(
-      `/v1/magazines/getMagazinesAndBooksByCategoryId?categoryId=${cat}`
+      `/magazines/getMagazinesAndBooksByCategoryId?categoryId=${cat}`
     );
 
     setAllData(res.data.data);

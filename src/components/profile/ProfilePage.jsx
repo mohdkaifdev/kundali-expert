@@ -137,7 +137,7 @@ useEffect(() => {
     }
   };
 
-  const res = await api.put("/v1/user/updateMainUser", payload);
+  const res = await api.put("/user/updateMainUser", payload);
 
   if (res?.data?.response?.responseCode === "200") {
 
@@ -173,7 +173,7 @@ useEffect(() => {
     }
     try {
       const res = await api.get(
-        `/v1/place/searchPlace?initialLetters=${keyword}`,
+        `/place/searchPlace?initialLetters=${keyword}`,
       );
 
       console.log(res);

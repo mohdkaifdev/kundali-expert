@@ -59,7 +59,8 @@ const VerifyOTPPage = () => {
 
       if (res.data.response.responseCode === "200") {
         const { accessToken, refreshToken } = res.data.data;
-
+ localStorage.setItem("token", accessToken);
+  localStorage.setItem("refreshToken", refreshToken);
         // ✅ Store auth in Redux
         dispatch(
           loginSuccess({

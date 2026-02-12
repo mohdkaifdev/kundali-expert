@@ -1,14 +1,24 @@
-import React from "react";
-import biImg1 from "../../assets/images/bi_img1.png";
-import biImg2 from "../../assets/images/bi_img2.png";
-import biImg3 from "../../assets/images/bi_img3.png";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import api from "../../services/api";
 
 export default function BlogInsights() {
-  const posts = [
-    { id: 1, title: "Journey into Vedic Astrology with KM Sinha Today", date: "MAR 21 - APR 19" , img:biImg1},
-    { id: 2, title: "Journey into Vedic Astrology with KM Sinha Today", date: "MAR 21 - APR 19", img:biImg2},
-    { id: 3, title: "Journey into Vedic Astrology with KM Sinha Today", date: "MAR 21 - APR 19", img:biImg3},
-  ];
+  // const posts = [
+  //   { id: 1, title: "Journey into Vedic Astrology with KM Sinha Today", date: "MAR 21 - APR 19" , img:biImg1},
+  //   { id: 2, title: "Journey into Vedic Astrology with KM Sinha Today", date: "MAR 21 - APR 19", img:biImg2},
+  //   { id: 3, title: "Journey into Vedic Astrology with KM Sinha Today", date: "MAR 21 - APR 19", img:biImg3},
+  // ];
+  const [posts,setposts]=useState([]);
+
+  const getthreebogs = async ()=>{
+    const res = await api.get(`/web-blog/get-latest-blogs`);
+
+    setposts(res?.data?.data);
+   // console.log(res?.data?.data);
+  }
+  useEffect(()=>{
+getthreebogs();
+  },[])
 
   return (
     <section>
@@ -23,17 +33,19 @@ export default function BlogInsights() {
           <div className="row">
             {posts.map((p) => (
             <div key={p.id} className="col-lg-4 col-md-6">
-              <div className="bi_box">
+              <Link to="/blog">
+                <div className="bi_box">
                 <span>
-                  <img src={p.img} alt="img" className="w-100" />
+                  <img src={`https://api.kundaliexpert.com/kmAstroapp/api/v1/${p.mainBlogImage}`} alt="img" className="w-100" />
                 </span>
                 <div className="bi_caption">
-                  <p>{p.date}</p>
+                  <p>{p.createdOn}</p>
                   <h4>
                     <a href="#">{p.title}</a>
                   </h4>
                 </div>
               </div>
+              </Link>
             </div>
             ))}
           </div>

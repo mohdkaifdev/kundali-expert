@@ -91,7 +91,7 @@ console.log(profilemain);
 }
     }
 
-    const res = await api.post('/v1/user/registration',payload);
+    const res = await api.post('/user/registration',payload);
     console.log(res);
     toast.success("Moving to next step...");
 

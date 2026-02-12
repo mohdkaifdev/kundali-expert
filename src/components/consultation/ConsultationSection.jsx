@@ -8,24 +8,24 @@ const consultationData = [
     blockClass: "consultation_list_block1",
     title: "Get 1-2 Questions Kundali Prediction",
     price: "INR 6018",
-    offer: "20% OFF",
-    link: "/consultation-detail-1"
+    offer: null,
+    link: "/consultation/1"
   },
   {
     id: 2,
     blockClass: "consultation_list_block2",
-    title: "Get 1-2 Questions Kundali Prediction",
-    price: "INR 6018",
-    offer: "20% OFF",
-    link: "/consultation-detail-2"
+    title: "Get Your Full Analysis Through Video Or Telephonic Consultation",
+    price: "INR 10600",
+    offer: null,
+    link: "/consultation/2"
   },
   {
     id: 3,
     blockClass: "consultation_list_block3",
-    title: "Get 1-2 Questions Kundali Prediction",
-    price: "INR 6018",
-    offer: "20% OFF",
-    link: "/consultation-detail-3"
+    title: "Predict Through Advance Analysis/Personal Consultation",
+    price: "INR 21000",
+    offer: null,
+    link: "/consultation/3"
   }
 ]
 

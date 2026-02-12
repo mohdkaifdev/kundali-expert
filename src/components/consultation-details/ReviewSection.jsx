@@ -2,9 +2,9 @@ import React from 'react'
 import ReviewCard from './ReviewCard'
 import consultationDetail from "../../data/consultationDetails";
 
-const ReviewSection = () => {
+const ReviewSection = (prop) => {
   const { reviews, ratingDistribution, totalReviews } = consultationDetail
-
+  const data = prop?.data
   return (
     <div className="cd_tab_content review_block">
       <div className="row">
@@ -19,7 +19,7 @@ const ReviewSection = () => {
         </div>
         <div className="col-xl-8 col-md-7 col-10">
           <div className="progress_bar d-flex flex-wrap h-100">
-            {ratingDistribution.map((item, i) => (
+            {[data?.overallReview?.oneStar,data?.overallReview?.twoStar,data?.overallReview?.threeStar,data?.overallReview?.fourStar,data?.overallReview?.fiveStar]?.reverse()?.map((item, i) => (
               <div
                 key={i}
                 className="progress w-100"
@@ -28,12 +28,12 @@ const ReviewSection = () => {
                 <div
                   className="progress-bar"
                   role="progressbar"
-                  style={{ width: `${item.percentage}%` }}
-                  aria-valuenow={item.percentage}
+                  style={{ width: `${item}%` }}
+                  aria-valuenow={item}
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
-                  {item.percentage}%
+                  {item}%
                 </div>
               </div>
             ))}
@@ -42,14 +42,37 @@ const ReviewSection = () => {
         <div className="col-xl-2 col-md-3 col-12">
           <div className="rating_review text-center">
             <h5>
-              5.0{' '}
+              {data?.overallReview?.average.toFixed(1)}{' '}
               <span>
-                {[...Array(5)].map((_, i) => (
-                  <i key={i} className="fa-solid fa-star"></i>
-                ))}
-              </span>
+                    {(() => {
+                      const rating = Number(data?.overallReview?.average || 0);
+                      const rounded = Math.round(rating * 2) / 2; // round to nearest 0.5
+                      const stars = [];
+
+                      for (let i = 1; i <= 5; i++) {
+                        if (i <= rounded) {
+                          stars.push(
+                            <i key={i} className="fa-solid fa-star"></i>,
+                          );
+                        } else if (i - 0.5 === rounded) {
+                          stars.push(
+                            <i
+                              key={i}
+                              className="fa-solid fa-star-half-stroke"
+                            ></i>,
+                          );
+                        } else {
+                          stars.push(
+                            <i key={i} className="fa-regular fa-star"></i>,
+                          );
+                        }
+                      }
+
+                      return stars;
+                    })()}
+                  </span>
             </h5>
-            <p className="gray_clr">{totalReviews} Reviews</p>
+            <p className="gray_clr">{data?.reviews?.length} Reviews</p>
           </div>
           <div className="banner_btn text-center mt-4">
             <a href="#" className="site_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -61,7 +84,7 @@ const ReviewSection = () => {
           </div>
         </div>
         <div className="col-12">
-          {reviews.map((review) => (
+          {data?.reviews?.map((review) => (
             <ReviewCard key={review.id} review={review} />
           ))}
         </div>
