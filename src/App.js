@@ -60,10 +60,6 @@ const ProtectedRoute = ({ children }) => {
     (state) => state.auth
   );
 
-  if (!authChecked) return null; // loader can be shown here
-
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
-};
 
 const App = () => {
   const dispatch = useDispatch();
