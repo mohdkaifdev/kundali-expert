@@ -14,7 +14,7 @@ export default function Gemstones() {
     setError(null);
     try {
       const response = await api.get(
-        "v2/gemstoneCategory/getGemstoneCategories",
+        "/gemstoneCategory/getGemstoneCategories",
       );
       const data = response.data?.data || [];
       console.log("Gemstones API response:", data);

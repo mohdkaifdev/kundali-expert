@@ -14,7 +14,7 @@ export default function Astrologers() {
   const fetchAstrologers = async () => {
     setLoading(true);
     try {
-      const response = await api.get("v2/astrologers/list");
+      const response = await api.get("/astrologers/list");
       const data = response.data.data || [];
       console.log("API response is", data);
       setAstrologers(data);
