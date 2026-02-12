@@ -27,7 +27,7 @@ export default function WelcomeContinueButton() {
   //console.log("Final Registration Payload:", payload);
 
   try {
-    const res = await api.post("/v1/user/registration", payload);
+    const res = await api.post("/user/registration", payload);
 
     if (res.data.response.responseCode === "200") {
       toast.success("Registration completed successfully!");

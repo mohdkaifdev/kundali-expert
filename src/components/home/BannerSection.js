@@ -13,7 +13,7 @@ const BannerSection = () => {
 
 const [banners,setbanners]=useState([]);
   const getbanners = async()=>{
-    const res = await api.get('/v1/websiteBanner/getWebsiteBannerList');
+    const res = await api.get('/websiteBanner/getWebsiteBannerList');
     if(res.data.response.responseCode == "200")
     {
       setbanners(res.data.data);
@@ -33,7 +33,7 @@ getbanners();
       text: "Consultation",
       peragraph:
         "Your trusted partner in the world of astrology and related services.",
-        link: "/consultation-list"
+        link: "/consultation"
     },
     {
       image: secIcon,

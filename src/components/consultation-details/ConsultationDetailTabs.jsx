@@ -4,15 +4,15 @@ import ReviewSection from '../../components/consultation-details/ReviewSection'
 import FAQSection from '../../components/consultation-details/FAQSection'
 import consultationDetail from "../../data/consultationDetails";
 
-const ConsultationDetailTabs = () => {
+const ConsultationDetailTabs = (prop) => {
   const { longDescription } = consultationDetail
-
+  const data = prop?.data;
   const tabs = [
-    { id: "home", label: "About", content: longDescription },
-    { id: "profile", label: "Benefits", content: longDescription },
-    { id: "contact", label: "Process", content: longDescription },
-    { id: "contact1", label: "Reviews", component: <ReviewSection /> },
-    { id: "contact2", label: "FAQ’s", component: <FAQSection /> }
+    { id: "home", label: "About", content: data?.consultationInfo },
+    { id: "profile", label: "Benefits", content: data?.benefits },
+    { id: "contact", label: "Process", content: data?.process },
+    { id: "contact1", label: "Reviews", component: <ReviewSection data={data}/> },
+    { id: "contact2", label: "FAQ’s", component: <FAQSection data={data?.faqs}/> }
   ]
 
   return (

@@ -2,16 +2,20 @@ import React from "react";
 import consultationDetail from "../../data/consultationDetails";
 import checkIcon from "../../assets/images/check_icon.png";
 import cdImg from "../../assets/images/cd_img.png";
-const ConsultationDetailBanner = () => {
+const ConsultationDetailBanner = (prop) => {
 
     const { title, astrologer, offer, features, shortDescription } = consultationDetail
+
+    const data = prop?.data;
+
+    console.log(data);
 
     return(
         <>
             <section>
                 <div className="banner_inner_section banner_space cd_section">
                     <div className="container">
-                    <div className="row m-0">
+                    {/* <div className="row m-0">
                         <div className="col-lg-8">
                         <div className="cd_content">
                             <div className="offer_box d-inline-flex align-items-center">
@@ -49,6 +53,11 @@ const ConsultationDetailBanner = () => {
                         <div className="cd_img">
                             <img src={cdImg} alt="Full Analysis" className="w-100" />
                         </div>
+                        </div>
+                    </div> */}
+                    <div className="row p-0 bg-transparent" style={{background: "none"}}>
+                        <div className="bannerimg">
+                            <img src={`https://api.kundaliexpert.com/kmAstroapp/api/v1/${data?.imageLink}`} className="w-100"/>
                         </div>
                     </div>
                     </div>

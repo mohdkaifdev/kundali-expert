@@ -1,8 +1,14 @@
 import React from 'react'
 import ReportCard from './ReportCard'
 import fullReports from '../../data/fullReports'
+import { useLocation } from "react-router-dom";
 
 const FullReportsSection = () => {
+  const { state } = useLocation();
+
+const kundaliData = state?.kundaliData;
+
+console.log(kundaliData);
   return (
     <section>
       <div className="consultation_list_section space_sec b_space_top">

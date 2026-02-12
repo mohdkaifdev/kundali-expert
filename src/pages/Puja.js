@@ -27,7 +27,7 @@ const Puja = () => {
   // ✅ API CALL
   const getlist = async () => {
     try {
-      const res = await api.get(`/v1/pooja/get/${id}`);
+      const res = await api.get(`/pooja/get/${id}`);
       console.log("API RESPONSE:", res.data);
 
       // adjust if API response structure differs

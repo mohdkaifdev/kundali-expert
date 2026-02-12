@@ -1,6 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../../services/api";
 
 export default function AstroDetails() {
+
+  const [transiplanet,settransiplanet]=useState([]);
+  const [nakshta,setnakshta]=useState([]);
+  const [festival,setfestival]=useState([]);
+
+ const gettransitlist = async () => {
+  try {
+    const res = await api.get(`/planetTransit/next-six-months`);
+
+    // ✅ store only first 8 items
+    const firstEight = res?.data?.slice(0, 8);
+
+    settransiplanet(firstEight);
+  } catch (error) {
+    console.error("Failed to fetch transit list", error);
+  }
+};
+
+const getnakshtralist = async()=>{
+  try {
+    const res = await api.get(`/planetTransit/next-six-months-Nakshtr`);
+
+    // ✅ store only first 8 items
+    const firstEight = res?.data?.slice(0, 8);
+
+    setnakshta(firstEight);
+  } catch (error) {
+    console.error("Failed to fetch transit list", error);
+  }
+}
+
+const getfestivals = async()=>{
+  try {
+    const res = await api.get(`/year-calendar/get-days?lang=en`);
+
+    // ✅ store only first 8 items
+    const firstEight = res?.data?.data?.slice(0, 8);
+console.log(firstEight);
+    setfestival(firstEight);
+  } catch (error) {
+    console.error("Failed to fetch transit list", error);
+  }
+}
+
+const formatDate = (dateStr) => {
+   if (!dateStr) return "";
+
+  const [day, month, year] = dateStr.split("/");
+
+  const date = new Date(year, month - 1, day);
+
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
+  useEffect(()=>{
+gettransitlist();
+getnakshtralist();
+getfestivals();
+  },[]);
+
+
   return (
     <section>
       <div className="astro_section space_sec">
@@ -67,54 +133,20 @@ export default function AstroDetails() {
               >
                 <div className="tabs_content">
                   <ul>
-                    <li>
-                      <p>Mars</p>
+                    {transiplanet?.map((item)=>{
+                     
+                     return(
+<li>
+                      <p>{item?.planetName}</p>
                       <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
+                        {formatDate(item?.startDate)}
+                         <span className="d-block">{item?.planetName} Enters {item?.rashiName}</span>
                       </p>
                     </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
+                     ) 
+                    })}
+                    
+                    
                   </ul>
                 </div>
               </div>
@@ -129,54 +161,22 @@ export default function AstroDetails() {
               >
                 <div className="tabs_content">
                   <ul>
-                    <li>
-                      <p>Mars</p>
+                    {
+                      nakshta?.map((item)=>{
+                        
+                        return(
+<li>
+                      <p>{item?.nakshtraName}</p>
                       <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
+                        {formatDate(item?.startDate)}
+                         <span className="d-block">{item?.planetName} Enters {item?.rashiName}</span>
                       </p>
                     </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
+                     ) 
+                      })
+                    }
+                    
+                    
                   </ul>
                 </div>
               </div>
@@ -191,54 +191,20 @@ export default function AstroDetails() {
               >
                 <div className="tabs_content">
                   <ul>
-                    <li>
-                      <p>Mars</p>
+                    {festival?.map((item)=>{
+                           
+                      return(
+                         <li>
+                      <p>{item?.festivalName}</p>
                       <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
+                        {formatDate(item?.festivalDate)} 
+                        {/* <span className="d-block">Mars Enters Virgo</span> */}
                       </p>
                     </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>Mars</p>
-                      <p>
-                        July 28, 2025 <span className="d-block">Mars Enters Virgo</span>
-                      </p>
-                    </li>
+                      )
+                    })}
+                   
+                  
                   </ul>
                 </div>
               </div>

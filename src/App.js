@@ -51,6 +51,8 @@ import Welcome from "./pages/auth/Welcome";
 import Astrologers from "./pages/Astrologers";
 
 import NotFound from "./pages/404/NotFound";
+import Horoscope from "./pages/Horoscope";
+import PanchangDetail from "./pages/PanchangDetail";
 
 /* ---------------- Protected Route (Redux) ---------------- */
 const ProtectedRoute = ({ children }) => {
@@ -86,10 +88,13 @@ const App = () => {
         <Route path="/magazines-and-books" element={<MagazinesandBook />} />
         <Route path="/learn-course-details/:id" element={<CourseDetaileNew />} />
         <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
-        <Route path="/consultation-list" element={<Consultation />} />
-         <Route path="/puja/:id" element={<Puja />} />
+        <Route path="/consultation" element={<Consultation />} />
+          <Route path="/detailed-panchang" element={<PanchangDetail />} />
+            <Route path="//kundali-result" element={<BuyFullReportsPage />} />
+        <Route path="/horoscope/:id" element={<Horoscope />} />
+        <Route path="/puja/:id" element={<Puja />} />
         <Route
-          path="/consultation-detail/:id"
+          path="/consultation/:id"
           element={<ConsultationDetails />}
         />
         <Route path="/buy-full-reports" element={<BuyFullReportsPage />} />

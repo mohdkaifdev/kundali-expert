@@ -1,20 +1,29 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://api.kundaliexpert.com/kmAstroapp/api", // Change base URL
+  baseURL: "https://api.kundaliexpert.com/kmAstroapp/api",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Add Authorization Token Automatically (Optional)
+// ✅ Request Interceptor for API versioning
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  // 👇 Auto add v1 if version not provided
+  if (config.url && !config.url.startsWith("/v")) {
+    config.url = `/v2${config.url.startsWith("/") ? "" : "/"}${config.url}`;
+  }
+
   return config;
 });
 
-// Handle Response Errors (Optional)
+// ❌ Optional error handler
 api.interceptors.response.use(
   (response) => response,
   (error) => {

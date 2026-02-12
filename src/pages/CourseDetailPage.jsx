@@ -22,7 +22,6 @@ const CourseDetailPage = () => {
 
   const { id } = useParams();
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -52,21 +51,22 @@ const CourseDetailPage = () => {
   }, [showVideo]);
 
   const getDetail = async () => {
-    if (!user?.language?.languageId) return;
+    console.log(user);
+    const languageid = user?.language?.languageId || 1;
 
     const res = await api.get(
-      `/v1/course/findCourseByCourseLevel?courselevelId=${id}&languageId=${user.language.languageId}`
+      `/v1/course/findCourseByCourseLevel?courselevelId=${id}&languageId=${languageid}`
     );
 
     const res2 = await api.get(
-      `/v1/courseSession/getCourseSessionListByCourseId?courseId=${id}&pageSize=400&pageNo=0`
+      `/courseSession/getCourseSessionListByCourseId?courseId=${id}&pageSize=400&pageNo=0`
     );
 
       const res3 = await api.get(
       `/v1/CourseSessionComments/getCourseSessionComments?courseSessionId=${id}&pageSize=200&pageNo=0`
     );
-
-    console.log(res3?.data?.data.data);
+console.log("below")
+    console.log(res);
   
     setDetails(res?.data?.data?.[0]);
     setvideolist(res2?.data?.data)

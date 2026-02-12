@@ -45,7 +45,7 @@ export default function ResendOTPButton() {
       },
     };
 
-      const res = await api.post("/v1/otp/resendOTP", payload);
+      const res = await api.post("/otp/resendOTP", payload);
 
       if (res.data.response.responseCode === "200") {
         toast.success("OTP resent successfully!");

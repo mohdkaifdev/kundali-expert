@@ -14,7 +14,7 @@ export default function Publication() {
 
 const getlist = async ()=>{
   const cat = categoryselected
-  const res = await api.get(`/v1/magazines/getMagazinesAndBooksByCategoryId?categoryId=${cat}`);
+  const res = await api.get(`/magazines/getMagazinesAndBooksByCategoryId?categoryId=${cat}`);
     
 setpublicationdata(res.data.data.slice(0, 4))
   

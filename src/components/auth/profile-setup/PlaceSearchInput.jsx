@@ -15,7 +15,7 @@ export default function PlaceSearchInput({
       }
 
       api
-        .get(`/v1/place/searchPlace?initialLetters=${searchTerm}`)
+        .get(`/place/searchPlace?initialLetters=${searchTerm}`)
         .then((res) => {
           setSearchResults(res.data);
         })

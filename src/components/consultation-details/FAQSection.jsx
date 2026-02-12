@@ -1,14 +1,15 @@
 import React from 'react'
 import consultationDetail from "../../data/consultationDetails";
 
-const FAQSection = () => {
-  const { faqs } = consultationDetail
-
+const FAQSection = (prop) => {
+  // const { faqs } = consultationDetail
+  const data= prop?.data;
+  console.log(data);
   return (
     <div className="cd_tab_content">
       <div className="faq_block">
         <div className="accordion" id="accordionExample">
-          {faqs.map((faq, index) => (
+          {data?.map((faq, index) => (
             <div className="accordion-item" key={faq.id}>
               <h2 className="accordion-header" id={`heading${faq.id}`}>
                 <button
@@ -19,7 +20,7 @@ const FAQSection = () => {
                   aria-expanded={index === 0}
                   aria-controls={`collapse${faq.id}`}
                 >
-                  {faq.question}
+                  {faq.questions}
                 </button>
               </h2>
               <div
@@ -29,7 +30,7 @@ const FAQSection = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body">
-                  <p>{faq.answer}</p>
+                  <p>{faq.answers}</p>
                 </div>
               </div>
             </div>
