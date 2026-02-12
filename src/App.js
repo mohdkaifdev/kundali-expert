@@ -60,7 +60,7 @@ const ProtectedRoute = ({ children }) => {
     (state) => state.auth
   );
 
-
+}
 const App = () => {
   const dispatch = useDispatch();
   const { authChecked } = useSelector((state) => state.auth);
