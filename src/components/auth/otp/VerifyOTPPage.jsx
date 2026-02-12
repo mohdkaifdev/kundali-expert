@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 import OTPHeader from "./OTPHeader";
 import OTPInputBoxes from "./OTPInputBoxes";
 import OTPSubmitButton from "./OTPSubmitButton";
 import OTPBottomLinks from "./OTPBottomLinks";
 import ResendOTPButton from "./ResendOTPButton";
+
 import api from "../../../services/api";
+import { loginSuccess } from "../../../features/auth/authSlice";
+import { setUser } from "../../../features/user/userSlice";
 
 const VerifyOTPPage = () => {
   const [otpCode, setOtpCode] = useState("");
   const [loading, setLoading] = useState(false);
-   const [resendLoading, setResendLoading] = useState(false);
-  const [timer, setTimer] = useState(1); // 5 minutes = 300 seconds
+  const [timer, setTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (timer > 0) {
@@ -28,11 +32,10 @@ const VerifyOTPPage = () => {
       setCanResend(true);
     }
   }, [timer]);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation pehle
     if (otpCode.length !== 4) {
       toast.warn("Please enter 4-digit OTP");
       return;
@@ -55,41 +58,42 @@ const VerifyOTPPage = () => {
       const res = await api.post("/v1/otp/verifyOTP", payload);
 
       if (res.data.response.responseCode === "200") {
-        // Success
-        localStorage.setItem("token", res.data.data.accessToken);
-        localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("refreshToken", res.data.data.refreshToken);
+        const { accessToken, refreshToken } = res.data.data;
+ localStorage.setItem("token", accessToken);
+  localStorage.setItem("refreshToken", refreshToken);
+        // ✅ Store auth in Redux
+        dispatch(
+          loginSuccess({
+            accessToken,
+            refreshToken,
+          })
+        );
 
-        // Get user data
-        const res2 = await api.get("/v1/user/my");
-        const user = res2.data.data;
-        localStorage.setItem("user", JSON.stringify(user));
-        
+        // ✅ Fetch user
+        const userRes = await api.get("/v1/user/my");
+        const user = userRes.data.data;
+
+        dispatch(setUser(user));
+
         toast.success("OTP Verified Successfully!");
-        console.log(user);
-        if (!user.name || user.name.trim() === "") 
-          {
-         window.location.href = "/username";
-        }else{
-          window.location.href = "/";
+
+        if (!user.name || user.name.trim() === "") {
+          navigate("/username");
+        } else {
+          navigate("/");
         }
-      } else if (res.data.response.responseCode === "401") {
-        toast.error(res.data.response.responseMessage || "Invalid OTP");
       } else {
-        toast.error(res.data.response.responseMessage || "Invalid OTP. Please try again.");
+        toast.error(
+          res.data.response.responseMessage || "Invalid OTP"
+        );
       }
     } catch (err) {
-      console.error("OTP Verification Error:", err);
-      if (err.response?.data?.response?.responseMessage) {
-        toast.error(err.response.data.response.responseMessage);
-      } else {
-        toast.error("Network error or blocked. Try again later.");
-      }
+      console.error(err);
+      toast.error("OTP verification failed. Try again.");
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <section>
       <div className="login_section b_space_top">
@@ -106,6 +110,7 @@ const VerifyOTPPage = () => {
             </form>
 
             <OTPBottomLinks />
+            <ToastContainer/>
           </div>
         </div>
       </div>

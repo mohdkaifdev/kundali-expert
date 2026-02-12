@@ -1,46 +1,56 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { loadUserFromStorage } from '../../features/auth/authSlice';
 
-import logo from "../../assets/images/logo.png";
 import mailIcon from "../../assets/images/mail_icon.png";
 import callIcon from "../../assets/images/call_icon.png";
 import cartIcon from "../../assets/images/cart_icon.png";
 import userIcon from "../../assets/images/user_icon.png";
+
+
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { loadAuthFromStorage } from "../../features/auth/authSlice";
+import { loadUserFromStorage } from "../../features/user/userSlice";
+
+import logo from "../../assets/images/logo.png";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  const isAuthenticated = useSelector(
+    (state) => state.auth.isAuthenticated
+  );
+
+  const user = useSelector(
+    (state) => state.user.user
+  );
 
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const toggleSidebar = (e) => {
     e.preventDefault();
     setIsSidebarOpen((prev) => !prev);
   };
 
+  // 🔥 Load Redux from localStorage ONCE
   useEffect(() => {
+    dispatch(loadAuthFromStorage());
     dispatch(loadUserFromStorage());
   }, [dispatch]);
 
   useEffect(() => {
-
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (scrollTop > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      setIsSticky(window.scrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  console.log("Header user:", user);
   return (
     <>
       {/* ================= Desktop View Header ================= */}

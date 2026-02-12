@@ -2,21 +2,23 @@ import React from 'react'
 import userReviewIimage from "../../assets/images/user-review-image.png"
 
 const ReviewCard = React.memo(({ review }) => {
+
+  
   return (
     <div className="review_box d-flex align-items-center justify-content-between flex-wrap">
       <div className="review_box_inner d-flex align-items-center">
         <span>
-          <img src={userReviewIimage} alt={review.name} className="img-fluid w-100" />
+          <img src={`https://api.kundaliexpert.com/kmAstroapp/api/v1/${review?.profileUrl}`} alt={review.userName} className="img-fluid w-100" />
         </span>
         <div className="review_box_name ms-md-4 ms-2">
-          <h6 className="mrn_clr">{review.name}</h6>
+          <h6 className="mrn_clr">{review.userName}</h6>
           <p className="gray_clr">
             <span>
-              {[...Array(5)].map((_, i) => (
+              {[...Array(review.ratings)].map((_, i) => (
                 <i key={i} className="fa-solid fa-star"></i>
               ))}
             </span>{' '}
-            {review.date}
+            {review?.reviewDate}
           </p>
         </div>
       </div>
@@ -36,7 +38,7 @@ const ReviewCard = React.memo(({ review }) => {
         </div>
       </div>
       <div className="review_cont w-100 mt-4">
-        <p className="gray_clr">{review.text}</p>
+        <p className="gray_clr">{review?.comment}</p>
       </div>
     </div>
   )

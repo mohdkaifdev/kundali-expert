@@ -1,43 +1,55 @@
 // src/features/auth/authSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,
+  accessToken: null,
+  refreshToken: null,
   isAuthenticated: false,
+  authChecked: false,
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     loginSuccess: (state, action) => {
-      state.user = action.payload.user;
+      const { accessToken, refreshToken } = action.payload;
+
+      state.accessToken = accessToken;
+      state.refreshToken = refreshToken;
       state.isAuthenticated = true;
-      localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      state.authChecked = true;
+
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
     },
+
     logout: (state) => {
-      state.user = null;
+      state.accessToken = null;
+      state.refreshToken = null;
       state.isAuthenticated = false;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
     },
-    loadUserFromStorage: (state) => {
-      const token = localStorage.getItem('token');
-      const storedUser = localStorage.getItem('user');
-      if (token && storedUser) {
-        try {
-          state.user = JSON.parse(storedUser);
-          state.isAuthenticated = true;
-        } catch (error) {
-          console.error('Invalid user data in storage');
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-        }
+
+    loadAuthFromStorage: (state) => {
+      const accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("refreshToken");
+
+      if (accessToken && refreshToken) {
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
+        state.isAuthenticated = true;
       }
+
+      state.authChecked = true;
     },
   },
 });
 
-export const { loginSuccess, logout, loadUserFromStorage } = authSlice.actions;
+export const { loginSuccess, logout, loadAuthFromStorage } =
+  authSlice.actions;
+
 export default authSlice.reducer;

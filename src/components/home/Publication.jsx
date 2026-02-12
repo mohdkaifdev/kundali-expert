@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import publicationImg1 from "../../assets/images/publication_img1.png";
 import publicationImg2 from "../../assets/images/publication_img2.png";
 import publicationImg3 from "../../assets/images/publication_img3.png";
 import publicationImg4 from "../../assets/images/publication_img4.png";
+import api from "../../services/api";
+import { Link } from "react-router-dom";
 
 export default function Publication() {
- 
+
+  const [categoryselected,setcat]=useState(1);
+  const [pulicationdata,setpublicationdata]=useState([]);
+
+const getlist = async ()=>{
+  const cat = categoryselected
+  const res = await api.get(`/magazines/getMagazinesAndBooksByCategoryId?categoryId=${cat}`);
+    
+setpublicationdata(res.data.data.slice(0, 4))
+  
+  console.log(res.data.data);
+}
+
+useEffect(()=>{
+  getlist();
+},[categoryselected])
 
   return (
     <section>
@@ -29,6 +46,7 @@ export default function Publication() {
                   role="tab"
                   aria-controls="home-tab-pane"
                   aria-selected="true"
+                  onClick={()=>setcat(1)}
                 >
                   Astrology Magazines
                 </button>
@@ -43,6 +61,7 @@ export default function Publication() {
                   role="tab"
                   aria-controls="profile-tab-pane"
                   aria-selected="false"
+                  onClick={()=>setcat(2)}
                 >
                   Astrology Book
                 </button>
@@ -60,15 +79,17 @@ export default function Publication() {
               >
                 <div className="tabs_content">
                   <div className="row">
-                    <div className="col-lg-3 col-md-6">
+                    {pulicationdata?.map((item,index)=>{
+                      return(
+                        <div className="col-lg-3 col-md-6" key={index}>
                       <div className="astrologers_box p-0">
-                        <a href="#">
+                        <Link to="#">
                           <img
-                            src={publicationImg1}
+                            src={`https://api.kundaliexpert.com/kmAstroapp/api/v1/${item?.imageLink[0]}`}
                             alt="img"
                             className="w-100 h-auto"
                           />
-                        </a>
+                        </Link>
                         <div className="astrologers_caption">
                           <div className="star d-flex align-items-center mb-2">
                             <span>
@@ -82,95 +103,14 @@ export default function Publication() {
                               <span className="badge bg-success">4.9</span>
                             </h6>
                           </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
+                          <h6>{item?.magazineTitle}</h6>
+                          <h5 className="del_sec mt-1">₹{item?.magazinePrice}</h5>
                         </div>
                       </div>
                     </div>
-
-                    <div className="col-lg-3 col-md-6">
-                      <div className="astrologers_box p-0">
-                        <a href="#">
-                          <img
-                            src={publicationImg2}
-                            alt="img"
-                            className="w-100 h-auto"
-                          />
-                        </a>
-                        <div className="astrologers_caption">
-                          <div className="star d-flex align-items-center mb-2">
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </span>
-                            <h6 className="ms-1">
-                              <span className="badge bg-success">4.9</span>
-                            </h6>
-                          </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-3 col-md-6">
-                      <div className="astrologers_box p-0">
-                        <a href="#">
-                          <img
-                            src={publicationImg3}
-                            alt="img"
-                            className="w-100 h-auto"
-                          />
-                        </a>
-                        <div className="astrologers_caption">
-                          <div className="star d-flex align-items-center mb-2">
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </span>
-                            <h6 className="ms-1">
-                              <span className="badge bg-success">4.9</span>
-                            </h6>
-                          </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-3 col-md-6">
-                      <div className="astrologers_box p-0">
-                        <a href="#">
-                          <img
-                            src={publicationImg4}
-                            alt="img"
-                            className="w-100 h-auto"
-                          />
-                        </a>
-                        <div className="astrologers_caption">
-                          <div className="star d-flex align-items-center mb-2">
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </span>
-                            <h6 className="ms-1">
-                              <span className="badge bg-success">4.9</span>
-                            </h6>
-                          </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
-                        </div>
-                      </div>
-                    </div>
+                      )
+                    })}
+                    
                   </div>
                 </div>
               </div>
@@ -185,15 +125,17 @@ export default function Publication() {
               >
                 <div className="tabs_content">
                   <div className="row">
-                    <div className="col-lg-3 col-md-6">
+                     {pulicationdata?.map((item,index)=>{
+                      return(
+                        <div className="col-lg-3 col-md-6" key={index}>
                       <div className="astrologers_box p-0">
-                        <a href="#">
+                        <Link to="#">
                           <img
-                            src={publicationImg1}
+                            src={`https://api.kundaliexpert.com/kmAstroapp/api/v1/${item?.imageLink[0]}`}
                             alt="img"
                             className="w-100 h-auto"
                           />
-                        </a>
+                        </Link>
                         <div className="astrologers_caption">
                           <div className="star d-flex align-items-center mb-2">
                             <span>
@@ -207,100 +149,19 @@ export default function Publication() {
                               <span className="badge bg-success">4.9</span>
                             </h6>
                           </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
+                          <h6>{item?.magazineTitle}</h6>
+                          <h5 className="del_sec mt-1">₹{item?.magazinePrice}</h5>
                         </div>
                       </div>
                     </div>
-
-                    <div className="col-lg-3 col-md-6">
-                      <div className="astrologers_box p-0">
-                        <a href="#">
-                          <img
-                            src={publicationImg2}
-                            alt="img"
-                            className="w-100 h-auto"
-                          />
-                        </a>
-                        <div className="astrologers_caption">
-                          <div className="star d-flex align-items-center mb-2">
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </span>
-                            <h6 className="ms-1">
-                              <span className="badge bg-success">4.9</span>
-                            </h6>
-                          </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-3 col-md-6">
-                      <div className="astrologers_box p-0">
-                        <a href="#">
-                          <img
-                            src={publicationImg3}
-                            alt="img"
-                            className="w-100 h-auto"
-                          />
-                        </a>
-                        <div className="astrologers_caption">
-                          <div className="star d-flex align-items-center mb-2">
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </span>
-                            <h6 className="ms-1">
-                              <span className="badge bg-success">4.9</span>
-                            </h6>
-                          </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-3 col-md-6">
-                      <div className="astrologers_box p-0">
-                        <a href="#">
-                          <img
-                            src={publicationImg4}
-                            alt="img"
-                            className="w-100 h-auto"
-                          />
-                        </a>
-                        <div className="astrologers_caption">
-                          <div className="star d-flex align-items-center mb-2">
-                            <span>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </span>
-                            <h6 className="ms-1">
-                              <span className="badge bg-success">4.9</span>
-                            </h6>
-                          </div>
-                          <h6>Jyotich Vigyan July 2025 By Km Sinha</h6>
-                          <h5 className="del_sec mt-1">₹500</h5>
-                        </div>
-                      </div>
-                    </div>
+                      )
+                    })}
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <p class="more_astrologers"><Link to="/magazines-and-books" class="site_btn" >View More</Link></p>
         </div>
       </div>
     </section>

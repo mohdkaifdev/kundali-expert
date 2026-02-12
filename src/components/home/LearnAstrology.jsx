@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import secIcon from "../../assets/images/sec_icon.png";
+import { Link } from "react-router-dom";
+import api from "../../services/api";
 
 export default function LearnAstrology() {
- // const topics = [
- //   "Vedic vs Western Astrology",
- //   "Planetary Influences",
-  //  "Nakshatras Explained",
-   // "Muhurta & Auspicious Timing",
-  //]; 
+ 
+  const [astrologyCourses,setalastrologyCourses]=useState([])
+ 
+
+const getlist = async()=>{
+const res = await api.get("/v1/course/getCourses");
+setalastrologyCourses(res.data.data);
+console.log(res.data.data);
+}
+useEffect(()=>{
+getlist();
+},[]);
 
   return (
     <section>
@@ -21,141 +29,31 @@ export default function LearnAstrology() {
           </div>
 
           <div className="banner_block pt-0 d-flex flex-wrap align-items-center">
-            <div className="banner_col">
-              <div className="banner_box">
+            {
+              astrologyCourses?.map((item,index)=>{
+                return(
+                  <div className="banner_col" key={index}>
+                    <Link to={`/learn-course-details/${item?.id}`}>
+                    <div className="banner_box">
                 <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
+                  <img src={`https://api.kundaliexpert.com/kmAstroapp/api/v1/${item?.iconImage[0]}`} alt="icon" className="img-fluid sec_icon" />
                 </span>
                 <div className="banner_box_inner">
                   <h5>
-                    Consultation{" "}
+                    {item?.courseSubHeading}{" "}
                     <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
+                      {item?.courseDescription}
                     </span>
                   </h5>
                 </div>
               </div>
+                    </Link>
+              
             </div>
-
-            <div className="banner_col">
-              <div className="banner_box pr-2">
-                <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
-                </span>
-                <div className="banner_box_inner">
-                  <h5>
-                    Personalized Reports{" "}
-                    <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="banner_col">
-              <div className="banner_box">
-                <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
-                </span>
-                <div className="banner_box_inner">
-                  <h5>
-                    Buy Full Reports{" "}
-                    <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="banner_col">
-              <div className="banner_box">
-                <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
-                </span>
-                <div className="banner_box_inner">
-                  <h5>
-                    Consultation{" "}
-                    <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="banner_col">
-              <div className="banner_box">
-                <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
-                </span>
-                <div className="banner_box_inner">
-                  <h5>
-                    Consultation{" "}
-                    <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="banner_col">
-              <div className="banner_box pr-2">
-                <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
-                </span>
-                <div className="banner_box_inner">
-                  <h5>
-                    Personalized Reports{" "}
-                    <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="banner_col">
-              <div className="banner_box">
-                <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
-                </span>
-                <div className="banner_box_inner">
-                  <h5>
-                    Buy Full Reports{" "}
-                    <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="banner_col">
-              <div className="banner_box">
-                <span>
-                  <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
-                </span>
-                <div className="banner_box_inner">
-                  <h5>
-                    Consultation{" "}
-                    <span className="d-block pe-md-4">
-                      Your trusted partner in the world of astrology and related
-                      services.
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
+                )
+              })
+            }
+            
           </div>
 
         </div>

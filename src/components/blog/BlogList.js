@@ -9,8 +9,7 @@ const BlogList = () => {
   const [activeFilter, setActiveFilter] = useState(1);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // 🔹 PAGINATION STATES
+  console.log("check git"); // 🔹 PAGINATION STATES
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
   const [totalPages, setTotalPages] = useState(0);
@@ -116,15 +115,26 @@ const BlogList = () => {
         <div className="c_details_section c_list_section space_sec">
           <div className="container">
             <div className="flex_row d-flex flex-wrap">
-              {/* LOADING */}
-              {loading && (
-                <div className="loading-container">
-                  <div className="spinner"></div>
-                  <p className="mt-3 text-gray-600">
-                    Loading blogs, please wait...
-                  </p>
+              {/* {filteredBlogs.map((blog) => (
+                <div
+                  key={blog.id}
+                  className={`content grid ${blog.category.join(" ")}`}
+                >
+                  <div className={`single-content ${blog.category.join(" ")} grid-item`}>
+                    <div className="bi_box mb-4">
+                      <span>
+                        <img src={blog.img} alt="img" className="w-100" />
+                      </span>
+                      <div className="bi_caption">
+                        <p>{blog.date}</p>
+                        <h4>
+                          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              )}
+              ))} */}
 
               {/* EMPTY */}
               {!loading && blogs.length === 0 && (
