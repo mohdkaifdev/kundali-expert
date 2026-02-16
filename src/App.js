@@ -56,11 +56,8 @@ import PanchangDetail from "./pages/PanchangDetail";
 
 /* ---------------- Protected Route (Redux) ---------------- */
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, authChecked } = useSelector(
-    (state) => state.auth
-  );
-
-}
+  const { isAuthenticated, authChecked } = useSelector((state) => state.auth);
+};
 const App = () => {
   const dispatch = useDispatch();
   const { authChecked } = useSelector((state) => state.auth);
@@ -82,26 +79,23 @@ const App = () => {
         <Route path="/astrology-course" element={<AstrologyCourse />} />
         <Route path="/course-detail" element={<CourseDetail />} />
         <Route path="/magazines-and-books" element={<MagazinesandBook />} />
-        <Route path="/learn-course-details/:id" element={<CourseDetaileNew />} />
+        <Route
+          path="/learn-course-details/:id"
+          element={<CourseDetaileNew />}
+        />
         <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
         <Route path="/consultation" element={<Consultation />} />
-          <Route path="/detailed-panchang" element={<PanchangDetail />} />
-            <Route path="//kundali-result" element={<BuyFullReportsPage />} />
+        <Route path="/detailed-panchang" element={<PanchangDetail />} />
+        <Route path="//kundali-result" element={<BuyFullReportsPage />} />
         <Route path="/horoscope/:id" element={<Horoscope />} />
         <Route path="/puja/:id" element={<Puja />} />
-        <Route
-          path="/consultation/:id"
-          element={<ConsultationDetails />}
-        />
+        <Route path="/consultation/:id" element={<ConsultationDetails />} />
         <Route path="/buy-full-reports" element={<BuyFullReportsPage />} />
         <Route
           path="/full-reports-details/:id"
           element={<FullReportDetailspage />}
         />
-        <Route
-          path="/personalized-reports"
-          element={<PersonalizedReports />}
-        />
+        <Route path="/personalized-reports" element={<PersonalizedReports />} />
 
         {/* -------- Auth Routes -------- */}
         <Route path="/login" element={<LoginPage />} />
