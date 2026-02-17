@@ -1,13 +1,32 @@
 import react from "react";
 import ariesImg from "../../assets/images/aries_img.webp";
 import LogoutButton from "../../components/auth/LogoutButton";
-import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loadUserFromStorage } from "../../features/user/userSlice";
+import { loadAuthFromStorage } from "../../features/auth/authSlice";
+import { useEffect } from "react";
 
 const Sidebar = ({isOpen, closeSidebar}) => {
-    const { user, isAuthenticated } = useSelector((state) => state.auth || {});
-    const displayName = user?.name || 'Guest';
+     const dispatch = useDispatch();
+   const {authChecked } = useSelector((state) => state.auth || {});
+ 
+
+     // Add more state for forms
+        const user = useSelector(
+        (state) => state.user.user
+      );
+      
+        console.log(user,authChecked)
+    
+      useEffect(()=>{
+        dispatch(loadAuthFromStorage());
+         dispatch(loadUserFromStorage());
+      },[dispatch])
+         const displayName = user?.name || 'Guest';
     const displayEmail = user?.email || 'Guest Email';
+    
+ 
     return(
         <>
         <div className={`sidebar_block ${isOpen ? "open":""}`}>
@@ -18,7 +37,7 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                     <span></span>
                 </div>
                 <div className="sidebar_inner">
-                    {isAuthenticated && (
+                    {authChecked && (
                         <>
                             <span>
 
@@ -27,15 +46,15 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                             <div className="info_sec">
                                 <h4 className="mb-2">{displayName}</h4>
                                 <p>{displayEmail}</p>
-                                {isAuthenticated && (
+                                {/* {authChecked && (
                                 <h6>Edit Profile <i className="fa-solid fa-angle-right ps-1"></i></h6>
-                                )}
+                                )} */}
                             </div>
                         </>
                     )}
                     <nav>
                         <ul className="menu_navigation mt-4">
-                            {isAuthenticated && (
+                            {authChecked && (
                             <>
                             <li>
                                 <summary><Link to="/profile">Profile</Link></summary>
@@ -44,37 +63,35 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                                 <details className="dropdown">
                                     <summary>User Kundali  <i className="fa-solid fa-angle-right ps-1"></i></summary>
                                     <ul>
-                                        <li><a href="javascript:void(0)"><span>Date: 06/11/2025</span><span>Time: 16:56:00</span><span>Place: Ram Nagar, Sector 8, Gurugram, Haryana </span><span>77°01'24"E | 28°27'27"N</span></a></li>
+                                        <li><Link to="javascript:void(0)"><span>Date and TIme: {user?.birthDateAndTime}</span><span>Place: {user?.birthPlace?.name}</span><span>{user?.birthPlace?.latitude} | {user?.birthPlace?.longitudes}</span></Link></li>
                                     </ul>
                                 </details>
                             </li>
                             <li>
-                                <summary><a href="#">My Orders</a></summary>
+                                <summary><Link to="#">My Orders</Link></summary>
                             </li>
                             <li>
-                                <summary><a href="savedprofile.php">Saved Profiles</a></summary>
+                                <summary><Link to="/saved-profile">Saved Profiles</Link></summary>
                             </li>
                             <li>
-                                <summary><a href="savedkundalis.php">Edit Kundali</a></summary>
+                                <summary><Link to="savedkundalis.php">Edit Kundali</Link></summary>
                             </li>
                                 </>
                                 )}
-                            
-                            
                             <li>
                                 <details className="dropdown">
                                     <summary>Kundali <i className="fa-solid fa-angle-right ps-1"></i></summary>
                                     <ul>
-                                        <li><a href="kundali.php">Kundali</a></li>
-                                        <li><a href="dasha_chakras.php">Dasha & Chakras</a></li>
-                                        <li><a href="#">Kundali</a></li>
-                                        <li><a href="#">Basic Details</a></li>
-                                        <li><a href="#">Avakhada Chakras</a></li>
-                                        <li><a href="#">Ghatchakra</a></li>
-                                        <li><a href="#">Astro Details</a></li>
-                                        <li><a href="#">Janam Panchang Details</a></li>
-                                        <li><a href="#">Shadbal</a></li>
-                                        <li><a href="#">House Strength</a></li>
+                                        <li><Link to="kundali.php">Kundali</Link></li>
+                                        <li><Link to="dasha_chakras.php">Dasha & Chakras</Link></li>
+                                        <li><Link to="#">Kundali</Link></li>
+                                        <li><Link to="#">Basic Details</Link></li>
+                                        <li><Link to="#">Avakhada Chakras</Link></li>
+                                        <li><Link to="#">Ghatchakra</Link></li>
+                                        <li><Link to="#">Astro Details</Link></li>
+                                        <li><Link to="#">Janam Panchang Details</Link></li>
+                                        <li><Link to="#">Shadbal</Link></li>
+                                        <li><Link to="#">House Strength</Link></li>
                                     </ul>
                                 </details>
                             </li>
@@ -82,31 +99,31 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                                 <details className="dropdown">
                                     <summary>Match Making <i className="fa-solid fa-angle-right ps-1"></i></summary>
                                     <ul>
-                                        <li><a href="#">Summary</a></li>
-                                        <li><a href="#">Basic Details</a></li>
-                                        <li><a href="#">Dashakoot Report</a></li>
-                                        <li><a href="#">Rajju Dosha</a></li>
-                                        <li><a href="#">Bhakoot Dosha</a></li>
-                                        <li><a href="#">Nadi Dosha</a></li>
-                                        <li><a href="#">Vedh Dosha</a></li>
+                                        <li><Link to="#">Summary</Link></li>
+                                        <li><Link to="#">Basic Details</Link></li>
+                                        <li><Link to="#">Dashakoot Report</Link></li>
+                                        <li><Link to="#">Rajju Dosha</Link></li>
+                                        <li><Link to="#">Bhakoot Dosha</Link></li>
+                                        <li><Link to="#">Nadi Dosha</Link></li>
+                                        <li><Link to="#">Vedh Dosha</Link></li>
                                     </ul>
                                 </details>
                             </li>
                             <li>
-                                <summary><a href="#">Numerology</a></summary>
+                                <summary><Link to="#">Numerology</Link></summary>
                             </li>
                             <li>
-                                <summary><a href="#">Yog-DurYog</a></summary>
+                                <summary><Link to="#">Yog-DurYog</Link></summary>
                             </li>
                             <li>
-                                <summary><a href="#">Astro Clock</a></summary>
+                                <summary><Link to="#">Astro Clock</Link></summary>
                             </li>
                             <li>
                                 <details className="dropdown">
                                     <summary>Reports <i className="fa-solid fa-angle-right ps-1"></i></summary>
                                     <ul>
-                                        <li><a href="#">Full Reports</a></li>
-                                        <li><a href="#">Personalized Reports</a></li>
+                                        <li><Link to="/reports">Full Reports</Link></li>
+                                        <li><Link to="/personalized-reports">Personalized Reports</Link></li>
                                     </ul>
                                 </details>
                             </li>
@@ -114,16 +131,16 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                                 <details className="dropdown">
                                     <summary>Consultation <i className="fa-solid fa-angle-right ps-1"></i></summary>
                                     <ul>
-                                        <li><a href="#">SuBasic Analysis</a></li>
-                                        <li><a href="#">Full Analysis</a></li>
-                                        <li><a href="#">Advance Analysismmary</a></li>
+                                        <li><Link to="/consultation/1">SuBasic Analysis</Link></li>
+                                        <li><Link to="/consultation/2">Full Analysis</Link></li>
+                                        <li><Link to="/consultation/3">Advance Analysismmary</Link></li>
                                     </ul>
                                 </details>
                             </li>
                             <li>
-                                <summary><a href="#">Online Puja</a></summary>
+                                <summary><Link to="/online-puja">Online Puja</Link></summary>
                             </li>
-                           {isAuthenticated && (
+                           {authChecked && (
                             <LogoutButton closeSidebar={closeSidebar} />
                             )}
                         </ul>

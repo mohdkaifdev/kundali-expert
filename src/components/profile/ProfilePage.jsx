@@ -4,10 +4,12 @@ import UserPageChatModal from "../UserPageChatModal";
 import { useEffect, useState} from "react";
 import api from "../../services/api";
 import {ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../../features/user/userSlice";
+import { setSubUser } from "../../features/subuserslice/subuserSlice";
 const ProfilePage = () => {
+  const {id} = useParams();
   const [mydetail, setmydetails] = useState({});
   const [search, setSearch] = useState("");
   const [places, setPlaces] = useState([]);
@@ -20,10 +22,30 @@ const ProfilePage = () => {
     time: "",
     email: "",
     place: "",
+    birthPlaceId: "",
+    birthPlaceName: "",
+    birthPlaceLatitude: "",
+    birthPlaceLongitude: "",
+    timezoneId: ""
   });
 
+  const [curretuser,setcurrentuser]=useState({});
   const dispatch = useDispatch();
 const reduxUser = useSelector((state) => state.user.user);
+
+const reduxSubUser = useSelector((state) => state.subuser);
+
+const validuser = id=='create-user';
+// useEffect(()=>{
+
+//   const detailofsubuser = reduxSubUser.subuser.find((user)=>{
+//    return user.subUserId == id
+//   })
+//   setcurrentuser(detailofsubuser);
+//   console.log(detailofsubuser);
+// },[reduxSubUser])
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,77 +114,130 @@ const reduxUser = useSelector((state) => state.user.user);
 //   };
 
 useEffect(() => {
-  if (!reduxUser) return;
 
-  let dob = "";
-  let time = "";
+  if (!reduxSubUser) return;
 
-  if (reduxUser.birthDateAndTime) {
-    const dateObj = new Date(reduxUser.birthDateAndTime);
-    dob = dateObj.toISOString().split("T")[0];
-    time = dateObj.toTimeString().slice(0, 5);
+  const detailofsubuser = reduxSubUser.subuser.find((user)=>{
+   return user.subUserId == id
+  })
+  let dob =  formatDate(detailofsubuser?.birthDateAndTime);
+  let time = formatDate(detailofsubuser?.birthTime);
+
+  console.log(detailofsubuser);
+
+  if (validuser) return;
+
+  if(detailofsubuser == undefined){
+    window.location.href = '/404'
   }
-
+  
   setFormData({
-    name: reduxUser.name || "",
-    gender: reduxUser.gender || "",
+    name: detailofsubuser.name || "",
+    gender: detailofsubuser.gender || "",
     dob,
     time,
-    email: reduxUser.email || "",
-    birthPlaceId: reduxUser?.birthPlace?.id,
-    birthPlaceName: reduxUser?.birthPlace?.name,
-    birthPlaceLatitude: reduxUser?.birthPlace?.latitude,
-    birthPlaceLongitude: reduxUser?.birthPlace?.longitudes,
-    timezoneId: reduxUser?.birthPlace?.timezone
+    email: detailofsubuser.email || "",
+    birthPlaceId: detailofsubuser?.birthPlace?.id,
+    birthPlaceName: detailofsubuser?.birthPlace?.name,
+    birthPlaceLatitude: detailofsubuser?.birthPlace?.latitude,
+    birthPlaceLongitude: detailofsubuser?.birthPlace?.longitudes,
+    timezoneId: detailofsubuser?.birthPlace?.timezone
   });
+  setSearch(detailofsubuser?.birthPlace?.name || "");
 
-  setSearch(reduxUser?.birthPlace?.name || "");
-}, [reduxUser]);
+ 
+}, [reduxSubUser]);
 
-  const handleSave = async () => {
-  const birthDateTime = `${formData.dob}T${formData.time}:00`;
+const setsubuser = async()=>{
+ const subUserRes = await api.get("/v1/user/getMySubUsers?subUsername=");
+         
+         console.log(subUserRes);
+         dispatch(setSubUser(subUserRes?.data?.data));
+}
+
+
+ const formatDate = (date) => {
+  if (!date) return "";
+
+  // If already YYYY-MM-DD → return directly
+  if (date.includes("-")) return date;
+  // If DD/MM/YYYY → convert
+  if (date.includes("/")) {
+    const [day, month, year] = date.split("/");
+    return `${year}-${month}-${day}`;
+  }
+
+  return date;
+};
+const handleSave = async () => {
+
+  const formatTime = (time) => {
+    if (!time) return "";
+
+    // If already HH:MM:SS → return as is
+    if (time.split(":").length === 3) return time;
+
+    // If HH:MM → add seconds
+    return `${time}:00`;
+  };
+
+  const formattedDate = formatDate(formData.dob);
+  const formattedTime = formatTime(formData.time);
+
+  const birthDateTime = `${formattedDate}T${formattedTime}`;
+  const finalOutput = `${formattedDate} ${formattedTime} Asia/Kolkata`;
 
   const payload = {
     formData: {
       name: formData.name,
-      gender: formData.gender,
+      gender: formData.gender.toUpperCase(),
       birthDateAndTime: birthDateTime,
       birthPlaceId: formData.birthPlaceId,
       birthPlaceName: formData.birthPlaceName,
       birthPlaceLatitude: formData.birthPlaceLatitude,
       birthPlaceLongitude: formData.birthPlaceLongitude,
       timezoneId: formData.timezoneId,
-      email: formData.email,
-      imageFileId: 0
+      imageFileId: "",
+      languageId: formData.languageId || 1, // safer default
+      birthDateAndTimeGmt: finalOutput
     }
   };
 
-  const res = await api.put("/user/updateMainUser", payload);
+  console.log(payload);
 
-  if (res?.data?.response?.responseCode === "200") {
+  const url = validuser ? `/v1/user/saveSubUsers`:`/v1/user/updateSubUserProfile?subUserId=${id}`
+  try {
+    const res = await api.post(
+      url,
+      payload
+    );
 
-    dispatch(updateUser({
-      ...reduxUser,
-      ...payload.formData,
-      birthPlace: {
-        id: formData.birthPlaceId,
-        name: formData.birthPlaceName,
-        latitude: formData.birthPlaceLatitude,
-        longitudes: formData.birthPlaceLongitude,
-        timezone: formData.timezoneId
-      }
-    }));
+    if (res?.data?.response?.responseCode === "200") {
 
-    toast.success("Details updated successfully", {
-      autoClose: 1500,
-      onClose: () => navigate("/")
-    });
-  } else {
-    toast.error("Something went wrong");
+
+      setsubuser();
+
+      toast.success("Details updated successfully", {
+        autoClose: 1500,
+        onClose: () => navigate("/")
+      });
+
+    } else {
+      toast.error("Something went wrong");
+    }
+
+  } catch (error) {
+    toast.error("API Error");
+    console.error(error);
   }
 };
 
+
+
     
+// const getsubuserdetailbyid = ()=>{
+
+// }
   
  
 
@@ -173,7 +248,7 @@ useEffect(() => {
     }
     try {
       const res = await api.get(
-        `/place/searchPlace?initialLetters=${keyword}`,
+        `/v1/place/searchPlace?initialLetters=${keyword}`,
       );
 
       console.log(res);
@@ -224,7 +299,7 @@ console.log(place);
                       <img src={chatLogo} alt="logo" class="img-fluid" />
                       <div class="title_modal ps-2">
                         <span>{formData?.name}</span>
-                        <p>{formData?.email}</p>
+                        {/* <p>{formData?.email}</p> */}
                       </div>
                     </h4>
                   </div>
@@ -248,22 +323,22 @@ console.log(place);
                           <div className="birth_btns d-flex gap-2">
                             <button
                               type="button"
-                              className={`site_btn ${formData.gender === "MALE" ? "activegender" : ""}`}
-                              onClick={() => handleGender("MALE")}
+                              className={`site_btn ${formData.gender === "Male" ? "activegender" : ""}`}
+                              onClick={() => handleGender("Male")}
                             >
                               ♂ Male
                             </button>
                             <button
                               type="button"
-                              className={`site_btn ${formData.gender === "FEMALE" ? "activegender" : ""}`}
-                              onClick={() => handleGender("FEMALE")}
+                              className={`site_btn ${formData.gender === "Female" ? "activegender" : ""}`}
+                              onClick={() => handleGender("Female")}
                             >
                               ♀ Female
                             </button>
                             <button
                               type="button"
-                              className={`site_btn ${formData.gender === "OTHER" ? "activegender" : ""}`}
-                              onClick={() => handleGender("OTHER")}
+                              className={`site_btn ${formData.gender === "Other" ? "activegender" : ""}`}
+                              onClick={() => handleGender("Other")}
                             >
                               ⚧ Other
                             </button>
@@ -294,7 +369,7 @@ console.log(place);
                           />
                         </div>
 
-                        <div className="form_group w-100">
+                        {/* <div className="form_group w-100">
                           <label>Email *</label>
                           <input
                             type="email"
@@ -304,7 +379,7 @@ console.log(place);
                             className="form-control w-100"
                             required
                           />
-                        </div>
+                        </div> */}
 
                         <div className="form_group w-100">
                           <div className="form_group w-100 position-relative">

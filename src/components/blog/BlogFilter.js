@@ -6,7 +6,7 @@ const BlogFilter = ({ activeFilter, onFilterChange }) => {
 
   const fetchBlogCategories = async () => {
     try {
-      const response = await api.get("v2/blog-category/get-count");
+      const response = await api.get("/v2/blog-category/get-count");
       //console.log("FULL RESPONSE 👉", response.data);
       const formattedFilters = response.data.data.map((item) => ({
         name: `${item.categoryName} (${item.blogCount})`,

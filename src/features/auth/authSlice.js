@@ -28,10 +28,13 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
       state.isAuthenticated = false;
+      
 
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
+      localStorage.removeItem("subuser");
+       localStorage.removeItem("token");
     },
 
     loadAuthFromStorage: (state) => {

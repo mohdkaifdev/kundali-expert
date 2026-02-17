@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import secIcon from "../../assets/images/sec_icon.png";
-const ReportCard = React.memo(({ key, title, link }) => {
+const ReportCard = React.memo(({ key, title, link, icon}) => {
   return (
     <div className="banner_col">
-      <Link to={`/full-reports-details/${key}`}>
+      <Link to={`/full-reports-details/${link}`}>
         <div className="banner_box position-relative">
           <span>
-            <img src={secIcon} alt="icon" className="img-fluid sec_icon" />
+            <img src={icon} alt="icon" className="img-fluid sec_icon w-100" />
           </span>
           <div className="banner_box_inner">
             <h5>{title}</h5>
