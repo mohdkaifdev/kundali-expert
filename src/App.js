@@ -53,14 +53,30 @@ import Astrologers from "./pages/Astrologers";
 import NotFound from "./pages/404/NotFound";
 import Horoscope from "./pages/Horoscope";
 import PanchangDetail from "./pages/PanchangDetail";
+import TransitTimeline from "./pages/TransitTimeline";
+import ScrollToHash from "./components/ScrollToHash";
+import Onlinepuja from "./pages/Onlinepuja";
+import SavedProfile from "./pages/SavedProfilePage";
+import { loadSubUserFromStorage } from "./features/subuserslice/subuserSlice";
 
 /* ---------------- Protected Route (Redux) ---------------- */
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, authChecked } = useSelector(
-    (state) => state.auth
-  );
+  const { isAuthenticated, authChecked } = useSelector((state) => state.auth);
 
-}
+  // Wait until auth is checked
+  if (!authChecked) {
+    return <div>Loading...</div>;
+  }
+
+  // If not logged in → redirect to login
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // If logged in → show protected page
+  return children;
+
+};
 const App = () => {
   const dispatch = useDispatch();
   const { authChecked } = useSelector((state) => state.auth);
@@ -68,9 +84,11 @@ const App = () => {
   useEffect(() => {
     dispatch(loadAuthFromStorage());
     dispatch(loadUserFromStorage());
+    dispatch(loadSubUserFromStorage());
   }, [dispatch]);
   return (
     <Router>
+      <ScrollToHash/>
       <Header />
 
       <Routes>
@@ -78,30 +96,24 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blogs/:id" element={<BlogDetails />} />
+        <Route path="/blogs/:slug" element={<BlogDetails />} />
         <Route path="/astrology-course" element={<AstrologyCourse />} />
         <Route path="/course-detail" element={<CourseDetail />} />
         <Route path="/magazines-and-books" element={<MagazinesandBook />} />
         <Route path="/learn-course-details/:id" element={<CourseDetaileNew />} />
         <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
+        <Route path="/transit-timeline" element={<TransitTimeline />} />
         <Route path="/consultation" element={<Consultation />} />
-          <Route path="/detailed-panchang" element={<PanchangDetail />} />
-            <Route path="//kundali-result" element={<BuyFullReportsPage />} />
+        <Route path="/detailed-panchang" element={<PanchangDetail />} />
+        <Route path="/kundali-result" element={<BuyFullReportsPage />} />
         <Route path="/horoscope/:id" element={<Horoscope />} />
         <Route path="/puja/:id" element={<Puja />} />
-        <Route
-          path="/consultation/:id"
-          element={<ConsultationDetails />}
-        />
-        <Route path="/buy-full-reports" element={<BuyFullReportsPage />} />
-        <Route
-          path="/full-reports-details/:id"
-          element={<FullReportDetailspage />}
-        />
-        <Route
-          path="/personalized-reports"
-          element={<PersonalizedReports />}
-        />
+        <Route path="/consultation/:id" element={<ConsultationDetails />} />
+        <Route path="/reports" element={<BuyFullReportsPage />} />
+        <Route path="/full-reports-details/:id" element={<FullReportDetailspage />} />
+        <Route path="/personalized-reports" element={<PersonalizedReports />} />
+        <Route path="/online-puja" element={<Onlinepuja />} />
+        {/* <Route path="/saved-profiles" element={<Onlinepuja />} /> */}
 
         {/* -------- Auth Routes -------- */}
         <Route path="/login" element={<LoginPage />} />
@@ -126,7 +138,7 @@ const App = () => {
           }
         />
         <Route
-          path="/profile"
+          path="/profile/:id"
           element={
             <ProtectedRoute>
               <ProfilePage />
@@ -138,14 +150,6 @@ const App = () => {
           element={
             <ProtectedRoute>
               <SavedProfilePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/create-subuser"
-          element={
-            <ProtectedRoute>
-              <CreateSubUserPage />
             </ProtectedRoute>
           }
         />

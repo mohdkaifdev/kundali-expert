@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
+import { clearSubUser } from "../../features/subuserslice/subuserSlice";
+import { clearUser } from "../../features/user/userSlice";
 
 const LogoutButton = ({ closeSidebar }) => {
     const dispatch = useDispatch();
@@ -9,7 +11,10 @@ const LogoutButton = ({ closeSidebar }) => {
         if (closeSidebar) {
         closeSidebar();
       }
-      dispatch(logout());  
+       localStorage.clear();
+      dispatch(logout()); 
+      dispatch(clearSubUser()); 
+      dispatch(clearUser());  
       window.location.reload();
     }
   };

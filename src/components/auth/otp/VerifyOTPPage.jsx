@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-
 import OTPHeader from "./OTPHeader";
 import OTPInputBoxes from "./OTPInputBoxes";
 import OTPSubmitButton from "./OTPSubmitButton";
 import OTPBottomLinks from "./OTPBottomLinks";
 import ResendOTPButton from "./ResendOTPButton";
-
 import api from "../../../services/api";
 import { loginSuccess } from "../../../features/auth/authSlice";
 import { setUser } from "../../../features/user/userSlice";
+import { setSubUser } from "../../../features/subuserslice/subuserSlice";
 
 const VerifyOTPPage = () => {
   const [otpCode, setOtpCode] = useState("");
@@ -54,6 +53,7 @@ const VerifyOTPPage = () => {
       },
     };
 
+    // verify otp
     try {
       const res = await api.post("/v1/otp/verifyOTP", payload);
 
@@ -75,6 +75,10 @@ const VerifyOTPPage = () => {
 
         dispatch(setUser(user));
 
+         const subUserRes = await api.get("/v1/user/getMySubUsers?subUsername=");
+         
+         console.log(subUserRes);
+         dispatch(setSubUser(subUserRes?.data?.data));
         toast.success("OTP Verified Successfully!");
 
         if (!user.name || user.name.trim() === "") {

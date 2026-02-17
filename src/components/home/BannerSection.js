@@ -6,7 +6,9 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
 import bannerImg from "../../assets/images/banner_img.png";
-import secIcon from "../../assets/images/sec_icon.png";
+import secIcon1 from "../../assets/images/reportfull/consultatipp.svg";
+import secIcon2 from "../../assets/images/reportfull/personailsedreport.svg";
+import secIcon3 from "../../assets/images/reportfull/buyfullreport.svg";
 import api from "../../services/api";
 
 const BannerSection = () => {
@@ -29,21 +31,21 @@ getbanners();
 
    const belowbannerdata = [
     {
-      image: secIcon,
+      image: secIcon1,
       text: "Consultation",
       peragraph:
         "Your trusted partner in the world of astrology and related services.",
         link: "/consultation"
     },
     {
-      image: secIcon,
+      image: secIcon2,
       text: "Personalized Reports",
       peragraph:
         "Your trusted partner in the world of astrology and related services.",
         link:"/personalized-reports"
     },
     {
-      image: secIcon,
+      image: secIcon3,
       text: "Buy Full Reports",
       peragraph:
         "Your trusted partner in the world of astrology and related services.",

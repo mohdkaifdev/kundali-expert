@@ -45,9 +45,11 @@ function PanchangDetail() {
         timezoneId: 0,
       },
     }
+
+    setQuery(user?.birthPlace?.name);
     }
     else if(o){
-        console.log(o);
+        
        payload= {
       formData: {
         dateAndTime: formattedDateTime,
@@ -70,15 +72,17 @@ else{
       }
     }
 }
-    console.log(payload);
-    const res = await api.post("/Panchang/today",payload);
+const afterloginv = user? "/v1" : ""
+
+    const res = await api.post(`${afterloginv}/Panchang/today`,payload);
     setPanchang(res?.data?.data);
     console.log(res?.data?.data);
   };
 
+
   useEffect(() => {
     todaypanchang(null);
-  }, []);
+  }, [user]);
 
   const getTodayDate = () => {
   const today = new Date();

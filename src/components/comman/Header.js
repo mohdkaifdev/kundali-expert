@@ -23,6 +23,7 @@ const Header = () => {
     (state) => state.auth.isAuthenticated
   );
 
+  console.log(isAuthenticated);
   const user = useSelector(
     (state) => state.user.user
   );

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import kundaliIcon1 from "../../assets/images/h_kundali_icon1.png";
+import kundaliIcon1 from "../../assets/images/reportfull/Birthchart-CMByxPl6.svg";
 import kundaliIcon2 from "../../assets/images/h_kundali_icon2.png";
-import kundaliIcon3 from "../../assets/images/h_kundali_icon3.png";
+import kundaliIcon3 from "../../assets/images/reportfull/Panchang.svg";
+
+
 import api from "../../services/api";
 import { useSelector, useDispatch } from "react-redux";
 import { loadUserFromStorage } from "../../features/user/userSlice";
