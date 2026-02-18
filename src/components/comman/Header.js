@@ -1,9 +1,7 @@
-
 import mailIcon from "../../assets/images/mail_icon.png";
 import callIcon from "../../assets/images/call_icon.png";
 import cartIcon from "../../assets/images/cart_icon.png";
 import userIcon from "../../assets/images/user_icon.png";
-
 
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,17 +13,12 @@ import logo from "../../assets/images/logo.png";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 
-
 const Header = () => {
   const dispatch = useDispatch();
 
-  const isAuthenticated = useSelector(
-    (state) => state.auth.isAuthenticated
-  );
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  const user = useSelector(
-    (state) => state.user.user
-  );
+  const user = useSelector((state) => state.user.user);
 
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -76,7 +69,9 @@ const Header = () => {
                     <div className="contact_name">
                       <h6>
                         <span className="d-block">Email</span>{" "}
-                        <a href="mailto:info@email.com">info@email.com</a>
+                        <a href="mailto:info@kundaliexpert.com">
+                          info@kundaliexpert.com
+                        </a>
                       </h6>
                     </div>
                   </div>
@@ -88,7 +83,7 @@ const Header = () => {
                     <div className="contact_name">
                       <h6>
                         <span className="d-block">Call Us</span>{" "}
-                        <a href="tel:+918468920394">+91 846 8920394</a>
+                        <a href="tel:+918468920394">+91 98 183 183 03</a>
                       </h6>
                     </div>
                   </div>
@@ -298,30 +293,25 @@ const Header = () => {
                     <span>
                       <img src={userIcon} alt="icon" class="img-fluid" />
                     </span>
-                {isAuthenticated ? (
-                  <div class="contact_name">
-                    {user?.name==null?(
-                       <div class="dropdown">
-                        <Link to="/profile">Profile</Link>
-                      </div>
-          
-                    ):(
-                        <div class="dropdown">
-                        <Link to="/profile">{user?.name}</Link>
-                      </div>
-                    )}
-                   
-                    </div>
-
-                    ): (
+                    {isAuthenticated ? (
                       <div class="contact_name">
-                    <div class="dropdown">
+                        {user?.name == null ? (
+                          <div class="dropdown">
+                            <Link to="/profile">Profile</Link>
+                          </div>
+                        ) : (
+                          <div class="dropdown">
+                            <Link to="/profile">{user?.name}</Link>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div class="contact_name">
+                        <div class="dropdown">
                           <Link to="/login">Login</Link>
                         </div>
                       </div>
                     )}
-                    
-
                   </div>
                   <div class="hamberger_menu open" onClick={toggleSidebar}>
                     <span></span>
@@ -351,7 +341,7 @@ const Header = () => {
                   </div>
                   <div className="h_mob_contact d-flex">
                     <div className="contact_header d-flex align-items-center">
-                      <a href="mailto:info@email.com">
+                      <a href="mailto:info@kundaliexpert.com">
                         <img src={mailIcon} alt="mail" className="img-fluid" />
                       </a>
                     </div>
@@ -451,29 +441,28 @@ const Header = () => {
                         <img src={userIcon} alt="icon" className="img-fluid" />
                       </span>
                       {isAuthenticated ? (
-                      <div class="contact_name">
-                        {user?.name == null ? (
-                          <>
-                        <div class="dropdown">
-                        <Link to="/profile">Profile</Link>
+                        <div class="contact_name">
+                          {user?.name == null ? (
+                            <>
+                              <div class="dropdown">
+                                <Link to="/profile">Profile</Link>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div class="dropdown">
+                                <Link to="/profile">{user?.name}</Link>
+                              </div>
+                            </>
+                          )}
                         </div>
-                        </>
-                        ):(
-
-                        <>
-                        <div class="dropdown">
-                            <Link to="/profile">{user?.name}</Link>
+                      ) : (
+                        <div class="contact_name">
+                          <div class="dropdown">
+                            <Link to="/login">Login</Link>
+                          </div>
                         </div>
-                        </>
-                        )}
-                      </div>
-                     ):(
-                      <div class="contact_name">
-                        <div class="dropdown">
-                          <Link to="/login">Login</Link>
-                        </div>
-                      </div>
-                     )} 
+                      )}
                     </div>
                     <div class="hamberger_menu open" onClick={toggleSidebar}>
                       <span></span>
@@ -579,30 +568,27 @@ const Header = () => {
                             <h6><a href="#">Login</a></h6>
                           </div>*/}
                           {isAuthenticated ? (
-                          <div class="contact_name">
-                            {user?.name == null ? (
-                            <>
-                               <div class="dropdown">
-                                  <Link to="/login">Login</Link>
-                                </div>
-                              </>
-                            ):(
-                            <>
-                            <div class="dropdown">
+                            <div class="contact_name">
+                              {user?.name == null ? (
+                                <>
+                                  <div class="dropdown">
+                                    <Link to="/login">Login</Link>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div class="dropdown">
+                                    <Link to="/login">Login</Link>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          ) : (
+                            <div class="contact_name">
+                              <div class="dropdown">
                                 <Link to="/login">Login</Link>
                               </div>
-                            </>
-                            )}
-                           
-
-                          </div>
-                          ):(
-
-                            <div class="contact_name">
-                            <div class="dropdown">
-                              <Link to="/login">Login</Link>
                             </div>
-                          </div>
                           )}
                           <div
                             class="hamberger_menu open"
