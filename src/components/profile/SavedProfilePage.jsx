@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SavedProfilePageCard from "./SavedProfilePageCard";
+import api from "../../services/api";
+import { Link } from "react-router-dom";
 const SavedProfilePage = () => {
+
+    const[subusers,setsubusers]=useState();
+
+    const getusers = async()=>{
+        const res = await api.get('/v1/user/getMySubUsers?subUsername=');
+       // console.log(res?.data?.data);
+        setsubusers(res?.data?.data)
+    }
+    useEffect(()=>{
+        getusers();
+    },[]);
     return(
         <>
             <section>
@@ -13,10 +26,10 @@ const SavedProfilePage = () => {
                             <div className="dropdown">
                                 <div className="apply-section mt-3">
                                     <input type="text" placeholder="Search by name..." className="p-3"/>
-                                    <a href="createsubuser.php" className="site_btn p-3 px-5">Create Sub User</a>
+                                    <Link to="/profile/create-user" className="site_btn p-3 px-5">Create Sub User</Link>
                                 </div>
                                 <ul className="dropdown-menu border-0 position-relative" data-popper-placement="bottom-end">
-                                    <SavedProfilePageCard/>
+                                    <SavedProfilePageCard data={subusers}/>
                                     
                                 </ul>
                             </div>

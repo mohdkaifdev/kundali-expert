@@ -18,7 +18,14 @@ const Header = () => {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
+<<<<<<< HEAD
   const user = useSelector((state) => state.user.user);
+=======
+  console.log(isAuthenticated);
+  const user = useSelector(
+    (state) => state.user.user
+  );
+>>>>>>> 555bc21bb9a62a84dc07aced0d017d9818cf5846
 
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

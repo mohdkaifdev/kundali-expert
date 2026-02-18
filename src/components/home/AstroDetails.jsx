@@ -1,71 +1,70 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
+import { Link } from "react-router-dom";
 
 export default function AstroDetails() {
+  const [transiplanet, settransiplanet] = useState([]);
+  const [nakshta, setnakshta] = useState([]);
+  const [festival, setfestival] = useState([]);
 
-  const [transiplanet,settransiplanet]=useState([]);
-  const [nakshta,setnakshta]=useState([]);
-  const [festival,setfestival]=useState([]);
+  const gettransitlist = async () => {
+    try {
+      const res = await api.get(`/planetTransit/next-six-months`);
 
- const gettransitlist = async () => {
-  try {
-    const res = await api.get(`/planetTransit/next-six-months`);
+      // ✅ store only first 8 items
+      const firstEight = res?.data?.slice(0, 8);
 
-    // ✅ store only first 8 items
-    const firstEight = res?.data?.slice(0, 8);
+      settransiplanet(firstEight);
+    } catch (error) {
+      console.error("Failed to fetch transit list", error);
+    }
+  };
 
-    settransiplanet(firstEight);
-  } catch (error) {
-    console.error("Failed to fetch transit list", error);
-  }
-};
+  const getnakshtralist = async () => {
+    try {
+      const res = await api.get(`/planetTransit/next-six-months-Nakshtr`);
 
-const getnakshtralist = async()=>{
-  try {
-    const res = await api.get(`/planetTransit/next-six-months-Nakshtr`);
+      // ✅ store only first 8 items
+      const firstEight = res?.data?.slice(0, 8);
 
-    // ✅ store only first 8 items
-    const firstEight = res?.data?.slice(0, 8);
+      setnakshta(firstEight);
+    } catch (error) {
+      console.error("Failed to fetch transit list", error);
+    }
+  };
 
-    setnakshta(firstEight);
-  } catch (error) {
-    console.error("Failed to fetch transit list", error);
-  }
-}
+  const getfestivals = async () => {
+    try {
+      const res = await api.get(`/year-calendar/get-days?lang=en`);
 
-const getfestivals = async()=>{
-  try {
-    const res = await api.get(`/year-calendar/get-days?lang=en`);
+      // ✅ store only first 8 items
+      const firstEight = res?.data?.data?.slice(0, 8);
+      console.log(firstEight);
+      setfestival(firstEight);
+    } catch (error) {
+      console.error("Failed to fetch transit list", error);
+    }
+  };
 
-    // ✅ store only first 8 items
-    const firstEight = res?.data?.data?.slice(0, 8);
-console.log(firstEight);
-    setfestival(firstEight);
-  } catch (error) {
-    console.error("Failed to fetch transit list", error);
-  }
-}
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
 
-const formatDate = (dateStr) => {
-   if (!dateStr) return "";
+    const [day, month, year] = dateStr.split("/");
 
-  const [day, month, year] = dateStr.split("/");
+    const date = new Date(year, month - 1, day);
 
-  const date = new Date(year, month - 1, day);
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-};
-
-  useEffect(()=>{
-gettransitlist();
-getnakshtralist();
-getfestivals();
-  },[]);
-
+  useEffect(() => {
+    gettransitlist();
+    getnakshtralist();
+    getfestivals();
+  }, []);
 
   return (
     <section>
@@ -73,7 +72,9 @@ getfestivals();
         <div className="container">
           <div className="heading_sec text-center">
             <h2 className="mb-2">Astro Details</h2>
-            <h5>(For Customized Horoscope Go to Personalized Report section)</h5>
+            <h5>
+              (For Customized Horoscope Go to Personalized Report section)
+            </h5>
           </div>
 
           <div className="astro_tabs_sec">
@@ -133,20 +134,23 @@ getfestivals();
               >
                 <div className="tabs_content">
                   <ul>
-                    {transiplanet?.map((item)=>{
-                     
-                     return(
-<li>
-                      <p>{item?.planetName}</p>
-                      <p>
-                        {formatDate(item?.startDate)}
-                         <span className="d-block">{item?.planetName} Enters {item?.rashiName}</span>
-                      </p>
-                    </li>
-                     ) 
+                    {transiplanet?.map((item) => {
+                      return (
+                        <li>
+                         <Link to="/transit-timeline" style={{color: "white"}}>
+                          <p>{item?.planetName}</p>
+                         </Link>
+                          <Link to="/transit-timeline" style={{color: "white"}}>
+                          <p>
+                            {formatDate(item?.startDate)}
+                            <span className="d-block">
+                              {item?.planetName} Enters {item?.rashiName}
+                            </span>
+                          </p>
+                          </Link>
+                        </li>
+                      );
                     })}
-                    
-                    
                   </ul>
                 </div>
               </div>
@@ -161,22 +165,24 @@ getfestivals();
               >
                 <div className="tabs_content">
                   <ul>
-                    {
-                      nakshta?.map((item)=>{
-                        
-                        return(
-<li>
-                      <p>{item?.nakshtraName}</p>
-                      <p>
-                        {formatDate(item?.startDate)}
-                         <span className="d-block">{item?.planetName} Enters {item?.rashiName}</span>
-                      </p>
-                    </li>
-                     ) 
-                      })
-                    }
-                    
-                    
+                    {nakshta?.map((item) => {
+                      return (
+                        <li>
+                          <Link to="/transit-timeline" style={{color: "white"}}>
+                          <p>{item?.nakshtraName}</p>
+                          </Link>
+                          <Link to="/transit-timeline" style={{color: "white"}}>
+                          <p>
+                            {formatDate(item?.startDate)}
+                            <span className="d-block">
+                              {item?.planetName} Enters {item?.rashiName}
+                            </span>
+                          </p>
+                          </Link>
+                          
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
@@ -191,20 +197,17 @@ getfestivals();
               >
                 <div className="tabs_content">
                   <ul>
-                    {festival?.map((item)=>{
-                           
-                      return(
-                         <li>
-                      <p>{item?.festivalName}</p>
-                      <p>
-                        {formatDate(item?.festivalDate)} 
-                        {/* <span className="d-block">Mars Enters Virgo</span> */}
-                      </p>
-                    </li>
-                      )
+                    {festival?.map((item) => {
+                      return (
+                        <li>
+                          <p>{item?.festivalName}</p>
+                          <p>
+                            {formatDate(item?.festivalDate)}
+                            {/* <span className="d-block">Mars Enters Virgo</span> */}
+                          </p>
+                        </li>
+                      );
                     })}
-                   
-                  
                   </ul>
                 </div>
               </div>

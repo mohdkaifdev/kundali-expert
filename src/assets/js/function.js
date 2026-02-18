@@ -109,3 +109,31 @@ function remove() {
     i++;
   }
 }
+
+
+    const buttons = document.querySelectorAll('.toggle-btn');
+    const indicator = document.querySelector('.toggle-indicator');
+    const items = document.querySelectorAll('.timeline-item');
+
+    buttons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+
+          
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            indicator.style.left = index === 0 ? '0%' : '50%';
+
+            const type = btn.dataset.type;
+
+            items.forEach(item => {
+                item.style.display = 'none';
+                if (item.classList.contains(type)) {
+                    item.style.display = 'block';
+                }
+            });
+
+        });
+    });
+
+ 

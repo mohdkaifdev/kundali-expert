@@ -10,13 +10,13 @@ const BlogDetails = () => {
   const [loading, setLoading] = useState(true);
   const [blog, setBlog] = useState(null);
   const { slug } = useParams();
+
   useEffect(() => {
+    console.log(slug);
     const fetchBlog = async () => {
       try {
         setLoading(true);
-        const response = await api.get("v2/get", {
-          params: { title: slug },
-        });
+        const response = await api.get(`/get?title=${slug}`);
         const data = response.data?.data;
         setBlog(data);
         console.log("BLOG DETAILS RESPONSE 👉", data);

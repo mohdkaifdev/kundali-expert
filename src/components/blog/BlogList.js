@@ -28,7 +28,7 @@ const BlogList = () => {
           searchKeyword: "",
         };
 
-        const response = await api.get("v2/web-blog/get-list", { params });
+        const response = await api.get("/v1/web-blog/get-list", { params });
         const data = response.data?.data;
 
         setBlogs(data?.blogs || []);
