@@ -277,7 +277,7 @@ console.log(place);
       birthPlaceName: place.name,
       birthPlaceLatitude: place.latitude,
       birthPlaceLongitude: place.longitudes,
-      timezoneId: place.timezoneId,
+      timezoneId: place.timezone,
     });
   };
   return (

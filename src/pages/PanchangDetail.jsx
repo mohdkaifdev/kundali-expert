@@ -18,8 +18,6 @@ function PanchangDetail() {
     (state) => state.user.user
   );
   
-    console.log(user)
-
   useEffect(()=>{
      dispatch(loadUserFromStorage());
   },[dispatch])

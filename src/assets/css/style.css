@@ -6132,3 +6132,12 @@ select.dt-slt option {
     .consultation_list_section .modal-content{
       color: black !important;
     }
+
+    .jekod{
+      margin-left: 8px;
+    margin-top: 6px;
+    background: #6c0237;
+    color: #fff;
+    border: none;
+    width: 100px;
+    }
