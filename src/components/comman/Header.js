@@ -3,7 +3,7 @@ import callIcon from "../../assets/images/call_icon.png";
 import cartIcon from "../../assets/images/cart_icon.png";
 import userIcon from "../../assets/images/user_icon.png";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { loadAuthFromStorage } from "../../features/auth/authSlice";
@@ -28,6 +28,10 @@ const Header = () => {
 
   console.log(isAuthenticated);
   const user = useSelector((state) => state.user.user);
+
+  const selectedSubUser = useSelector((state) => state.subuser?.selected);
+  const subusersList = useSelector((state) => state.subuser?.subuser || []);
+  const originalUserRef = useRef(null);
 
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -267,7 +271,7 @@ const Header = () => {
                   </div>
                 )}
               </div>
-              <div class="hamberger_menu open" onClick={toggleSidebar}>
+              <div className="hamberger_menu open" onClick={toggleSidebar}>
                 <span></span>
                 <span></span>
                 <span></span>
@@ -349,31 +353,31 @@ const Header = () => {
                       <span></span>
                     </a>
                   </div>
-                  <div class="contact_header user_sec d-flex align-items-center">
+                  <div className="contact_header user_sec d-flex align-items-center">
                     <span>
-                      <img src={userIcon} alt="icon" class="img-fluid" />
+                      <img src={userIcon} alt="icon" className="img-fluid" />
                     </span>
                     {isAuthenticated ? (
-                      <div class="contact_name">
+                      <div className="contact_name">
                         {user?.name == null ? (
-                          <div class="dropdown">
+                          <div className="dropdown">
                             <Link to="/profile">Profile</Link>
                           </div>
                         ) : (
-                          <div class="dropdown">
+                          <div className="dropdown">
                             <Link to="/profile">{user?.name}</Link>
                           </div>
                         )}
                       </div>
                     ) : (
-                      <div class="contact_name">
-                        <div class="dropdown">
+                      <div className="contact_name">
+                        <div className="dropdown">
                           <Link to="/login">Login</Link>
                         </div>
                       </div>
                     )}
                   </div>
-                  <div class="hamberger_menu open" onClick={toggleSidebar}>
+                  <div className="hamberger_menu open" onClick={toggleSidebar}>
                     <span></span>
                     <span></span>
                     <span></span>
@@ -653,6 +657,7 @@ const Header = () => {
                             <div className="dropdown">
                               <Link to="/login">Login</Link>
                             </div>
+                            </div>
                           )}
                           <div
                             className="hamberger_menu open"
@@ -665,6 +670,7 @@ const Header = () => {
                         </div>
                       </div>
                     </div>
+                    
                   </nav>
                 </div>
               </div>
