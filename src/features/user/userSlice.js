@@ -5,13 +5,32 @@ const initialState = {
   user: null,
 };
 
+function safeSetUserStorage(obj) {
+  try {
+    localStorage.setItem("user", JSON.stringify(obj));
+  } catch (err) {
+    try {
+      const minimal = {
+        userId: obj?.userId || obj?.id || obj?.userID,
+        name: obj?.name,
+        email: obj?.email,
+      };
+      localStorage.setItem("user", JSON.stringify(minimal));
+    } catch (e) {
+      try {
+        localStorage.removeItem("user");
+      } catch (ignore) {}
+    }
+  }
+}
+
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(action.payload));
+      safeSetUserStorage(action.payload);
     },
 
     updateUser: (state, action) => {
@@ -19,7 +38,7 @@ const userSlice = createSlice({
         ...state.user,
         ...action.payload,
       };
-      localStorage.setItem("user", JSON.stringify(state.user));
+      safeSetUserStorage(state.user);
     },
 
     clearUser: (state) => {

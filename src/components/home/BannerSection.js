@@ -49,7 +49,7 @@ getbanners();
       text: "Buy Full Reports",
       peragraph:
         "Your trusted partner in the world of astrology and related services.",
-        link: "/buy-full-reports"
+        link: "/reports"
     },
   ];
 

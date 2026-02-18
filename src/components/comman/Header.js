@@ -5,11 +5,19 @@ import cartIcon from "../../assets/images/cart_icon.png";
 import userIcon from "../../assets/images/user_icon.png";
 
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { loadAuthFromStorage } from "../../features/auth/authSlice";
 import { loadUserFromStorage } from "../../features/user/userSlice";
+import { setUser } from "../../features/user/userSlice";
+import {
+  setSubUser,
+  selectSubUser,
+  clearSelectedSubUser,
+  loadSubUserFromStorage,
+} from "../../features/subuserslice/subuserSlice";
+import api from "../../services/api";
 
 import logo from "../../assets/images/logo.png";
 import Sidebar from "./Sidebar";
@@ -27,6 +35,9 @@ const Header = () => {
   const user = useSelector(
     (state) => state.user.user
   );
+  const selectedSubUser = useSelector((state) => state.subuser?.selected);
+  const subusersList = useSelector((state) => state.subuser?.subuser || []);
+  const originalUserRef = useRef(null);
 
   const [isSticky, setIsSticky] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -40,7 +51,52 @@ const Header = () => {
   useEffect(() => {
     dispatch(loadAuthFromStorage());
     dispatch(loadUserFromStorage());
+    dispatch(loadSubUserFromStorage());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!originalUserRef.current && user) originalUserRef.current = user;
+  }, [user]);
+
+  useEffect(() => {
+    let mounted = true;
+    async function fetchSubusers() {
+      try {
+        const res = await api.get("/v1/user/getMySubUsers?subUsername=");
+        if (!mounted) return;
+        const list = res?.data?.data || [];
+        dispatch(setSubUser(list));
+      } catch (err) {
+        console.error("Error fetching subusers", err);
+      }
+    }
+    if (isAuthenticated) fetchSubusers();
+    return () => {
+      mounted = false;
+    };
+  }, [isAuthenticated, dispatch]);
+
+  useEffect(() => {
+    if (selectedSubUser) {
+      dispatch(setUser(selectedSubUser));
+    } else if (originalUserRef.current) {
+      dispatch(setUser(originalUserRef.current));
+    }
+  }, [selectedSubUser, dispatch]);
+
+  const handleSubUserChange = (e) => {
+    const id = e.target.value;
+    if (!id) {
+      dispatch(clearSelectedSubUser());
+      if (originalUserRef.current) dispatch(setUser(originalUserRef.current));
+      return;
+    }
+    const selected = subusersList.find((s) => String(s.subUserId) === String(id));
+    if (selected) {
+      dispatch(selectSubUser(selected));
+      dispatch(setUser(selected));
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -190,24 +246,30 @@ const Header = () => {
                   <h6><a href="#">Login</a></h6>
                 </div> */}
                 {isAuthenticated ? (
-                  <div class="contact_name">
-                    {user?.name == null ? (
-                      <>
-                        <div class="dropdown">
-                          <Link to="/profile">Profile</Link>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div class="dropdown">
-                          <Link to="/profile">{user?.name}</Link>
-                        </div>
-                      </>
-                    )}
+                  <div className="contact_name">
+                    <div className="dropdown">
+                      {/* <Link style={{ color: "white" }} to="/profile">
+                        {selectedSubUser?.name || user?.name || "Profile"}
+                      </Link> */}
+                      {subusersList?.length > 0 && (
+                        <select className="jekod"
+                          value={selectedSubUser?.subUserId || ""}
+                          onChange={handleSubUserChange}
+                          style={{ marginLeft: 8, marginTop: 6 }}
+                        >
+                        
+                          {subusersList.map((s) => (
+                            <option key={s.subUserId} value={s.subUserId}>
+                              {s.name || s.subUsername || s.email}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    </div>
                   </div>
                 ) : (
-                  <div class="contact_name">
-                    <div class="dropdown">
+                  <div className="contact_name">
+                    <div className="dropdown">
                       <Link to="/login">Login</Link>
                     </div>
                   </div>
@@ -447,36 +509,39 @@ const Header = () => {
                         <span></span>
                       </a>
                     </div>
-                    <div class="contact_header user_sec d-flex align-items-center">
+                    <div className="contact_header user_sec d-flex align-items-center">
                       <span>
                         <img src={userIcon} alt="icon" className="img-fluid" />
                       </span>
                       {isAuthenticated ? (
-                      <div class="contact_name">
-                        {user?.name == null ? (
-                          <>
-                        <div class="dropdown">
-                        <Link to="/profile">Profile</Link>
+                        <div className="contact_name">
+                          <div className="dropdown">
+                            <Link to="/profile">{selectedSubUser?.name || user?.name || "Profile"}</Link>
+                            {subusersList?.length > 0 && (
+                              <select
+                                value={selectedSubUser?.subUserId || ""}
+                                onChange={handleSubUserChange}
+                                style={{ marginLeft: 8, marginTop: 6 }}
+                              >
+                                <option value="">Switch profile</option>
+                                {subusersList.map((s) => (
+                                  <option key={s.subUserId} value={s.subUserId}>
+                                    {s.name || s.subUsername || s.email}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+                          </div>
                         </div>
-                        </>
-                        ):(
-
-                        <>
-                        <div class="dropdown">
-                            <Link to="/profile">{user?.name}</Link>
+                      ) : (
+                        <div className="contact_name">
+                          <div className="dropdown">
+                            <Link to="/login">Login</Link>
+                          </div>
                         </div>
-                        </>
-                        )}
-                      </div>
-                     ):(
-                      <div class="contact_name">
-                        <div class="dropdown">
-                          <Link to="/login">Login</Link>
-                        </div>
-                      </div>
-                     )} 
+                      )}
                     </div>
-                    <div class="hamberger_menu open" onClick={toggleSidebar}>
+                    <div className="hamberger_menu open" onClick={toggleSidebar}>
                       <span></span>
                       <span></span>
                       <span></span>
@@ -580,33 +645,31 @@ const Header = () => {
                             <h6><a href="#">Login</a></h6>
                           </div>*/}
                           {isAuthenticated ? (
-                          <div class="contact_name">
+                          <div className="contact_name">
                             {user?.name == null ? (
                             <>
-                               <div class="dropdown">
+                               <div className="dropdown">
                                   <Link to="/login">Login</Link>
                                 </div>
                               </>
                             ):(
                             <>
-                            <div class="dropdown">
+                            <div className="dropdown">
                                 <Link to="/login">Login</Link>
                               </div>
                             </>
                             )}
-                           
-
                           </div>
                           ):(
 
-                            <div class="contact_name">
-                            <div class="dropdown">
+                            <div className="contact_name">
+                            <div className="dropdown">
                               <Link to="/login">Login</Link>
                             </div>
                           </div>
                           )}
                           <div
-                            class="hamberger_menu open"
+                            className="hamberger_menu open"
                             onClick={toggleSidebar}
                           >
                             <span></span>

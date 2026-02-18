@@ -25,6 +25,22 @@ const Sidebar = ({isOpen, closeSidebar}) => {
       },[dispatch])
          const displayName = user?.name || 'Guest';
     const displayEmail = user?.email || 'Guest Email';
+  
+    const onNavClick = (e) => {
+        try {
+            const anchor = e.target.closest && e.target.closest('a');
+            if (!anchor) return;
+            // allow anchors with href that aren't javascript:void(0)
+            const href = anchor.getAttribute('href');
+            if (!href) return;
+            if (href.includes('javascript:void(0)')) return;
+            // close sidebar and scroll to top
+            if (typeof closeSidebar === 'function') closeSidebar();
+            if (typeof window !== 'undefined') window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        } catch (err) {
+            // ignore
+        }
+    };
     
  
     return(
@@ -52,7 +68,7 @@ const Sidebar = ({isOpen, closeSidebar}) => {
                             </div>
                         </>
                     )}
-                    <nav>
+                    <nav onClick={onNavClick}>
                         <ul className="menu_navigation mt-4">
                             {authChecked && (
                             <>
