@@ -49,12 +49,12 @@
 body {
   font-size: 14px;
   font-weight: 400;
-  color: #fff;
   letter-spacing: 0;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   position: relative;
+  /*color: #ffffff;*/
   font-family: "Inter", sans-serif;
 }
 
@@ -1551,7 +1551,7 @@ span.input_sec {
   background: #f89421;
 }
 
-.consultation_list_section .banner_box img{
+.consultation_list_section .banner_box img {
   width: 50%;
 }
 .gemstones_main_section {
@@ -5197,61 +5197,61 @@ button.site_btn.w-100.site_btn.w-100.gender_selected {
     height: 100%;
   }
 }
-.activegender{
+.activegender {
   color: #fff !important;
-  background-color: #7D1147 !important;
+  background-color: #7d1147 !important;
 }
-.pageag .nav-tabs{
+.pageag .nav-tabs {
   background: transparent;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0;
-    border-bottom: 0;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  border-bottom: 0;
 }
 
-iframe .plyr__controls{
-      display: none !important;}
-      
+iframe .plyr__controls {
+  display: none !important;
+}
 
-.horescopetab .nav.nav-pills{
+.horescopetab .nav.nav-pills {
   justify-content: center;
 }
-.horescopetab .nav-link{
+.horescopetab .nav-link {
   color: #000;
-      font-size: 1.1rem;
+  font-size: 1.1rem;
 }
-.horescopetab .nav-link.active{
-    background-color: #7d1147;
+.horescopetab .nav-link.active {
+  background-color: #7d1147;
 }
-.horescopetab .horoscope_block{
+.horescopetab .horoscope_block {
   padding: 20px;
 }
-.horoscope_box h4{
-      font-size: 15px;
+.horoscope_box h4 {
+  font-size: 15px;
 }
-.horescopetab .horoscope_box span{
-width: 50%;
+.horescopetab .horoscope_box span {
+  width: 50%;
 }
-.horescopetab .horoscope_box span img{
-height: 30px;
+.horescopetab .horoscope_box span img {
+  height: 30px;
 }
 
 .horoscope_box.active {
-     box-shadow: 0 6px 6px 0 rgba(125, 17, 71, 0.5); 
+  box-shadow: 0 6px 6px 0 rgba(125, 17, 71, 0.5);
 }
-.dates{
+.dates {
   color: #797878;
   font-size: 15px;
 }
-.conrent{
+.conrent {
   color: #000000;
   font-size: 15px;
 }
-.todayhores .purple_clr{
+.todayhores .purple_clr {
   font-size: 25px;
 }
-.horoscope_box{
+.horoscope_box {
   cursor: pointer;
 }
 
@@ -5259,12 +5259,10 @@ height: 30px;
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  background-image: url('../images/clockkk.png');
+  background-image: url("../images/clockkk.png");
   background-size: contain;
   position: relative;
- 
 }
-
 
 .hand {
   position: absolute;
@@ -5285,16 +5283,15 @@ height: 30px;
   width: 4px;
   height: 80px;
   background: #000;
-   border-radius: 30px;
+  border-radius: 30px;
 }
 
 .second {
   width: 2px;
   height: 90px;
-   border-radius: 30px;
+  border-radius: 30px;
   background: #000;
 }
-
 
 .center-dot {
   width: 12px;
@@ -5307,15 +5304,14 @@ height: 30px;
   transform: translate(-50%, -50%);
 }
 
-.todayclock .site_btn:hover{
+.todayclock .site_btn:hover {
   border: 1px solid #0000 !important;
 }
-
 
 .panchangui-section {
   padding: 30px 0;
   padding-top: 120px;
-  background: #FEF9EC;
+  background: #fef9ec;
 }
 
 /* Card */
@@ -5331,7 +5327,7 @@ height: 30px;
 .panchangui-title {
   font-size: 22px;
   font-weight: 600;
-  color: #7D1147;
+  color: #7d1147;
   margin-bottom: 30px;
   position: relative;
 }
@@ -5340,7 +5336,7 @@ height: 30px;
   display: block;
   width: 180px;
   height: 2px;
-  background: #7D1147;
+  background: #7d1147;
   margin: 8px auto 0;
 }
 
@@ -5363,27 +5359,27 @@ height: 30px;
 /* Sunrise */
 .panchangui-sunrise .panchangui-label {
   color: #f59e0b;
-      margin-left: 20px;
+  margin-left: 20px;
 }
 
 .panchangui-sunrise .panchangui-pill {
   background: #fff4db;
   color: #f59e0b;
-      width: 32%;
-      margin-left: 20px;
+  width: 32%;
+  margin-left: 20px;
 }
 
 /* Moonrise */
 .panchangui-moonrise .panchangui-label {
   color: #2563eb;
-      margin-right: 20px;
+  margin-right: 20px;
 }
 
 .panchangui-moonrise .panchangui-pill {
   background: #eaf1ff;
   color: #2563eb;
-      width: 32%;
-      margin-right: 20px;
+  width: 32%;
+  margin-right: 20px;
 }
 
 /* Pills */
@@ -5451,21 +5447,20 @@ height: 30px;
   }
 }
 
-
 .panchangui-details {
   padding: 30px 0;
-  background: #FEF9EC;
+  background: #fef9ec;
 }
 .panchangui-details-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    border: 1px solid #e5e7eb;
-    padding: 60px 30px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #e5e7eb;
+  padding: 60px 30px;
+  flex-wrap: wrap;
 }
 .panchangui-pill {
   padding: 6px 14px;
@@ -5489,7 +5484,7 @@ height: 30px;
 .panchangui-search input {
   border: none;
   outline: none;
-  background: #FEF9EC;
+  background: #fef9ec;
   font-size: 14px;
   flex: 1;
 }
@@ -5557,7 +5552,7 @@ height: 30px;
   text-align: center;
 }
 .panchangui-col.label strong {
-    color: #000000bf;
+  color: #000000bf;
 }
 .panchangui-col.value {
   color: #111827;
@@ -5578,7 +5573,7 @@ height: 30px;
 .panchangui-modal-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.45);
+  background: rgba(0, 0, 0, 0.45);
 }
 
 .panchangui-modal-content {
@@ -5633,7 +5628,7 @@ height: 30px;
   background: white;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .panchang-table {
@@ -5645,11 +5640,11 @@ height: 30px;
 .section-header {
   background: #47474700;
   color: rgb(43, 54, 116);
-      text-align: center;
-    padding: 14px;
-    font-weight: 700;
-    font-size: 1.25rem;
-    margin-bottom: 16px;
+  text-align: center;
+  padding: 14px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
 }
 
 .label {
@@ -5677,13 +5672,13 @@ height: 30px;
 }
 
 .choghadiya-title {
-   background: #47474700;
+  background: #47474700;
   color: rgb(43, 54, 116);
-      text-align: center;
-    padding: 14px;
-    font-weight: 700;
-    font-size: 1.25rem;
-    margin-bottom: 16px;
+  text-align: center;
+  padding: 14px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
 }
 
 .choghadiya-table {
@@ -5706,28 +5701,28 @@ height: 30px;
 .choghadiya-table tr:last-child td {
   border-bottom: none;
 }
-.choghadiya-table th{
-      text-align: center;
-          background: #fff;
-    padding: 14px 16px;
-    border: 1px solid #ddd;
-    width: 50%;
+.choghadiya-table th {
+  text-align: center;
+  background: #fff;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  width: 50%;
 }
-.choghadiya-table td{
-      text-align: center;
-          background: #fff;
-    padding: 14px 16px;
-    border: 1px solid #ddd;
-    width: 50%;
+.choghadiya-table td {
+  text-align: center;
+  background: #fff;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  width: 50%;
 }
 .reverse-r {
-    display: contents;
-  }
+  display: contents;
+}
 span.panchangui.sun img {
-    width: 20px;
+  width: 20px;
 }
 span.panchangui.moon img {
-    width: 20px;
+  width: 20px;
 }
 table.panchang-table.panchangui .label {
   box-shadow: inset 0px -10px 20px 0px rgb(125 17 71 / 13%);
@@ -5735,15 +5730,58 @@ table.panchang-table.panchangui .label {
 table.panchang-table.panchangui .value {
   box-shadow: inset 0px -10px 20px 0px rgb(125 17 71 / 13%);
 }
-table.panchang-table.panchangui .choghadiya-table th{
+table.panchang-table.panchangui .choghadiya-table th {
   box-shadow: inset -1px -2px 20px 3px rgb(125 17 71 / 13%);
 }
-table.panchang-table.panchangui .choghadiya-table td{
+table.panchang-table.panchangui .choghadiya-table td {
   box-shadow: inset -1px -2px 20px 3px rgb(125 17 71 / 13%);
+}
+.privacy-policy-container {
+  padding-top: 10rem !important;
+  padding-bottom: 10rem;
+}
+.privacy-policy-container h1 {
+  color: rgb(174, 40, 93);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-bottom: 3px solid rgb(174, 40, 93);
+  padding-bottom: 5px;
+  max-width: 300px;
+  width: 80%;
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-family: Poppins, sans-serif;
+}
+.privacy-policy-container h1 ~ p {
+  font-size: 16px;
+  color: #000;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+.privacy-policy-container section h2 {
+  color: rgb(174, 40, 93);
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  font-size: 24px;
+  font-family: Poppins, sans-serif;
+}
+.privacy-policy-container section .rdsPonit p {
+  font-size: 16px;
+  font-family: Poppins, sans-serif;
+}
+.privacy-policy-container section .rdsPonit h6 {
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.privacy-policy-container section .rdsPonit {
+  box-shadow: rgba(174, 40, 93, 0.5) 0px 0px 2px;
+  line-height: 38px;
+  padding: 20px 20px;
 }
 
 /* Responsive */
-
 
 @media (max-width: 767px) {
   .panchangui-row {
@@ -5767,30 +5805,31 @@ table.panchang-table.panchangui .choghadiya-table td{
   .section-header {
     font-size: 1rem;
   }
-  .label, .value {
+  .label,
+  .value {
     padding: 12px 10px;
   }
   .panchangui-details-header {
     padding: 30px 30px;
   }
-.panchangui-sunrise .panchangui-pill {
+  .panchangui-sunrise .panchangui-pill {
     width: 85%;
   }
   .panchangui-moonrise .panchangui-pill {
     width: 85%;
     margin-left: 20px;
-}
-.panchangui-moonrise .panchangui-label {
+  }
+  .panchangui-moonrise .panchangui-label {
     margin-left: 20px;
-}
-.reverse-r {
+  }
+  .reverse-r {
     flex-direction: column-reverse !important;
     display: flex;
     gap: 15px;
-}
+  }
 }
 
-.choghadiya-section{
+.choghadiya-section {
   color: black;
 }
 
@@ -5844,23 +5883,23 @@ table.panchang-table.panchangui .choghadiya-table td{
   background: #f2f2f2;
 }
 .modal.show .modal-dialog {
-    top: 10% !important;
-    z-index: 9999999;
+  top: 10% !important;
+  z-index: 9999999;
 }
 
 select.dt-slt {
-    font-size: 12px;
-    font-family: "So:hne";
-    font-weight: 400;
-    background: transparent;
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 10px;
-    padding: 10px 15px;
+  font-size: 12px;
+  font-family: "So:hne";
+  font-weight: 400;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 10px 15px;
 }
 
 select.dt-slt option {
-    background-color: #7d1147;
+  background-color: #7d1147;
 }
     .timeline-pge {
         background: #f8f8f8;

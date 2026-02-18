@@ -13,7 +13,7 @@ import { loadUserFromStorage } from "./features/user/userSlice";
 // Layout
 import Header from "./components/comman/Header";
 import Footer from "./components/comman/Footer";
-
+import ScrollToTop from "./components/ScrollToTop";
 // Public pages
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -30,6 +30,10 @@ import FullReportDetailspage from "./pages/services/FullReportDetailsPage";
 import PersonalizedReports from "./pages/services/PersonalizedReportsPage";
 import MagazinesandBook from "./pages/MagazinesandBook";
 import Puja from "./pages/Puja";
+import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
+import TermsConditions from "./pages/legal/TermsConditions";
+import RefundCancellation from "./pages/legal/RefundCancellation";
+import ShippingPolicy from "./pages/legal/ShippingPolicy";
 
 // Protected pages
 import Wallet from "./pages/WalletPage";
@@ -75,7 +79,6 @@ const ProtectedRoute = ({ children }) => {
 
   // If logged in → show protected page
   return children;
-
 };
 const App = () => {
   const dispatch = useDispatch();
@@ -88,9 +91,9 @@ const App = () => {
   }, [dispatch]);
   return (
     <Router>
-      <ScrollToHash/>
+      <ScrollToHash />
       <Header />
-
+      <ScrollToTop />
       <Routes>
         {/* -------- Public Routes -------- */}
         <Route path="/" element={<Home />} />
@@ -100,7 +103,14 @@ const App = () => {
         <Route path="/astrology-course" element={<AstrologyCourse />} />
         <Route path="/course-detail" element={<CourseDetail />} />
         <Route path="/magazines-and-books" element={<MagazinesandBook />} />
-        <Route path="/learn-course-details/:id" element={<CourseDetaileNew />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-conditions" element={<TermsConditions />} />
+        <Route path="/refund-cancellation" element={<RefundCancellation />} />
+        <Route path="/shipping-policy" element={<ShippingPolicy />} />
+        <Route
+          path="/learn-course-details/:id"
+          element={<CourseDetaileNew />}
+        />
         <Route path="/ai-astrologer" element={<AiAstrologerPage />} />
         <Route path="/transit-timeline" element={<TransitTimeline />} />
         <Route path="/consultation" element={<Consultation />} />
@@ -110,7 +120,10 @@ const App = () => {
         <Route path="/puja/:id" element={<Puja />} />
         <Route path="/consultation/:id" element={<ConsultationDetails />} />
         <Route path="/reports" element={<BuyFullReportsPage />} />
-        <Route path="/full-reports-details/:id" element={<FullReportDetailspage />} />
+        <Route
+          path="/full-reports-details/:id"
+          element={<FullReportDetailspage />}
+        />
         <Route path="/personalized-reports" element={<PersonalizedReports />} />
         <Route path="/online-puja" element={<Onlinepuja />} />
         {/* <Route path="/saved-profiles" element={<Onlinepuja />} /> */}
