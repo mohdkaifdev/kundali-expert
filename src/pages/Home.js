@@ -12,6 +12,8 @@ import Publication from '../components/home/Publication';
 import PujaSection from '../components/home/PujaSection';
 import HomeMidBanner from '../components/home/HomeMidBanner';
 const Home = () => {
+
+  // console.log(jbvsjd)
   return (
     <>
       <Helmet>

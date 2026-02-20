@@ -26,6 +26,9 @@ const SavedProfilePageCard = (prop) => {
                         <div className="like_buttons edit_btsss">
                             <Link to={`/profile/${d?.subUserId}`}><i className="fa-solid fa-edit"></i></Link>
                         </div>
+                         <div className="like_buttons edit_btsss">
+                            <Link to=""><i className="fa-solid fa-trash"></i></Link>
+                        </div>
                     </div>
                 </div>
             </div>

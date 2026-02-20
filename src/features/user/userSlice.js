@@ -1,5 +1,16 @@
 // src/features/user/userSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import api from "../../services/api";
+
+// Async thunk to fetch /v1/user/my
+export const fetchMyProfile = createAsyncThunk("user/fetchMyProfile", async (_, { rejectWithValue }) => {
+  try {
+    const res = await api.get("/v1/user/my");
+    return res?.data?.data ?? res?.data ?? null;
+  } catch (err) {
+    return rejectWithValue(err?.response?.data || err?.message || "Failed to fetch user");
+  }
+});
 
 const initialState = {
   user: null,
@@ -52,6 +63,16 @@ const userSlice = createSlice({
         state.user = JSON.parse(storedUser);
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMyProfile.fulfilled, (state, action) => {
+        state.user = action.payload;
+        safeSetUserStorage(action.payload);
+      })
+      .addCase(fetchMyProfile.rejected, (state, action) => {
+        // leave existing state; error handled by caller
+      });
   },
 });
 

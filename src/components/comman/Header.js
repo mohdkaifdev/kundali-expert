@@ -358,24 +358,34 @@ const Header = () => {
                       <img src={userIcon} alt="icon" className="img-fluid" />
                     </span>
                     {isAuthenticated ? (
-                      <div className="contact_name">
-                        {user?.name == null ? (
-                          <div className="dropdown">
-                            <Link to="/profile">Profile</Link>
-                          </div>
-                        ) : (
-                          <div className="dropdown">
-                            <Link to="/profile">{user?.name}</Link>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="contact_name">
-                        <div className="dropdown">
-                          <Link to="/login">Login</Link>
-                        </div>
-                      </div>
-                    )}
+                  <div className="contact_name">
+                    <div className="dropdown">
+                      {/* <Link style={{ color: "white" }} to="/profile">
+                        {selectedSubUser?.name || user?.name || "Profile"}
+                      </Link> */}
+                      {subusersList?.length > 0 && (
+                        <select className="jekod"
+                          value={selectedSubUser?.subUserId || ""}
+                          onChange={handleSubUserChange}
+                          style={{ marginLeft: 8, marginTop: 6 }}
+                        >
+                        
+                          {subusersList.map((s) => (
+                            <option key={s.subUserId} value={s.subUserId}>
+                              {s.name || s.subUsername || s.email}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="contact_name">
+                    <div className="dropdown">
+                      <Link to="/login">Login</Link>
+                    </div>
+                  </div>
+                )}
                   </div>
                   <div className="hamberger_menu open" onClick={toggleSidebar}>
                     <span></span>

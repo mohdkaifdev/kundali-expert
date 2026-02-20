@@ -29,8 +29,7 @@ const SavedProfilePage = () => {
                                     <Link to="/profile/create-user" className="site_btn p-3 px-5">Create Sub User</Link>
                                 </div>
                                 <ul className="dropdown-menu border-0 position-relative" data-popper-placement="bottom-end">
-                                    <SavedProfilePageCard data={subusers}/>
-                                    
+                                    <SavedProfilePageCard data={subusers} refresh={getusers} />
                                 </ul>
                             </div>
                         </div>

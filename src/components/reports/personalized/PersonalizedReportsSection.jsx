@@ -17,16 +17,16 @@ import Mercury from '../../../assets/images/transit/mercury.svg';
 const PersonalizedReportsSection = () => {
 
  const personalizedReports = [
-  { id: 1, title: "Daily Report", link: "/personalized/daily", img: Dailyreport ,free: true },
-  { id: 2, title: "Weekly Report", link: "/personalized/weekly", img: Weeklyreport ,free: true },
-  { id: 3, title: "Monthly Report", link: "/personalized/monthly", img: Monthlyreport,free: true },
-  { id: 4, title: "Sun Transit", link: "/personalized/yearly", img: Suntransit ,free: false},
-  { id: 5, title: "Jupiter Transit", link: "/personalized/love", img: Jupitertransit ,free: false},
-  { id: 6, title: "Mars Transit", link: "/personalized/career", img: Mars ,free: false},
-  { id: 7, title: "Venus Transit", link: "/personalized/health", img: Venus ,free: false},
-  { id: 8, title: "Rahu-Ketu Transit", link: "/personalized/finance", img: Rahuketu ,free: false},
-  { id: 9, title: "Saturn Transit", link: "/personalized/education", img: Saturn ,free: false},
-  { id: 10, title: "Mercury Transit", link: "/personalized/property", img: Mercury ,free: false}
+  { id: 1, title: "Daily Report", link: "/horoscope/daily", img: Dailyreport ,free: true },
+  { id: 2, title: "Weekly Report", link: "/horoscope/weekly", img: Weeklyreport ,free: true },
+  { id: 3, title: "Monthly Report", link: "/horoscope/monthly", img: Monthlyreport,free: true },
+  { id: 4, title: "Sun Transit", link: "/horoscope/yearly", img: Suntransit ,free: false},
+  { id: 5, title: "Jupiter Transit", link: "/horoscope/love", img: Jupitertransit ,free: false},
+  { id: 6, title: "Mars Transit", link: "/horoscope/career", img: Mars ,free: false},
+  { id: 7, title: "Venus Transit", link: "/horoscope/health", img: Venus ,free: false},
+  { id: 8, title: "Rahu-Ketu Transit", link: "/horoscope/finance", img: Rahuketu ,free: false},
+  { id: 9, title: "Saturn Transit", link: "/horoscope/education", img: Saturn ,free: false},
+  { id: 10, title: "Mercury Transit", link: "/horoscope/property", img: Mercury ,free: false}
 ];
 
   return (
