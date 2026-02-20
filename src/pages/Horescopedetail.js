@@ -166,7 +166,6 @@ const Horescopedetsil = () => {
             Lucky Number: {data.luckyNumber}
           </div>
         </div>
-
         {sections.map((s, idx) =>
           s.text ? (
             <div className="report-item" key={idx}>

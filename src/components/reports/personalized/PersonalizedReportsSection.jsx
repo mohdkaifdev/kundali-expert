@@ -17,16 +17,16 @@ import Mercury from '../../../assets/images/transit/mercury.svg';
 const PersonalizedReportsSection = () => {
 
  const personalizedReports = [
-  { id: 1, title: "Daily Report", link: "/horoscope/daily", img: Dailyreport ,free: true },
-  { id: 2, title: "Weekly Report", link: "/horoscope/weekly", img: Weeklyreport ,free: true },
-  { id: 3, title: "Monthly Report", link: "/horoscope/monthly", img: Monthlyreport,free: true },
-  { id: 4, title: "Sun Transit", link: "/horoscope/yearly", img: Suntransit ,free: false},
-  { id: 5, title: "Jupiter Transit", link: "/horoscope/love", img: Jupitertransit ,free: false},
-  { id: 6, title: "Mars Transit", link: "/horoscope/career", img: Mars ,free: false},
-  { id: 7, title: "Venus Transit", link: "/horoscope/health", img: Venus ,free: false},
-  { id: 8, title: "Rahu-Ketu Transit", link: "/horoscope/finance", img: Rahuketu ,free: false},
-  { id: 9, title: "Saturn Transit", link: "/horoscope/education", img: Saturn ,free: false},
-  { id: 10, title: "Mercury Transit", link: "/horoscope/property", img: Mercury ,free: false}
+  { id: 1, title: "Daily Report", link: "/horoscope-detail/daily", img: Dailyreport ,free: true },
+  { id: 2, title: "Weekly Report", link: "/horoscope-detail/weekly", img: Weeklyreport ,free: true },
+  { id: 3, title: "Monthly Report", link: "/horoscope-detail/monthly", img: Monthlyreport,free: true },
+  { id: 4, title: "Sun Transit", link: "/horoscope-detail/yearly", img: Suntransit ,free: false},
+  { id: 5, title: "Jupiter Transit", link: "/horoscope-detail/love", img: Jupitertransit ,free: false},
+  { id: 6, title: "Mars Transit", link: "/horoscope-detail/career", img: Mars ,free: false},
+  { id: 7, title: "Venus Transit", link: "/horoscope-detail/health", img: Venus ,free: false},
+  { id: 8, title: "Rahu-Ketu Transit", link: "/horoscope-detail/finance", img: Rahuketu ,free: false},
+  { id: 9, title: "Saturn Transit", link: "/horoscope-detail/education", img: Saturn ,free: false},
+  { id: 10, title: "Mercury Transit", link: "/horoscope-detail/property", img: Mercury ,free: false}
 ];
 
   return (

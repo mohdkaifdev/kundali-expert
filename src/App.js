@@ -266,6 +266,8 @@ const App = () => {
         <Route path="/terms-conditions" element={<TermsConditions />} />
         <Route path="/refund-cancellation" element={<RefundCancellation />} />
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
+        <Route path="/horoscope/:id" element={<Horoscope />} />
+        
         <Route
           path="/learn-course-details/:id"
           element={<CourseDetaileNew />}
@@ -275,7 +277,7 @@ const App = () => {
         <Route path="/consultation" element={<Consultation />} />
         <Route path="/detailed-panchang" element={<PanchangDetail />} />
         <Route path="/kundali-result" element={<BuyFullReportsPage />} />
-        <Route path="/horoscope/:slug" element={<Horescopedetail />} />
+        <Route path="/horoscope-detail/:slug" element={<Horescopedetail />} />
         <Route path="/puja/:id" element={<Puja />} />
         <Route path="/consultation/:slug" element={<ConsultationDetails />} />
         <Route path="/reports" element={<BuyFullReportsPage />} />
