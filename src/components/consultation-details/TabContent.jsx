@@ -3,11 +3,14 @@ import { useSelector } from 'react-redux'
 import SlotPickerModal from './SlotPickerModal'
 import LoginPromptModal from './LoginPromptModal'
 import PaymentButton from '../payments/PaymentButton'
+import { useParams } from 'react-router-dom'
+
 
 const TabContent = ({ content }) => {
   const [open, setOpen] = useState(false)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [selectedDate, setSelectedDate] = useState(null)
+  const {id} = useParams();
   
   // get selected subuser or main user id
   const subuserState = useSelector((state) => state.subuser)
@@ -39,7 +42,7 @@ const TabContent = ({ content }) => {
           <PaymentButton payload={{
             subUserId: subuserState?.selected?.subUserId || mainUser?.userId || mainUser?.id || null,
             couponCode: "",
-            consultationSessionId: "1",
+            consultationSessionId: id,
             calendarDate: formattedDate,
           }} />
         </div>

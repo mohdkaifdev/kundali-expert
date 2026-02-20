@@ -60,7 +60,18 @@ const subuserSlice = createSlice({
     // select a subuser to impersonate
     selectSubUser: (state, action) => {
       state.selected = action.payload;
-      localStorage.setItem("selectedSubUser", JSON.stringify(action.payload));
+      try {
+        localStorage.setItem("selectedSubUser", JSON.stringify(action.payload));
+      } catch (err) {
+        try {
+          const minimal = { subUserId: action.payload?.subUserId, name: action.payload?.name };
+          localStorage.setItem("selectedSubUser", JSON.stringify(minimal));
+        } catch (e) {
+          try {
+            localStorage.removeItem("selectedSubUser");
+          } catch (ignore) {}
+        }
+      }
     },
     clearSelectedSubUser: (state) => {
       state.selected = null;
@@ -92,7 +103,16 @@ const subuserSlice = createSlice({
       // if the updated subuser is currently selected, update selected too
       if (state.selected && String(state.selected.subUserId) === String(action.payload.subUserId)) {
         state.selected = { ...state.selected, ...action.payload };
-        localStorage.setItem("selectedSubUser", JSON.stringify(state.selected));
+        try {
+          localStorage.setItem("selectedSubUser", JSON.stringify(state.selected));
+        } catch (err) {
+          try {
+            const minimal = { subUserId: state.selected?.subUserId, name: state.selected?.name };
+            localStorage.setItem("selectedSubUser", JSON.stringify(minimal));
+          } catch (e) {
+            try { localStorage.removeItem("selectedSubUser"); } catch (ignore) {}
+          }
+        }
       }
     },
 
@@ -107,7 +127,15 @@ const subuserSlice = createSlice({
         state.subuser = JSON.parse(storedSubUser);
       }
       const storedSelected = localStorage.getItem("selectedSubUser");
-      if (storedSelected) state.selected = JSON.parse(storedSelected);
+      if (storedSelected) {
+        try {
+          state.selected = JSON.parse(storedSelected);
+        } catch (e) {
+          try {
+            localStorage.removeItem("selectedSubUser");
+          } catch (ignore) {}
+        }
+      }
     },
   },
 });
