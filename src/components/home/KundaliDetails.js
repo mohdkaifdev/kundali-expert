@@ -3,7 +3,6 @@ import kundaliIcon1 from "../../assets/images/reportfull/Birthchart-CMByxPl6.svg
 import kundaliIcon2 from "../../assets/images/h_kundali_icon2.png";
 import kundaliIcon3 from "../../assets/images/reportfull/Panchang.svg";
 
-
 import api from "../../services/api";
 import { useSelector, useDispatch } from "react-redux";
 import { loadUserFromStorage } from "../../features/user/userSlice";
@@ -97,7 +96,6 @@ const KundaliDetails = () => {
   useEffect(() => {
     dispatch(loadUserFromStorage());
   }, [dispatch]);
-
 
   const todaypanchang = async () => {
     const now = new Date();
@@ -230,17 +228,15 @@ const KundaliDetails = () => {
   // -------------------------
 
   const hoursGB = Array.from({ length: 24 }, (_, i) =>
-    String(i + 1).padStart(2, "0")
+    String(i + 1).padStart(2, "0"),
   );
 
   const minutesGB = Array.from({ length: 60 }, (_, i) =>
-    String(i).padStart(2, "0")
+    String(i).padStart(2, "0"),
   );
 
   const handleTimeChangeGB = (type, value) => {
-
-    let dataGB =
-      activeFormGB === "boy" ? { ...boyDataGB } : { ...brideDataGB };
+    let dataGB = activeFormGB === "boy" ? { ...boyDataGB } : { ...brideDataGB };
 
     if (type === "hour") {
       dataGB.hourGB = value;
@@ -262,9 +258,7 @@ const KundaliDetails = () => {
       dataGB.timeGB = `${dataGB.hourGB}:${dataGB.minuteGB}`;
     }
 
-    activeFormGB === "boy"
-      ? setBoyDataGB(dataGB)
-      : setBrideDataGB(dataGB);
+    activeFormGB === "boy" ? setBoyDataGB(dataGB) : setBrideDataGB(dataGB);
   };
 
   // -------------------------
@@ -289,8 +283,7 @@ const KundaliDetails = () => {
     console.log("FINAL DATA GB:", finalDataGB);
   };
 
-  const currentDataGB =
-    activeFormGB === "boy" ? boyDataGB : brideDataGB;
+  const currentDataGB = activeFormGB === "boy" ? boyDataGB : brideDataGB;
 
   const setCurrentDataGB =
     activeFormGB === "boy" ? setBoyDataGB : setBrideDataGB;
@@ -306,7 +299,7 @@ const KundaliDetails = () => {
   };
 
   return (
-    <section>
+    <section id="astroservices">
       <div className="kundali_detail_section">
         <div className="container">
           <div className="kundali_detail_row d-flex">
@@ -351,7 +344,8 @@ const KundaliDetails = () => {
                     <div className="form_group">
                       <div style={{ display: "flex", gap: "10px" }}>
                         {/* 1–24 Hour Select */}
-                        <select className="dt-slt"
+                        <select
+                          className="dt-slt"
                           value={hour24}
                           onChange={(e) => handleHourChange(e.target.value)}
                         >
@@ -364,7 +358,8 @@ const KundaliDetails = () => {
                         </select>
 
                         {/* Minute */}
-                        <select className="dt-slt"
+                        <select
+                          className="dt-slt"
                           value={minute}
                           onChange={(e) => setMinute(e.target.value)}
                         >
@@ -466,114 +461,117 @@ const KundaliDetails = () => {
                 </div>
 
                 <div className="kundali_d_form">
-      <form
-        onSubmit={stepGB === 1 ? handleSubmitBoyGB : handleSubmitBrideGB}
-        className="d-flex flex-wrap"
-      >
-        <div className="form_group w-100">
-          <input
-            type="text"
-            placeholder={stepGB === 1 ? "Boy Name" : "Bride Name"}
-            className="input_sec w-100"
-            value={currentDataGB.nameGB}
-            onChange={(e) =>
-              setCurrentDataGB({
-                ...currentDataGB,
-                nameGB: e.target.value,
-              })
-            }
-            required
-          />
-        </div>
+                  <form
+                    onSubmit={
+                      stepGB === 1 ? handleSubmitBoyGB : handleSubmitBrideGB
+                    }
+                    className="d-flex flex-wrap"
+                  >
+                    <div className="form_group w-100">
+                      <input
+                        type="text"
+                        placeholder={stepGB === 1 ? "Boy Name" : "Bride Name"}
+                        className="input_sec w-100"
+                        value={currentDataGB.nameGB}
+                        onChange={(e) =>
+                          setCurrentDataGB({
+                            ...currentDataGB,
+                            nameGB: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
 
-        <div className="form_group">
-          <input
-            type="date"
-            className="input_sec w-100"
-            value={currentDataGB.dateGB}
-            onChange={(e) =>
-              setCurrentDataGB({
-                ...currentDataGB,
-                dateGB: e.target.value,
-              })
-            }
-            required
-          />
-        </div>
+                    <div className="form_group">
+                      <input
+                        type="date"
+                        className="input_sec w-100"
+                        value={currentDataGB.dateGB}
+                        onChange={(e) =>
+                          setCurrentDataGB({
+                            ...currentDataGB,
+                            dateGB: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
 
-        {/* TIME */}
-        <div className="form_group d-flex gap-2 align-items-center">
-          <select className="dt-slt"
-            value={currentDataGB.hourGB}
-            onChange={(e) =>
-              handleTimeChangeGB("hour", e.target.value)
-            }
-            required
-          >
-            <option value="">HH</option>
-            {hoursGB.map((h) => (
-              <option key={h} value={h}>
-                {h}
-              </option>
-            ))}
-          </select>
+                    {/* TIME */}
+                    <div className="form_group d-flex gap-2 align-items-center">
+                      <select
+                        className="dt-slt"
+                        value={currentDataGB.hourGB}
+                        onChange={(e) =>
+                          handleTimeChangeGB("hour", e.target.value)
+                        }
+                        required
+                      >
+                        <option value="">HH</option>
+                        {hoursGB.map((h) => (
+                          <option key={h} value={h}>
+                            {h}
+                          </option>
+                        ))}
+                      </select>
 
-          <select className="dt-slt"
-            value={currentDataGB.minuteGB}
-            onChange={(e) =>
-              handleTimeChangeGB("minute", e.target.value)
-            }
-            required
-          >
-            <option value="">MM</option>
-            {minutesGB.map((m) => (
-              <option key={m} value={m}>
-                {m}
-              </option>
-            ))}
-          </select>
+                      <select
+                        className="dt-slt"
+                        value={currentDataGB.minuteGB}
+                        onChange={(e) =>
+                          handleTimeChangeGB("minute", e.target.value)
+                        }
+                        required
+                      >
+                        <option value="">MM</option>
+                        {minutesGB.map((m) => (
+                          <option key={m} value={m}>
+                            {m}
+                          </option>
+                        ))}
+                      </select>
 
-          {/* SHOW AM/PM */}
-          <p>{currentDataGB.ampmGB}</p>
-        </div>
+                      {/* SHOW AM/PM */}
+                      <p>{currentDataGB.ampmGB}</p>
+                    </div>
 
-        {/* PLACE */}
-        <div className="form_group w-100 position-relative">
-          <input
-            type="text"
-            placeholder="Search Birth Place"
-            className="input_sec w-100"
-            value={queryGB}
-            onChange={(e) => {
-              setQueryGB(e.target.value);
-              setActiveFormGB(stepGB === 1 ? "boy" : "bride");
-            }}
-            required
-          />
+                    {/* PLACE */}
+                    <div className="form_group w-100 position-relative">
+                      <input
+                        type="text"
+                        placeholder="Search Birth Place"
+                        className="input_sec w-100"
+                        value={queryGB}
+                        onChange={(e) => {
+                          setQueryGB(e.target.value);
+                          setActiveFormGB(stepGB === 1 ? "boy" : "bride");
+                        }}
+                        required
+                      />
 
-          {resultsGB.length > 0 && (
-            <ul className="dropdown-list">
-              {resultsGB.map((place) => (
-                <li style={{color:"black"}}
-                  key={place.id}
-                  onClick={() =>
-                    handlePlaceSelectGB(place)
-                  }
-                >
-                  {place.name}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                      {resultsGB.length > 0 && (
+                        <ul className="dropdown-list">
+                          {resultsGB.map((place) => (
+                            <li
+                              style={{ color: "black" }}
+                              key={place.id}
+                              onClick={() => handlePlaceSelectGB(place)}
+                            >
+                              {place.name}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
 
-        <div className="form_btn w-100">
-          <button type="submit" className="site_btn w-100">
-            {stepGB === 1 ? "Continue" : "Submit"}
-          </button>
-        </div>
-      </form>
-    </div>
+                    <div className="form_btn w-100">
+                      <button type="submit" className="site_btn w-100">
+                        {stepGB === 1 ? "Continue" : "Submit"}
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
 

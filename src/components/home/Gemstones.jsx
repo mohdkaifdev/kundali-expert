@@ -13,9 +13,7 @@ export default function Gemstones() {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.get(
-        "/gemstoneCategory/getGemstoneCategories",
-      );
+      const response = await api.get("/gemstoneCategory/getGemstoneCategories");
       const data = response.data?.data || [];
       console.log("Gemstones API response:", data);
       setGemstones(data);
@@ -36,10 +34,10 @@ export default function Gemstones() {
   const displayedGemstones = showAll ? gemstones : gemstones.slice(0, 4);
 
   return (
-    <section id="shop-section">
+    <section id="gemstones">
       <div className="gemstones_section space_sec">
         <div className="container">
-          <div className="heading_sec text-center" >
+          <div className="heading_sec text-center">
             <h2 className="purple_clr">Gemstones</h2>
             <h5 className="gray_clr">
               (For Customized Horoscope Go to Personalized Report section)

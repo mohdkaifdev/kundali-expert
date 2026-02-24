@@ -85,7 +85,9 @@ const Header = () => {
       if (originalUserRef.current) dispatch(setUser(originalUserRef.current));
       return;
     }
-    const selected = subusersList.find((s) => String(s.subUserId) === String(id));
+    const selected = subusersList.find(
+      (s) => String(s.subUserId) === String(id),
+    );
     if (selected) {
       dispatch(selectSubUser(selected));
       dispatch(setUser(selected));
@@ -248,12 +250,12 @@ const Header = () => {
                         {selectedSubUser?.name || user?.name || "Profile"}
                       </Link> */}
                       {subusersList?.length > 0 && (
-                        <select className="jekod"
+                        <select
+                          className="jekod"
                           value={selectedSubUser?.subUserId || ""}
                           onChange={handleSubUserChange}
                           style={{ marginLeft: 8, marginTop: 6 }}
                         >
-                        
                           {subusersList.map((s) => (
                             <option key={s.subUserId} value={s.subUserId}>
                               {s.name || s.subUsername || s.email}
@@ -358,34 +360,34 @@ const Header = () => {
                       <img src={userIcon} alt="icon" className="img-fluid" />
                     </span>
                     {isAuthenticated ? (
-                  <div className="contact_name">
-                    <div className="dropdown">
-                      {/* <Link style={{ color: "white" }} to="/profile">
+                      <div className="contact_name">
+                        <div className="dropdown">
+                          {/* <Link style={{ color: "white" }} to="/profile">
                         {selectedSubUser?.name || user?.name || "Profile"}
                       </Link> */}
-                      {subusersList?.length > 0 && (
-                        <select className="jekod"
-                          value={selectedSubUser?.subUserId || ""}
-                          onChange={handleSubUserChange}
-                          style={{ marginLeft: 8, marginTop: 6 }}
-                        >
-                        
-                          {subusersList.map((s) => (
-                            <option key={s.subUserId} value={s.subUserId}>
-                              {s.name || s.subUsername || s.email}
-                            </option>
-                          ))}
-                        </select>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="contact_name">
-                    <div className="dropdown">
-                      <Link to="/login">Login</Link>
-                    </div>
-                  </div>
-                )}
+                          {subusersList?.length > 0 && (
+                            <select
+                              className="jekod"
+                              value={selectedSubUser?.subUserId || ""}
+                              onChange={handleSubUserChange}
+                              style={{ marginLeft: 8, marginTop: 6 }}
+                            >
+                              {subusersList.map((s) => (
+                                <option key={s.subUserId} value={s.subUserId}>
+                                  {s.name || s.subUsername || s.email}
+                                </option>
+                              ))}
+                            </select>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="contact_name">
+                        <div className="dropdown">
+                          <Link to="/login">Login</Link>
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div className="hamberger_menu open" onClick={toggleSidebar}>
                     <span></span>
@@ -517,7 +519,9 @@ const Header = () => {
                       {isAuthenticated ? (
                         <div className="contact_name">
                           <div className="dropdown">
-                            <Link to="/profile">{selectedSubUser?.name || user?.name || "Profile"}</Link>
+                            <Link to="/profile">
+                              {selectedSubUser?.name || user?.name || "Profile"}
+                            </Link>
                             {subusersList?.length > 0 && (
                               <select
                                 value={selectedSubUser?.subUserId || ""}
@@ -542,7 +546,10 @@ const Header = () => {
                         </div>
                       )}
                     </div>
-                    <div className="hamberger_menu open" onClick={toggleSidebar}>
+                    <div
+                      className="hamberger_menu open"
+                      onClick={toggleSidebar}
+                    >
                       <span></span>
                       <span></span>
                       <span></span>
@@ -646,27 +653,26 @@ const Header = () => {
                             <h6><a href="#">Login</a></h6>
                           </div>*/}
                           {isAuthenticated ? (
-                          <div className="contact_name">
-                            {user?.name == null ? (
-                            <>
-                               <div className="dropdown">
-                                  <Link to="/login">Login</Link>
-                                </div>
-                              </>
-                            ):(
-                            <>
-                            <div className="dropdown">
+                            <div className="contact_name">
+                              {user?.name == null ? (
+                                <>
+                                  <div className="dropdown">
+                                    <Link to="/login">Login</Link>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="dropdown">
+                                    <Link to="/login">Login</Link>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="contact_name">
+                              <div className="dropdown">
                                 <Link to="/login">Login</Link>
                               </div>
-                            </>
-                            )}
-                          </div>
-                          ):(
-
-                            <div className="contact_name">
-                            <div className="dropdown">
-                              <Link to="/login">Login</Link>
-                            </div>
                             </div>
                           )}
                           <div
@@ -680,7 +686,6 @@ const Header = () => {
                         </div>
                       </div>
                     </div>
-                    
                   </nav>
                 </div>
               </div>

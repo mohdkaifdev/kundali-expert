@@ -31,7 +31,7 @@ const HoroscopeSection = () => {
   ];
 
   return (
-    <section>
+    <section id="horoscope">
       <div className="horoscope_section space_sec">
         <div className="container">
           <div className="heading_sec text-center">
@@ -45,19 +45,18 @@ const HoroscopeSection = () => {
             {horoscopeList.map((item) => (
               <div className="horoscope_col" key={item.id}>
                 <Link to={`/horoscope/${item.name.toLowerCase()}`}>
-                <div className={`horoscope_box ${item.color} text-center`}>
-                  <span>
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="img-fluid"
-                    />
-                  </span>
-                  <h4>{item.name}</h4>
-                  {/* <p>Mar 21 - Apr 19</p> */}
-                </div>
+                  <div className={`horoscope_box ${item.color} text-center`}>
+                    <span>
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="img-fluid"
+                      />
+                    </span>
+                    <h4>{item.name}</h4>
+                    {/* <p>Mar 21 - Apr 19</p> */}
+                  </div>
                 </Link>
-                
               </div>
             ))}
           </div>

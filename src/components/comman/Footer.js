@@ -11,28 +11,28 @@ const Footer = () => {
                 <h6>Services</h6>
                 <ul>
                   <li>
-                    <Link to="#">Horoscope</Link>
+                    <Link to="/#horoscope">Horoscope</Link>
                   </li>
                   <li>
-                    <Link to="#">Palmistry</Link>
+                    <Link to="/astrology-course">Palmistry</Link>
                   </li>
                   <li>
-                    <Link to="#">Numerology</Link>
+                    <Link to="/numerology">Numerology</Link>
                   </li>
                   <li>
-                    <Link to="#">Kundali</Link>
+                    <Link to="/#astroservices">Kundali</Link>
                   </li>
                   <li>
-                    <Link to="#">Vastu</Link>
+                    <Link to="/vaastu.html">Vastu</Link>
                   </li>
                   <li>
-                    <Link to="#">Nakshatra</Link>
+                    <Link to="/transittimeline">Nakshatra</Link>
                   </li>
                   <li>
-                    <Link to="#">Gemstones</Link>
+                    <Link to="/#gemstones">Gemstones</Link>
                   </li>
                   <li>
-                    <Link to="#">Panchang</Link>
+                    <Link to="/#astroservices">Panchang</Link>
                   </li>
                 </ul>
               </div>
@@ -42,7 +42,7 @@ const Footer = () => {
                 <h6>Free Report</h6>
                 <ul>
                   <li>
-                    <Link to="#">Kundali</Link>
+                    <Link to="/#astroservices">Kundali</Link>
                   </li>
                   <li>
                     <Link to="#">Daily Horoscope</Link>
@@ -54,10 +54,10 @@ const Footer = () => {
                     <Link to="#">Know Your Lucky Number</Link>
                   </li>
                   <li>
-                    <Link to="#">Sade Sati</Link>
+                    <Link to="/reports">Sade Sati</Link>
                   </li>
                   <li>
-                    <Link to="#">Match Making</Link>
+                    <Link to="/#astroservices">Match Making</Link>
                   </li>
                   <li>
                     <Link to="#">Puja</Link>
@@ -69,7 +69,7 @@ const Footer = () => {
                     <Link to="#">Gemstone Suggestion</Link>
                   </li>
                   <li>
-                    <Link to="#">Daily Panchang</Link>
+                    <Link to="/#astroservices">Daily Panchang</Link>
                   </li>
                   <li>
                     <Link to="#">Daily Prediction</Link>
