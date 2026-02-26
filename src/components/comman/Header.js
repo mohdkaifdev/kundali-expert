@@ -28,7 +28,7 @@ const Header = () => {
 
   console.log(isAuthenticated);
   const user = useSelector((state) => state.user.user);
-
+  const balance = useSelector((state) => state.wallet.balance);
   const selectedSubUser = useSelector((state) => state.subuser?.selected);
   const subusersList = useSelector((state) => state.subuser?.subuser || []);
   const originalUserRef = useRef(null);
@@ -155,7 +155,7 @@ const Header = () => {
                     <div className="contact_name">
                       <h6 className="cost">
                         <Link to="/wallet">
-                          <span className="d-block">Cart</span> ₹ 0
+                          <span className="d-block">Cart</span> ₹ {balance}
                         </Link>
                       </h6>
                     </div>
@@ -326,7 +326,7 @@ const Header = () => {
                         <Link to="#">Astrology Course</Link>
                       </li>
                       <li>
-                        <Link to="#">Blog</Link>
+                        <Link to="/blog">Blog</Link>
                       </li>
                       <li className="menu-item-has-children">
                         <a href="#">Language</a>
@@ -439,7 +439,7 @@ const Header = () => {
                     <div className="contact_name">
                       <h6 className="cost">
                         <Link to="/wallet">
-                          <span className="d-block">Cart</span> ₹ 0
+                          <span className="d-block">Cart</span> ₹ {balance}
                         </Link>
                       </h6>
                     </div>
@@ -483,7 +483,7 @@ const Header = () => {
                           <Link to="#">Astrology Course</Link>
                         </li>
                         <li>
-                          <Link to="#">Blog</Link>
+                          <Link to="/blog">Blog</Link>
                         </li>
                         <li className="menu-item-has-children">
                           <a href="#">Language</a>
