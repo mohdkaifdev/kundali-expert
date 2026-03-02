@@ -7,7 +7,7 @@ export default function Gemstones() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [gemstones, setGemstones] = useState([]);
-  const [showAll, setShowAll] = useState(false); // NEW STATE: show all ya sirf 4
+  const [showAll, setShowAll] = useState(false);
 
   const fetchGemstones = async () => {
     setLoading(true);
@@ -72,7 +72,16 @@ export default function Gemstones() {
                     className="col-lg-3 col-md-6 mb-4"
                   >
                     <div className="astrologers_box">
-                      <Link to="">
+                      <Link
+                        to="/gemstone-sub-section"
+                        onClick={() => {
+                          localStorage.setItem("selectedGemCategoryId", gem.id);
+                          localStorage.setItem(
+                            "selectedGemCategoryName",
+                            gem.gemStoneTypeName || gem.name || "Gemstone",
+                          );
+                        }}
+                      >
                         <img
                           src={`https://api.kundaliexpert.com/kmAstroapp/api/v1/${gem.imageUrl}`}
                           alt={gem.gemStoneTypeName || gem.name || "Gemstone"}
@@ -96,24 +105,25 @@ export default function Gemstones() {
                         <h6>
                           {gem.gemStoneTypeName || gem.name || "Gemstone"}
                         </h6>
+                        {gem.indianName && (
+                          <p className="text-body">({gem.indianName})</p>
+                        )}
 
-                        <h5 className="del_sec">
-                          <del>
-                            ₹{gem.originalPrice || gem.price * 1.5 || 82775}
-                          </del>{" "}
-                          ₹{gem.price || 62775}
-                        </h5>
+                        {/* <h5 className="del_sec">
+                          <del>₹{gem.originalPrice || gem.price * 1.5}</del> ₹
+                          {gem.price}
+                        </h5> */}
 
-                        {gem.weightRange && (
+                        {/* {gem.weightRange && (
                           <p className="mb-1">
                             <small>Weight: {gem.weightRange}</small>
                           </p>
-                        )}
-                        {gem.color && (
+                        )} */}
+                        {/* {gem.color && (
                           <p className="mb-1">
                             <small>Color: {gem.color}</small>
                           </p>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </div>

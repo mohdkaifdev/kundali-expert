@@ -127,6 +127,13 @@ export default function Astrologers() {
                               ?.map((s) => s.name)
                               .join(", ")}
                           </p>
+                          <p className="expertise">
+                            {astro.currentStatus ? (
+                              <b className="text-success">Online</b>
+                            ) : (
+                              <b className="text-danger">Offline</b>
+                            )}
+                          </p>
                           <div className="astrologers_btn mt-3">
                             <Link to="#" className="site_btn">
                               <img

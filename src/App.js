@@ -41,7 +41,8 @@ import CartPage from "./pages/CartPage";
 import ProfilePage from "./pages/ProfilePage";
 import SavedProfilePage from "./pages/SavedProfilePage";
 import CreateSubUserPage from "./components/profile/CreateSubUserPage";
-
+import GemstoneSubListPage from "./pages/GemstoneSubListPage";
+import GemstoneDetailsPage from "./pages/GemstoneDetailsPage";
 // Auth & onboarding
 import LoginPage from "./pages/auth/LoginPage";
 import SigninPage from "./pages/auth/SiginPage";
@@ -325,6 +326,7 @@ const App = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blogs/:slug" element={<BlogDetails />} />
         <Route path="/astrology-course" element={<AstrologyCourse />} />
+        <Route path="/our-astrologers" element={<Astrologers />} />
         <Route path="/course-detail" element={<CourseDetail />} />
         <Route path="/magazines-and-books" element={<MagazinesandBook />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -332,6 +334,8 @@ const App = () => {
         <Route path="/refund-cancellation" element={<RefundCancellation />} />
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
         <Route path="/horoscope/:id" element={<Horoscope />} />
+        <Route path="/gemstone-sub-section" element={<GemstoneSubListPage />} />
+        <Route path="/gemstone-details" element={<GemstoneDetailsPage />} />
 
         <Route
           path="/learn-course-details/:id"

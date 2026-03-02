@@ -45,7 +45,9 @@ const Horescopedetsil = () => {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.user || {});
-  const { selected: selectedSubuser } = useSelector((state) => state.subuser || {});
+  const { selected: selectedSubuser } = useSelector(
+    (state) => state.subuser || {},
+  );
   const { kundali } = useSelector((state) => state.kundali || {});
 
   const [loading, setLoading] = useState(false);
@@ -74,7 +76,7 @@ const Horescopedetsil = () => {
         setLoading(true);
 
         const res = await api.get(
-          `/v1/horoscope/getHoroscopeByRashiIdAndHorosopeType?rashiId=${rashiId}&horoscopeTypeId=${horoscopeTypeId}&userId=${userId}&subUserId=${subUserId}`
+          `/v1/horoscope/getHoroscopeByRashiIdAndHorosopeType?rashiId=${rashiId}&horoscopeTypeId=${horoscopeTypeId}&userId=${userId}&subUserId=${subUserId}`,
         );
 
         const responseData = res?.data?.data || res?.data;
@@ -82,13 +84,10 @@ const Horescopedetsil = () => {
 
         // Find correct rashi image
         const foundRashi = horoscopeList.find(
-          (h) =>
-            h.name.toLowerCase() ===
-            responseData?.rashi?.toLowerCase()
+          (h) => h.name.toLowerCase() === responseData?.rashi?.toLowerCase(),
         );
 
         setCurrentRashi(foundRashi || null);
-
       } catch (err) {
         console.error("Horoscope error:", err);
         setError("Something went wrong.");
@@ -98,12 +97,11 @@ const Horescopedetsil = () => {
     };
 
     fetchData();
-
   }, [
     slug,
     kundali?.ascendantRashiMaster?.id,
     user?.userId,
-    selectedSubuser?.subUserId
+    selectedSubuser?.subUserId,
   ]);
 
   if (loading) return <div className="container py-5">Loading...</div>;
@@ -116,16 +114,24 @@ const Horescopedetsil = () => {
     { title: "Family", text: data.horoscopeDescriptionEnglishFamily },
     { title: "Occupation", text: data.horoscopeDescriptionEnglishOccupation },
     { title: "Study", text: data.horoscopeDescriptionEnglishStudy },
-    { title: "Relationship", text: data.horoscopeDescriptionEnglishRelationship },
+    {
+      title: "Relationship",
+      text: data.horoscopeDescriptionEnglishRelationship,
+    },
     { title: "Travelling", text: data.horoscopeDescriptionEnglishTravelling },
-    { title: "Married Life", text: data.horoscopeDescriptionEnglishMarriedLife },
+    {
+      title: "Married Life",
+      text: data.horoscopeDescriptionEnglishMarriedLife,
+    },
     { title: "Remedies", text: data.horoscopeDescriptionEnglishRemedies },
   ];
 
   return (
     <div className="horoscope-page consultation_list_section space_sec b_space_top">
       <Helmet>
-        <title>{data.rashi} - {data.horoscopeType}</title>
+        <title>
+          {data.rashi} - {data.horoscopeType}
+        </title>
       </Helmet>
 
       <div className="horoscope-card">
@@ -134,15 +140,10 @@ const Horescopedetsil = () => {
         </div>
 
         <div className="horoscope-avatar">
-          <img
-            src={currentRashi?.image || horoscopeIcon2}
-            alt={data.rashi}
-          />
+          <img src={currentRashi?.image || horoscopeIcon2} alt={data.rashi} />
         </div>
 
-        <div className="horoscope-name">
-          {data.rashi}
-        </div>
+        <div className="horoscope-name">{data.rashi}</div>
 
         <div className="horoscope-note">
           Note: Horoscope is based on ascendant
@@ -162,9 +163,7 @@ const Horescopedetsil = () => {
             </div>
           </div>
 
-          <div className="lucky-number">
-            Lucky Number: {data.luckyNumber}
-          </div>
+          <div className="lucky-number">Lucky Number: {data.luckyNumber}</div>
         </div>
         {sections.map((s, idx) =>
           s.text ? (
@@ -172,11 +171,10 @@ const Horescopedetsil = () => {
               <div className="title">{s.title}:</div>
               <div className="body">{s.text}</div>
             </div>
-          ) : null
+          ) : null,
         )}
       </div>
     </div>
   );
 };
-
 export default Horescopedetsil;
